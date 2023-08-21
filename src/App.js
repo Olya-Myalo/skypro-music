@@ -1,8 +1,10 @@
 import './App.css';
 import Bar from './components/Bar';
 import Sidebar from './components/Sidebar';
+import Nav from './components/Nav';
+import InputSearch from './components/Search';
 
-// компоненты^ .main__nav, .content__playlist, .centerblock__search, .playlist__item, .centerblock__filter, .main__sidebar, .bar
+// компоненты^ .content__playlist,.playlist__item, .centerblock__filter
 
 function App() {
   return (
@@ -11,36 +13,9 @@ function App() {
         <div className="wrapper">
           <div className="container">
               <main className="main">
-                <nav className="main__nav nav">
-                  <div className="nav__logo logo">
-                    <img className="logo__image" src="img/logo.png" alt="logo" />
-                  </div>
-                  <div className="nav__burger burger">
-                    <span className="burger__line"></span>
-                    <span className="burger__line"></span>
-                    <span className="burger__line"></span>
-                  </div>
-                  <div className="nav__menu menu">
-                    <ul className="menu__list">
-                      <li className="menu__item">
-                        <a href="/" className="menu__link">Главная</a>
-                      </li>
-                      <li className="menu__item">
-                        <a href="/playlist" className="menu__link">Мой плейлист</a>
-                      </li>
-                      <li className="menu__item">
-                        <a href="/signin" className="menu__link">Войти</a>
-                      </li>
-                    </ul>
-                  </div>
-                </nav>
+              <Nav />
                 <div className="main__centerblock centerblock">
-                  <div className="centerblock__search search">
-                    <svg className="search__svg">
-                      <use xlinkHref="img/icon/sprite.svg#icon-search"></use>
-                    </svg>
-                    <input className="search__text" type="search" placeholder="Поиск" name="search"/>
-                  </div>
+                  <InputSearch />
                   <h2 className="centerblock__h2">Треки</h2>
                   <div className="centerblock__filter filter">
                     <div className="filter__title">Искать по:</div>
