@@ -2,7 +2,7 @@ import './Nav.css';
 import { useState } from 'react';
 
 const Nav = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   const toggleVisibility = () => setVisible(!visible);
 
