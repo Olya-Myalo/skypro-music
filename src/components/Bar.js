@@ -1,6 +1,18 @@
 import './Bar.css';
+import Skeleton from "react-loading-skeleton";
+import { useState, useEffect } from "react";
 
 const Bar = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="bar">
     <div className="bar__content">
@@ -34,22 +46,33 @@ const Bar = () => {
               </svg>
             </div>
           </div>
-
           <div className="player__track-play track-play">
-            <div className="track-play__contain">
-              <div className="track-play__image">
-                <svg className="track-play__svg" alt="music">
-                  <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                </svg>
-              </div>
-              <div className="track-play__author">
-                <a className="track-play__author-link" href="http://">Ты та...</a>
-              </div>
-              <div className="track-play__album">
-                <a className="track-play__album-link" href="http://">Баста</a>
-              </div>
-            </div>
-
+                {isLoading && <div className="track-play__contain">
+                    <div className="track-play__image">
+                      <svg className="track-play__svg" alt="music">
+                        <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                      </svg>
+                    </div>
+                  <div className="track-play__author skeleton-style">
+                    <Skeleton width={100} height={20} />
+                  </div>
+                  <div className="track-play__album skeleton-style">
+                    <Skeleton width={100} height={20} />
+                  </div>
+                  </div>}
+                {!isLoading && <div className="track-play__contain">
+                  <div className="track-play__image">
+                    <svg className="track-play__svg" alt="music">
+                      <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                    </svg>
+                  </div>
+                  <div className="track-play__author">
+                    <a className="track-play__author-link" href="http://">Ты та...</a>
+                  </div>
+                  <div className="track-play__album">
+                    <a className="track-play__album-link" href="http://">Баста</a>
+                  </div>
+                </div>}
             <div className="track-play__like-dis">
               <div className="track-play__like _btn-icon">
                 <svg className="track-play__like-svg" alt="like">
