@@ -1,6 +1,5 @@
 import './CenterblockSceleton.css';
 import Skeleton from "react-loading-skeleton";
-// track__title-text, track__author, track__album
 
 const PlaylistSceleton = () => {
   return (
