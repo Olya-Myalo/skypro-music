@@ -5,7 +5,7 @@ const TrackOne = (props) => {
           <div className="track__title">
               <div className="track__title-image">
               <svg className="track__title-svg" alt="music">
-              <use xlinkHref={props.track.icon}></use></svg>
+              <use xlinkHref="img/icon/sprite.svg#icon-note"></use></svg>
               </div>
               <div className="track__title-text">
               <a className="track__title-link" href="http://">{props.track.track}<span className="track__title-span"></span></a>
