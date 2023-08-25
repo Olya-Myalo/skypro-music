@@ -10,6 +10,10 @@ const Centerblock = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [tracks, setTracks] = useState([]);
 
+//   state = {
+//     tracks:playlist
+// }
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
