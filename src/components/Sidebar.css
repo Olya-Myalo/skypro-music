@@ -1,3 +1,7 @@
+.skeleton-style {
+  background-color: #4E4E4E; 
+}
+
 .main__sidebar {
     max-width: 418px;
     padding: 20px 90px 20px 78px;
@@ -83,3 +87,4 @@
     width: 100%;
     height: auto;
   }
+  

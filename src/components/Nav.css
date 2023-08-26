@@ -17,6 +17,11 @@
     height: 17px;
     color: #181818;
 }
+button,
+
+._btn {
+  cursor: pointer;
+}
 
 .nav__burger {
     width: 20px;
@@ -32,6 +37,7 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    cursor: pointer;
 }
   
 .nav__menu {
