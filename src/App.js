@@ -25,8 +25,7 @@ function App() {
               <main className="main">
                 <Nav />
                 <CenterBlock />
-                 {isLoading && <SidebarSceleton />}
-                 {!isLoading && <Sidebar />}
+                 {isLoading ? <SidebarSceleton />: <Sidebar />}
               </main>
                 <Bar />
               <footer className="footer"></footer>

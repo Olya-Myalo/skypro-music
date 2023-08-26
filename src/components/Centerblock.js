@@ -39,8 +39,7 @@ const Centerblock = () => {
             </svg>
           </div>
         </div>
-        {isLoading && <PlaylistSceleton />}
-        {!isLoading && <Playlist tracks={tracks} />}
+        {isLoading ? <PlaylistSceleton/> : <Playlist tracks={tracks}/>}
       </div>
     </div>
   );
