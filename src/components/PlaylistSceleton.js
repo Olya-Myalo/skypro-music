@@ -11,15 +11,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -36,15 +36,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -61,15 +61,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -86,15 +86,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -111,9 +111,9 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText className="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
                 </S.TrackTitle>
                 <S.TrackAuthor className="skeleton-style">
                     <Skeleton height={25}/>
@@ -136,15 +136,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -161,15 +161,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -186,15 +186,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -211,15 +211,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -236,15 +236,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -261,15 +261,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -286,15 +286,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -311,15 +311,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -336,15 +336,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -361,15 +361,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">
@@ -386,15 +386,15 @@ const PlaylistSceleton = () => {
                         <S.TrackTitleSvg alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
                     </S.TrackTitleImage>
-                    <S.TrackTitleText ClassName="skeleton-style">
-                        <Skeleton height={25}/>
-                    </S.TrackTitleText>
-                </S.TrackTitle>
-                <S.TrackAuthor ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                    <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
                 </S.TrackAuthor>
-                <S.TrackAlbum ClassName="skeleton-style">
-                    <Skeleton height={25} />
+                </S.TrackTitle>
+                <S.TrackAuthor className="skeleton-style">
+                    <Skeleton height={25}/>
+                </S.TrackAuthor>
+                <S.TrackAlbum className="skeleton-style">
+                    <Skeleton height={25}/>
                  </S.TrackAlbum>
                 <S.TrackTime>
                     <S.TrackTimeSvg alt="time">

@@ -5,6 +5,7 @@ import Nav from './components/Nav';
 import CenterBlock from './components/Centerblock';
 import { useState, useEffect } from "react";
 import SidebarSceleton from './components/SidebarSceleton';
+import { GlobalStyle } from './createGlobalStyle';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +21,7 @@ function App() {
   return (
     <S.App>
       <body>
+      <GlobalStyle/>
         <S.Wrapper>
           <S.Container>
               <S.Main>

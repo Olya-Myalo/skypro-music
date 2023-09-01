@@ -36,6 +36,7 @@ button,
       stroke: #ffffff;
       cursor: pointer;
     }
+    
     .skeleton-style {
       background-color: #4E4E4E; 
     }
