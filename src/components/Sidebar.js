@@ -1,49 +1,46 @@
-import './Sidebar.css';
+import * as S from './Sidebar.styles';
 
 const Sidebar = () => {
     
   return (
-    <div className="main__sidebar sidebar">
-      <div className="sidebar__personal" style={{position: 'relative'}}>
-        <div className="sidebar__personal-name">Sergey.Ivanov</div>
-        <div className="sidebar__icon">
+    <S.MainSidebar>
+      <S.SidebarPersonal style={{position: 'relative'}}>
+        <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
+        <S.SidebarIcon>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout"></use>
           </svg>
-        </div>
-      </div>
-      <div className="sidebar__block">
-        <div className="sidebar__list">
-          <div className="sidebar__item" style={{position: 'relative'}}>
-            <a className="sidebar__link" href="#">
-              <img
-                className="sidebar__img"
+        </S.SidebarIcon>
+      </S.SidebarPersonal>
+      <S.SidebarBlock>
+        <S.SidebarList>
+          <S.SidebarItem style={{position: 'relative'}}>
+            <S.SidebarLink href="#">
+              <S.SidebarImg
                 src="img/playlist01.png"
                 alt="day's playlist"
               />
-            </a>
-          </div>
-          <div className="sidebar__item" style={{position: 'relative'}}>
-            <a className="sidebar__link" href="#">
-              <img
-                className="sidebar__img"
+            </S.SidebarLink>
+          </S.SidebarItem>
+          <S.SidebarItem style={{position: 'relative'}}>
+            <S.SidebarLink href="#">
+              <S.SidebarImg
                 src="img/playlist02.png"
                 alt="day's playlist"
               />
-            </a>
-          </div>
-          <div className="sidebar__item" style={{position: 'relative'}}>
-            <a className="sidebar__link" href="#">
-              <img
-                className="sidebar__img"
+            </S.SidebarLink>
+          </S.SidebarItem>
+          <S.SidebarItem style={{position: 'relative'}}>
+            <S.SidebarLink href="#">
+              <S.SidebarImg
                 src="img/playlist03.png"
                 alt="day's playlist"
               />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+            </S.SidebarLink>
+          </S.SidebarItem>
+        </S.SidebarList>
+      </S.SidebarBlock>
+    </S.MainSidebar>
   );
 };
 
