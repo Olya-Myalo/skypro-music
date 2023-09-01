@@ -1,4 +1,4 @@
-import './App.css';
+import * as S from './App.styles';
 import Bar from './components/Bar';
 import Sidebar from './components/Sidebar';
 import Nav from './components/Nav';
@@ -18,21 +18,21 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <S.App>
       <body>
-        <div className="wrapper">
-          <div className="container">
-              <main className="main">
+        <S.Wrapper>
+          <S.Container>
+              <S.Main>
                 <Nav />
                 <CenterBlock />
                  {isLoading ? <SidebarSceleton />: <Sidebar />}
-              </main>
+              </S.Main>
                 <Bar />
               <footer className="footer"></footer>
-            </div>
-          </div>
+            </S.Container>
+          </S.Wrapper>
         </body>
-      </div>
+      </S.App>
   );
 }
 
