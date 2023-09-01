@@ -1,18 +1,14 @@
-import './Centerblock.css';
 import InputSearch from './Search';
 import Filter from './Filter';
 import Playlist from './Playlist';
 import PlaylistSceleton from './PlaylistSceleton';
 import { playlist } from './ArrayTrack';
 import { useState, useEffect } from "react";
+import * as S from './Centerblock.styles';
 
 const Centerblock = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [tracks, setTracks] = useState([]);
-
-//   state = {
-//     tracks:playlist
-// }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -24,24 +20,24 @@ const Centerblock = () => {
   }, []);
 
   return (
-    <div className="main__centerblock centerblock">
-      <InputSearch />
-      <h2 className="centerblock__h2">Треки</h2>
+    <S.MainCenterblock>
+      <InputSearch/>
+      <S.CenterblockH2>Треки</S.CenterblockH2>
       <Filter />
-      <div className="centerblock__content">
-        <div className="content__title playlist-title">
-          <div className="playlist-title__col col01">Трек</div>
-          <div className="playlist-title__col col02">ИСПОЛНИТЕЛЬ</div>
-          <div className="playlist-title__col col03">АЛЬБОМ</div>
-          <div className="playlist-title__col col04">
-            <svg className="playlist-title__svg" alt="time">
+      <S.CenterblockContent>
+        <S.ContentTtitle>
+          <S.PlaylistTitleCol01>Трек</S.PlaylistTitleCol01>
+          <S.PlaylistTitleCol02>ИСПОЛНИТЕЛЬ</S.PlaylistTitleCol02>
+          <S.PlaylistTitleCol03>АЛЬБОМ</S.PlaylistTitleCol03>
+          <S.PlaylistTitleCol04>
+            <S.PlaylistTitleSvg alt="time">
               <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
-            </svg>
-          </div>
-        </div>
+            </S.PlaylistTitleSvg>
+          </S.PlaylistTitleCol04>
+        </S.ContentTtitle>
         {isLoading ? <PlaylistSceleton/> : <Playlist tracks={tracks}/>}
-      </div>
-    </div>
+      </S.CenterblockContent>
+    </S.MainCenterblock>
   );
 }
 
