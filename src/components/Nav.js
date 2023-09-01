@@ -1,5 +1,5 @@
-import './Nav.css';
 import { useState } from 'react';
+import * as S from './Nav.styles';
 
 const Nav = () => {
   const [visible, setVisible] = useState(false);
@@ -7,31 +7,31 @@ const Nav = () => {
   const toggleVisibility = () => setVisible(!visible);
 
   return (
-    <nav className="main__nav nav">
-        <div className="nav__logo logo">
-          <img className="logo__image" src="img/logo.png" alt="logo" />
-        </div>
-        <div onClick={toggleVisibility} className="nav__burger burger">
-          <span className="burger__line"></span>
-          <span className="burger__line"></span>
-          <span className="burger__line"></span>
-        </div>
+    <S.MainNav>
+        <S.NavLogo>
+          <S.LogoImg src="img/logo.png" alt="logo" />
+        </S.NavLogo>
+        <S.NavBurger onClick={toggleVisibility}>
+          <S.BurgerLine></S.BurgerLine>
+          <S.BurgerLine></S.BurgerLine>
+          <S.BurgerLine></S.BurgerLine>
+        </S.NavBurger>
       {visible && (
-        <div className="nav__menu menu">
-        <ul className="menu__list">
-          <li className="menu__item">
-            <a href="/" className="menu__link">Главная</a>
-          </li>
-          <li className="menu__item">
-            <a href="/playlist" className="menu__link">Мой плейлист</a>
-          </li>
-          <li className="menu__item">
-            <a href="/signin" className="menu__link">Войти</a>
-          </li>
-        </ul>
-      </div>
+        <S.NavMenu>
+        <S.MenuList>
+          <S.MenuItem>
+            <S.MenuLink href="/">Главная</S.MenuLink>
+          </S.MenuItem>
+          <S.MenuItem>
+            <S.MenuLink href="/playlist">Мой плейлист</S.MenuLink>
+          </S.MenuItem>
+          <S.MenuItem>
+            <S.MenuLink href="/signin">Войти</S.MenuLink>
+          </S.MenuItem>
+        </S.MenuList>
+      </S.NavMenu>
       )}
-    </nav>
+    </S.MainNav>
   );
 };
 
