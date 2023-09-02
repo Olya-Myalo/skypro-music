@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { playlist } from './ArrayTrack';
+import { playlist } from '../ArrayTrack';
 import * as S from './Filter.styles';
 
 const Filter = () => {

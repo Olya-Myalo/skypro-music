@@ -1,8 +1,8 @@
-import InputSearch from './Search';
-import Filter from './Filter';
-import Playlist from './Playlist';
-import PlaylistSceleton from './PlaylistSceleton';
-import { playlist } from './ArrayTrack';
+import InputSearch from '../Search/Search';
+import Filter from '../Filter/Filter';
+import Playlist from '../Playlist/Playlist';
+import PlaylistSceleton from '../Playlist/PlaylistSceleton';
+import { playlist } from '../ArrayTrack';
 import { useState, useEffect } from "react";
 import * as S from './Centerblock.styles';
 

@@ -1,10 +1,10 @@
 import * as S from './App.styles';
-import Bar from './components/Bar';
-import Sidebar from './components/Sidebar';
-import Nav from './components/Nav';
-import CenterBlock from './components/Centerblock';
+import Bar from './components/Bar/Bar';
+import Sidebar from './components/Sidebar/Sidebar';
+import Nav from './components/Nav/Nav';
+import CenterBlock from './components/Centerblock/Centerblock';
 import { useState, useEffect } from "react";
-import SidebarSceleton from './components/SidebarSceleton';
+import SidebarSceleton from './components/Sidebar/SidebarSceleton';
 import { GlobalStyle } from './createGlobalStyle';
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <S.App>
-      <body>
+      <S.Body>
       <GlobalStyle/>
         <S.Wrapper>
           <S.Container>
@@ -33,7 +33,7 @@ function App() {
               <footer className="footer"></footer>
             </S.Container>
           </S.Wrapper>
-        </body>
+        </S.Body>
       </S.App>
   );
 }

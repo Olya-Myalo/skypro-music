@@ -1,4 +1,4 @@
-import * as S from './Playlist.styled';
+import * as S from './Playlist/Playlist.styled';
 
 const TrackOne = (props) => {
     return (
