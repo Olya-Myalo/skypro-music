@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import SidebarSceleton from './components/Sidebar/SidebarSceleton';
 import { GlobalStyle } from './createGlobalStyle';
 
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -29,6 +30,7 @@ function App() {
                 <CenterBlock />
                  {isLoading ? <SidebarSceleton />: <Sidebar />}
               </S.Main>
+           
                 <Bar />
               <footer className="footer"></footer>
             </S.Container>
