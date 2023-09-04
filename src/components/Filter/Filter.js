@@ -1,6 +1,6 @@
-import './Filter.css';
 import { useState } from 'react';
-import { playlist } from './ArrayTrack';
+import { playlist } from '../ArrayTrack';
+import * as S from './Filter.styles';
 
 const Filter = () => {
   const [visible, setVisible] = useState(false);
@@ -9,69 +9,69 @@ const Filter = () => {
   const toggleVisibility = () => setVisible(!visible);
 
   return (
-    <div className="centerblock__filter filter">
-      <div className="filter__title">Искать по:</div>
-      <div
-        className="filter__button button-author _btn-text"
+    <S.CenterblocFilter>
+      <S.FilterTitle>Искать по:</S.FilterTitle>
+      <S.FilterButton
+        className="_btn-text"
         onClick={() => {
           toggleVisibility();
           setSelectedFilter("author");
         }}
       >
         исполнителю
-      </div>
+      </S.FilterButton>
       {visible && selectedFilter === "author" && (
-        <div className="search_like">
-          <ul className="search_filter">
+        <S.SearchLike>
+          <S.SearchFilter>
             {playlist.map((track) => (
-              <li className="search_filter_title" key={track.id}>
+              <S.SearchFilterTitle key={track.id}>
                 {track.author}
-              </li>
+              </S.SearchFilterTitle>
             ))}
-          </ul>
-        </div>
+          </S.SearchFilter>
+        </S.SearchLike>
       )}
-      <div
-        className="filter__button button-year _btn-text"
+      <S.FilterButton
+        className="_btn-text"
         onClick={() => {
           toggleVisibility();
           setSelectedFilter("year");
         }}
       >
         году выпуска
-      </div>
+      </S.FilterButton>
       {visible && selectedFilter === "year" && (
-        <div className="search_like_2">
-          <ul className="search_filter">
+        <S.SearchLike02>
+          <S.SearchFilter>
             {playlist.map((track) => (
-              <li className="search_filter_title" key={track.id}>
+              <S.SearchFilterTitle key={track.id}>
                 {track.year}
-              </li>
+              </S.SearchFilterTitle>
             ))}
-          </ul>
-        </div>
+          </S.SearchFilter>
+        </S.SearchLike02>
       )}
-      <div
-        className="filter__button button-genre _btn-text"
+      <S.FilterButton
+        className="_btn-text"
         onClick={() => {
           toggleVisibility();
           setSelectedFilter("genre");
         }}
       >
         жанру
-      </div>
+      </S.FilterButton>
       {visible && selectedFilter === "genre" && (
-        <div className="search_like_3">
-          <ul className="search_filter">
+        <S.SearchLike03>
+          <S.SearchFilter>
             {playlist.map((track) => (
-              <li className="search_filter_title" key={track.id}>
+              <S.SearchFilterTitle key={track.id}>
                 {track.genre}
-              </li>
+              </S.SearchFilterTitle>
             ))}
-          </ul>
-        </div>
+          </S.SearchFilter>
+        </S.SearchLike03>
       )}
-    </div>
+    </S.CenterblocFilter>
   );
 };
 

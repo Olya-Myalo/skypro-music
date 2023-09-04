@@ -1,13 +1,13 @@
-import './Centerblock.css';
-import TrackOne from './tracks';
+import TrackOne from '../tracks';
+import * as S from './Playlist.styled';
 
 const Playlist = (props) => {
   return (
-    <div className="content__playlist playlist">
+    <S.ContentPplaylist>
         {props.tracks.map(track=>{
             return <TrackOne key={track.id} track={track} />
         })}
-</div>
+</S.ContentPplaylist>
   );
 }
 

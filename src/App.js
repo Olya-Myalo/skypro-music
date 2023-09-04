@@ -1,10 +1,11 @@
-import './App.css';
-import Bar from './components/Bar';
-import Sidebar from './components/Sidebar';
-import Nav from './components/Nav';
-import CenterBlock from './components/Centerblock';
+import * as S from './App.styles';
+import Bar from './components/Bar/Bar';
+import Sidebar from './components/Sidebar/Sidebar';
+import Nav from './components/Nav/Nav';
+import CenterBlock from './components/Centerblock/Centerblock';
 import { useState, useEffect } from "react";
-import SidebarSceleton from './components/SidebarSceleton';
+import SidebarSceleton from './components/Sidebar/SidebarSceleton';
+import { GlobalStyle } from './createGlobalStyle';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,21 +19,22 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <body>
-        <div className="wrapper">
-          <div className="container">
-              <main className="main">
+    <S.App>
+      <S.Body>
+      <GlobalStyle/>
+        <S.Wrapper>
+          <S.Container>
+              <S.Main>
                 <Nav />
                 <CenterBlock />
                  {isLoading ? <SidebarSceleton />: <Sidebar />}
-              </main>
+              </S.Main>
                 <Bar />
               <footer className="footer"></footer>
-            </div>
-          </div>
-        </body>
-      </div>
+            </S.Container>
+          </S.Wrapper>
+        </S.Body>
+      </S.App>
   );
 }
 
