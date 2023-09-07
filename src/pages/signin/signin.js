@@ -1,6 +1,6 @@
 import * as S from './Signin.styles';
 
-const Signin = () => {
+export const Signing = () => {
   return (
     <S.SigninBody>
     <S.SigninWrapper>
@@ -35,5 +35,3 @@ const Signin = () => {
   </S.SigninBody>
   );
 };
-
-export default Signin;

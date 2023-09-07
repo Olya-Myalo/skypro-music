@@ -1,6 +1,6 @@
 import * as S from './Signup.styles';
 
-const Signup = () => {
+export const Signup = () => {
   return (
     <S.SignupBody>
     <S.SignupWrapper>
@@ -37,5 +37,3 @@ const Signup = () => {
   </S.SignupBody>
   );
 };
-
-export default Signup;
