@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as S from './Nav.styles';
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const [visible, setVisible] = useState(false);
@@ -20,13 +21,19 @@ const Nav = () => {
         <S.NavMenu>
         <S.MenuList>
           <S.MenuItem>
-            <S.MenuLink href="/">Главная</S.MenuLink>
+            <Link to="/">
+              <S.MenuLink>Главная</S.MenuLink>
+            </Link>
           </S.MenuItem>
           <S.MenuItem>
-            <S.MenuLink href="/playlist">Мой плейлист</S.MenuLink>
+            <Link to="/favorites">
+              <S.MenuLink>Мой плейлист</S.MenuLink>
+            </Link>
           </S.MenuItem>
           <S.MenuItem>
-            <S.MenuLink href="/signin">Войти</S.MenuLink>
+            <Link to="/login">
+              <S.MenuLink>Войти</S.MenuLink>
+            </Link>
           </S.MenuItem>
         </S.MenuList>
       </S.NavMenu>

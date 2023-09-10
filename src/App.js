@@ -2,12 +2,11 @@ import * as S from './App.styles';
 import AppRoutes from './routes';
 import { GlobalStyle } from './createGlobalStyle';
 
-function App() {
-
+function App( {user} ) {
   return (
     <S.App>
         <GlobalStyle/>
-          <AppRoutes />
+          <AppRoutes user={user} />
     </S.App>
   );
 }
