@@ -2,17 +2,17 @@ export const CategoryPlaylist = [
 
     {
       id: 1,
-      name: 'Инди',
+      name: 'ПЛЕЙЛИСТ ДНЯ',
       img: "img/playlist01.png",
     },
     {
       id: 2,
-      name: 'топ 100',
+      name: '100 ТАНЦЕВАЛЬНЫХ ХИТОВ',
       img: "img/playlist02.png",
     },
     {
       id: 3,
-      name: 'интересные',
+      name: 'ИНДИ-ЗАРЯД',
       img: "img/playlist03.png",
     },
   ]
