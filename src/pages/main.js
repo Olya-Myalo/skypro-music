@@ -6,8 +6,6 @@ import CenterBlock from './components/Centerblock/Centerblock';
 import { useState, useEffect } from "react";
 import SidebarSceleton from './components/Sidebar/SidebarSceleton';
 
-
-
 export const Main = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,7 +28,7 @@ export const Main = () => {
               </S.Main>
            
                 <Bar />
-              <footer className="footer"></footer>
+              <footer></footer>
             </S.Container>
           </S.Wrapper>
         </S.Body>

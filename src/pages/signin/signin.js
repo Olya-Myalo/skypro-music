@@ -1,21 +1,7 @@
 import * as S from './Signin.styles';
-import { Link  } from 'react-router-dom';
-import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
-export const Signing = ({  onAuthButtonClick }) => {
-  const [user, setUser] = useState(null);
-
-  const handleLogin = () => {
-    setUser({ login: "taradam" });
-    onAuthButtonClick();
-  };
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      onAuthButtonClick(token);
-    }
-  }, []);
+export const Signing = ({onAuthButtonClick}) => {
 
   return (
     <S.SigninBody>
@@ -39,13 +25,11 @@ export const Signing = ({  onAuthButtonClick }) => {
               placeholder="Пароль"
             />
             <S.ModalBtnEnter>
-              <Link to="/" onClick={onAuthButtonClick}
-              user={user}
-              onAuthButtonClick={handleLogin} >Войти</Link>
+              <Link to="/"  onClick={onAuthButtonClick}>Войти</Link>
             </S.ModalBtnEnter>
             <S.ModalBtnSignup>
               <Link to="/register">Зарегистрироваться</Link>
-            </S.ModalBtnSignup>
+            </S.ModalBtnSignup> 
           </S.ModalFormLogin>
         </S.SigninModalBlock>
       </S.SigninContainerEnter>

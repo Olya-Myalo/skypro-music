@@ -6,19 +6,43 @@ import { Category } from "./pages/category";
 import { Main } from "./pages/main";
 import { NotFound } from "./pages/not-found";
 import { ProtectedRoute } from "./protected-route";
+import { useState, useEffect } from "react";
 
+const AppRoutes = () => {
+  const [user, setUser] = useState(null)
 
-const AppRoutes = ( {user}) => {
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user')
+    if (savedUser) {
+      setUser(JSON.parse(savedUser))
+    }
+  }, [])
+
+  const handleLogin = () => {
+    const newUser = { login: 'taradam' }
+    setUser(newUser)
+    localStorage.setItem('user', JSON.stringify(newUser))
+  }
+
+  const handleLogout = () => {
+    setUser(null)
+    localStorage.removeItem('user')
+  }
+
   return (
     <Routes>
-      <Route path="/" element={<Main />} />
-      <Route path="/login" element={<Signing />} />
+      <Route path="/login" element={<Signing user={user}
+            onAuthButtonClick={user ? handleLogout : handleLogin} />} />
       <Route path="/register" element={<Signup />} />
+      <Route path="*" element={<NotFound />} />
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
+        <Route path="/" element={<Main user={user}
+            onAuthButtonClick={user ? handleLogout : handleLogin}/>} />
+        <Route path="/" element={<Main />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/category/:id" element={<Category />} />
       </Route>
-      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
