@@ -7,7 +7,7 @@ const Playlist = (props) => {
         {props.tracks.map(track=>{
             return <TrackOne key={track.id} track={track} />
         })}
-</S.ContentPplaylist>
+    </S.ContentPplaylist>
   );
 }
 

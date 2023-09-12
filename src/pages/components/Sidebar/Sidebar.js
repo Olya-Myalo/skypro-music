@@ -1,5 +1,6 @@
 import * as S from './Sidebar.styles';
 import { Link } from "react-router-dom";
+import { SidebarItems } from './SidebarItem';
 
 const Sidebar = () => {
     
@@ -16,38 +17,7 @@ const Sidebar = () => {
         </S.SidebarIcon>
       </S.SidebarPersonal>
       <S.SidebarBlock>
-        <S.SidebarList>
-          <S.SidebarItem style={{position: 'relative'}}>
-          <Link to="/category/:id">
-            <S.SidebarLink>
-              <S.SidebarImg
-                src="img/playlist01.png"
-                alt="day's playlist"
-              />
-            </S.SidebarLink>
-            </Link>
-          </S.SidebarItem>
-          <S.SidebarItem style={{position: 'relative'}}>
-          <Link to="/category/:id">
-            <S.SidebarLink>
-              <S.SidebarImg
-                src="img/playlist02.png"
-                alt="day's playlist"
-              />
-            </S.SidebarLink>
-            </Link>
-          </S.SidebarItem>
-          <S.SidebarItem style={{position: 'relative'}}>
-          <Link to="/category/:id">
-            <S.SidebarLink>
-              <S.SidebarImg
-                src="img/playlist03.png"
-                alt="day's playlist"
-              />
-            </S.SidebarLink>
-            </Link>
-          </S.SidebarItem>
-        </S.SidebarList>
+      <SidebarItems></SidebarItems>
       </S.SidebarBlock>
     </S.MainSidebar>
   );

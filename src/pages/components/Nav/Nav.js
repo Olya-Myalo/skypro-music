@@ -32,9 +32,7 @@ const Nav = ({ user, onAuthButtonClick }) => {
           </S.MenuItem>
           <S.MenuItem>
             <Link to="/login" onClick={onAuthButtonClick} >
-
-              {user ? 'Войти' : 'Выйти'}
-              {/* <S.MenuLink>Войти</S.MenuLink> */}
+              <S.MenuLink>{user ? 'Войти' : 'Выйти'}</S.MenuLink>
             </Link>
           </S.MenuItem>
         </S.MenuList>
