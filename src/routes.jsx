@@ -7,7 +7,6 @@ import { Main } from "./pages/main";
 import { NotFound } from "./pages/not-found";
 import { ProtectedRoute } from "./protected-route";
 import { useState, useEffect } from "react";
-import { getTodos } from "./api";
 
 const AppRoutes = () => {
   const [user, setUser] = useState(null)
@@ -29,12 +28,8 @@ const AppRoutes = () => {
     setUser(null)
     localStorage.removeItem('user')
   }
-  const [todos, setTodos] = useState([null])
-  useEffect(() => {
-    getTodos().then((todos) => 
-    setTodos(todos.todos)
-    );
-  }, []); 
+
+  const [tracks, setTracks] = useState([null])
 
   return (
     <Routes>
@@ -43,7 +38,7 @@ const AppRoutes = () => {
       <Route path="/register" element={<Signup />} />
       <Route path="*" element={<NotFound />} />
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<Main todos={todos} setTodos={setTodos} user={user}
+        <Route path="/" element={<Main tracks={tracks} setTracks={setTracks} user={user}
             onAuthButtonClick={user ? handleLogout : handleLogin}/>} />
         <Route path="/" element={<Main />} />
         <Route path="*" element={<NotFound />} />

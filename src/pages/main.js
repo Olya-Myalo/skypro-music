@@ -6,7 +6,7 @@ import CenterBlock from './components/Centerblock/Centerblock';
 import { useState, useEffect } from "react";
 import SidebarSceleton from './components/Sidebar/SidebarSceleton';
 
-export const Main = ({todos, setTodos}) => {
+export const Main = ({tracks, setTracks}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const Main = ({todos, setTodos}) => {
           <S.Container>
               <S.Main>
                 <Nav />
-                <CenterBlock todos={todos} setTodos={setTodos} />
+                <CenterBlock tracks={tracks} setTracks={setTracks} />
                  {isLoading ? <SidebarSceleton />: <Sidebar />}
               </S.Main>
            
