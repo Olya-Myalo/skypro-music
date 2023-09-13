@@ -1,6 +1,11 @@
 import * as S from './Playlist/Playlist.styled';
+import { useEffect } from 'react';
+import { getTodos } from '../../api';
 
 const TrackOne = (props) => {
+    useEffect(() => {
+        getTodos().then((todos) => console.log(todos));
+      }, []);
     return (
       <S.PlaylistItem>
           <S.PlaylistTrack>

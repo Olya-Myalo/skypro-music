@@ -12,9 +12,9 @@ const AppRoutes = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('user')
-    if (savedUser) {
-      setUser(JSON.parse(savedUser))
+    const registeredUser = localStorage.getItem('user')
+    if (registeredUser) {
+      setUser(JSON.parse(registeredUser))
     }
   }, [])
 
