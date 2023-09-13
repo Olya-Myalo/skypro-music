@@ -7,8 +7,9 @@ import { Main } from "./pages/main";
 import { NotFound } from "./pages/not-found";
 import { ProtectedRoute } from "./protected-route";
 import { useState, useEffect } from "react";
+import { getTodos } from "./api";
 
-const AppRoutes = (todos, setTodos) => {
+const AppRoutes = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -28,6 +29,12 @@ const AppRoutes = (todos, setTodos) => {
     setUser(null)
     localStorage.removeItem('user')
   }
+  const [todos, setTodos] = useState([null])
+  useEffect(() => {
+    getTodos().then((todos) => 
+    setTodos(todos.todos)
+    );
+  }, []); 
 
   return (
     <Routes>
