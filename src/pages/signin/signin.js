@@ -1,6 +1,8 @@
 import * as S from './Signin.styles';
+import { Link } from 'react-router-dom';
 
-const Signin = () => {
+export const Signing = ({onAuthButtonClick}) => {
+
   return (
     <S.SigninBody>
     <S.SigninWrapper>
@@ -23,11 +25,11 @@ const Signin = () => {
               placeholder="Пароль"
             />
             <S.ModalBtnEnter>
-              <a href="../index.is">Войти</a>
+              <Link to="/"  onClick={onAuthButtonClick}>Войти</Link>
             </S.ModalBtnEnter>
             <S.ModalBtnSignup>
-              <a href="signup.js">Зарегистрироваться</a>
-            </S.ModalBtnSignup>
+              <Link to="/register">Зарегистрироваться</Link>
+            </S.ModalBtnSignup> 
           </S.ModalFormLogin>
         </S.SigninModalBlock>
       </S.SigninContainerEnter>
@@ -35,5 +37,3 @@ const Signin = () => {
   </S.SigninBody>
   );
 };
-
-export default Signin;
