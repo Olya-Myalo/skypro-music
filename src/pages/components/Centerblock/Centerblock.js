@@ -6,14 +6,13 @@ import { playlist } from '../ArrayTrack';
 import { useState, useEffect } from "react";
 import * as S from './Centerblock.styles';
 
-const Centerblock = () => {
+const Centerblock = ({todos, setTodos}) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-      setTracks(playlist); 
+      setTodos(playlist); 
     }, 5000);
 
     return () => clearTimeout(timer);
@@ -35,7 +34,7 @@ const Centerblock = () => {
             </S.PlaylistTitleSvg>
           </S.PlaylistTitleCol04>
         </S.ContentTtitle>
-        {isLoading ? <PlaylistSceleton/> : <Playlist tracks={tracks}/>}
+        {isLoading ? <PlaylistSceleton/> : <Playlist todos={todos} setTodos={setTodos}/>}
       </S.CenterblockContent>
     </S.MainCenterblock>
   );

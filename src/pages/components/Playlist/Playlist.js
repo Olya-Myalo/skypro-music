@@ -1,12 +1,11 @@
 import TrackOne from '../tracks';
 import * as S from './Playlist.styled';
 
-const Playlist = (props) => {
-  
+const Playlist = ( {todos} ) => {
   return (
     <S.ContentPplaylist>
-        {props.tracks.map(track=>{
-            return <TrackOne key={track.id} track={track} />
+        {todos.map((todo) => {
+            return <TrackOne key={todo.id} todo={todo} />
         })}
 </S.ContentPplaylist>
   );

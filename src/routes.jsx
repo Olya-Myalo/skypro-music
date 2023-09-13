@@ -8,7 +8,7 @@ import { NotFound } from "./pages/not-found";
 import { ProtectedRoute } from "./protected-route";
 import { useState, useEffect } from "react";
 
-const AppRoutes = () => {
+const AppRoutes = (todos, setTodos) => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const AppRoutes = () => {
       <Route path="/register" element={<Signup />} />
       <Route path="*" element={<NotFound />} />
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<Main user={user}
+        <Route path="/" element={<Main todos={todos} setTodos={setTodos} user={user}
             onAuthButtonClick={user ? handleLogout : handleLogin}/>} />
         <Route path="/" element={<Main />} />
         <Route path="*" element={<NotFound />} />

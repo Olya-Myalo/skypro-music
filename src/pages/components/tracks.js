@@ -1,11 +1,6 @@
 import * as S from './Playlist/Playlist.styled';
-import { useEffect } from 'react';
-import { getTodos } from '../../api';
 
-const TrackOne = (props) => {
-    useEffect(() => {
-        getTodos().then((todos) => console.log(todos));
-      }, []);
+const TrackOne = ({todo}) => {
     return (
       <S.PlaylistItem>
           <S.PlaylistTrack>
@@ -15,19 +10,19 @@ const TrackOne = (props) => {
               <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
               </S.TrackTitleImage>
               <S.TrackTitleText>
-              <S.TrackTitleLink href="http://">{props.track.track}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
+              <S.TrackTitleLink href="http://">{todo.todo.name}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
               </S.TrackTitleText>
           </S.TrackTitle>
           <S.TrackAuthor>
-              <S.TrackAuthorLink href="http://">{props.track.author}</S.TrackAuthorLink>
+              <S.TrackAuthorLink href="http://">{todo.todo.author}</S.TrackAuthorLink>
           </S.TrackAuthor>
           <S.TrackAlbum>
-              <S.TrackAlbumLink href="http://">{props.track.album}</S.TrackAlbumLink>
+              <S.TrackAlbumLink href="http://">{todo.todo.album}</S.TrackAlbumLink>
           </S.TrackAlbum>
           <S.TrackTime>
               <S.TrackTimeSvg alt="time">
-              <use xlinkHref={props.track.like}></use></S.TrackTimeSvg>
-              <S.TrackTimeText>{props.track.time}</S.TrackTimeText>
+              <use xlinkHref="img/icon/sprite.svg#icon-like"></use></S.TrackTimeSvg>
+              <S.TrackTimeText>{todo.todo.duration_in_seconds}</S.TrackTimeText>
           </S.TrackTime>
           </S.PlaylistTrack>
       </S.PlaylistItem>
