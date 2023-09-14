@@ -1,6 +1,28 @@
 import { styled } from 'styled-components';
 
-export const ContentPplaylist = styled.div`
+export const ContentPlaylist = styled.div`
+display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 450px;
+&::-webkit-scrollbar {
+  width: 5px;
+}
+
+&::-webkit-scrollbar-track {
+  background-color: rgb(138, 133, 133);
+}
+
+&::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+}
+`
+export const ContentPlaylistSceleton = styled.div`
 display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

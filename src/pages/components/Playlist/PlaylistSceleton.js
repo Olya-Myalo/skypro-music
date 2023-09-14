@@ -3,7 +3,7 @@ import Skeleton from "react-loading-skeleton";
 
 const PlaylistSceleton = () => {
   return (
-    <S.ContentPplaylist>
+    <S.ContentPlaylistSceleton>
         <S.PlaylistItem>
            <S.PlaylistTrack>
                 <S.TrackTitle>
@@ -403,7 +403,7 @@ const PlaylistSceleton = () => {
                 </S.TrackTime>
            </S.PlaylistTrack>
         </S.PlaylistItem>
-</S.ContentPplaylist>
+</S.ContentPlaylistSceleton>
   );
 }
 

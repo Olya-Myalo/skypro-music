@@ -6,38 +6,12 @@ import { Category } from "./pages/category";
 import { Main } from "./pages/main";
 import { NotFound } from "./pages/not-found";
 import { ProtectedRoute } from "./protected-route";
-import { useState, useEffect } from "react";
-import { getTracks} from "./api";
 
-const AppRoutes = () => {
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    const registeredUser = localStorage.getItem('user')
-    if (registeredUser) {
-      setUser(JSON.parse(registeredUser))
-    }
-  }, [])
-
-  const handleLogin = () => {
-    const newUser = { login: 'taradam' }
-    setUser(newUser)
-    localStorage.setItem('user', JSON.stringify(newUser))
-  }
-
-  const handleLogout = () => {
-    setUser(null)
-    localStorage.removeItem('user')
-  }
-
-  const [tracks, setTracks] = useState([null])
-
-  useEffect(() => {
-    getTracks().then((tracks) => 
-    setTracks(tracks.tracks)
-    );
-  }, []); 
-
+const AppRoutes = ({user, 
+  tracks, 
+  setTracks, 
+  handleLogin, 
+  handleLogout}) => {
 
   return (
     <Routes>

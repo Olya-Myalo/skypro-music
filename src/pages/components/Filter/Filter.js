@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { playlist } from '../ArrayTrack';
 import * as S from './Filter.styles';
 
-const Filter = () => {
+const Filter = ({tracks}) => {
   const [visible, setVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("");
 
@@ -23,7 +22,7 @@ const Filter = () => {
       {visible && selectedFilter === "author" && (
         <S.SearchLike>
           <S.SearchFilter>
-            {playlist.map((track) => (
+            {tracks.map((track) => (
               <S.SearchFilterTitle key={track.id}>
                 {track.author}
               </S.SearchFilterTitle>
@@ -43,9 +42,9 @@ const Filter = () => {
       {visible && selectedFilter === "year" && (
         <S.SearchLike02>
           <S.SearchFilter>
-            {playlist.map((track) => (
+            {tracks.map((track) => (
               <S.SearchFilterTitle key={track.id}>
-                {track.year}
+                {track.release_date}
               </S.SearchFilterTitle>
             ))}
           </S.SearchFilter>
@@ -63,7 +62,7 @@ const Filter = () => {
       {visible && selectedFilter === "genre" && (
         <S.SearchLike03>
           <S.SearchFilter>
-            {playlist.map((track) => (
+            {tracks.map((track) => (
               <S.SearchFilterTitle key={track.id}>
                 {track.genre}
               </S.SearchFilterTitle>

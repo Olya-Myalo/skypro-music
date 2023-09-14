@@ -2,7 +2,6 @@ import InputSearch from '../Search/Search';
 import Filter from '../Filter/Filter';
 import Playlist from '../Playlist/Playlist';
 import PlaylistSceleton from '../Playlist/PlaylistSceleton';
-import { playlist } from '../ArrayTrack';
 import { useState, useEffect } from "react";
 import * as S from './Centerblock.styles';
 
@@ -12,7 +11,7 @@ const Centerblock = ({tracks, setTracks}) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-      setTracks(playlist); 
+      setTracks(tracks); 
     }, 5000);
 
     return () => clearTimeout(timer);
@@ -22,7 +21,7 @@ const Centerblock = ({tracks, setTracks}) => {
     <S.MainCenterblock>
       <InputSearch/>
       <S.CenterblockH2>Треки</S.CenterblockH2>
-      <Filter />
+      <Filter tracks={tracks}/>
       <S.CenterblockContent>
         <S.ContentTtitle>
           <S.PlaylistTitleCol01>Трек</S.PlaylistTitleCol01>
