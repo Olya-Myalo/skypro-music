@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const Signing = ({onAuthButtonClick}) => {
 
   return (
-    <S.SigninBody>
+    <S.SigninDiv>
     <S.SigninWrapper>
       <S.SigninContainerEnter>
         <S.SigninModalBlock>
@@ -34,6 +34,6 @@ export const Signing = ({onAuthButtonClick}) => {
         </S.SigninModalBlock>
       </S.SigninContainerEnter>
     </S.SigninWrapper>
-  </S.SigninBody>
+  </S.SigninDiv>
   );
 };

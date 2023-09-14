@@ -18,7 +18,7 @@ export const Main = ({tracks, setTracks}) => {
   }, []);
 
   return (
-      <S.Body>
+      <S.MainDiv>
         <S.Wrapper>
           <S.Container>
               <S.Main>
@@ -31,6 +31,6 @@ export const Main = ({tracks, setTracks}) => {
               <footer></footer>
             </S.Container>
           </S.Wrapper>
-        </S.Body>
+        </S.MainDiv>
   );
 }

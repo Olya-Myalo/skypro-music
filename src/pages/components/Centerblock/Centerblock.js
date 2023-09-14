@@ -5,7 +5,6 @@ import PlaylistSceleton from '../Playlist/PlaylistSceleton';
 import { playlist } from '../ArrayTrack';
 import { useState, useEffect } from "react";
 import * as S from './Centerblock.styles';
-import { getTracks } from '../../../api';
 
 const Centerblock = ({tracks, setTracks}) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,12 +17,6 @@ const Centerblock = ({tracks, setTracks}) => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    getTracks().then((tracks) => 
-    setTracks(tracks.tracks)
-    );
-  }, []); 
 
   return (
     <S.MainCenterblock>

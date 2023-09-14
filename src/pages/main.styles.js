@@ -77,7 +77,7 @@ flex-wrap: nowrap;
 -ms-flex-pack: justify;
 justify-content: space-between;
 `
-export const Body = styled.body`
+export const MainDiv = styled.div`
 margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

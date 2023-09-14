@@ -7,6 +7,7 @@ import { Main } from "./pages/main";
 import { NotFound } from "./pages/not-found";
 import { ProtectedRoute } from "./protected-route";
 import { useState, useEffect } from "react";
+import { getTracks} from "./api";
 
 const AppRoutes = () => {
   const [user, setUser] = useState(null)
@@ -30,6 +31,13 @@ const AppRoutes = () => {
   }
 
   const [tracks, setTracks] = useState([null])
+
+  useEffect(() => {
+    getTracks().then((tracks) => 
+    setTracks(tracks.tracks)
+    );
+  }, []); 
+
 
   return (
     <Routes>
