@@ -16,6 +16,11 @@ export const BarContent = styled.div`
   -ms-flex-direction: column;
   flex-direction: column;
 `
+export const BarTime = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+
 export const BarPlayerProgress = styled.div`
   width: 100%;
   height: 5px;

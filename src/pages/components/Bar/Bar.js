@@ -56,18 +56,24 @@ const Bar = ({isLoading, currentTrack}) => {
     return '00:00';
   };
 
+  const handleTemparary = () => {
+    alert("Временно не работает")
+  }
+
   return (
     <S.BarBasic>
     <S.BarContent>
-      <S.BarPlayerProgress onLoadedMetadata={onLoadedMetadata} progressBarRef={progressBarRef}>
+      <S.BarTime>
       <span>{formatTime(timeProgress)}</span>
-      <input type="range" ref={progressBarRef} onChange={handleProgressChange}/>
-      <span>{formatTime(duration)}</span>
+      <span>/</span>
+      <span>{formatTime(currentTrack.duration_in_seconds)}</span>
+      </S.BarTime>
+      <S.BarPlayerProgress ref={progressBarRef} onChange={handleProgressChange} onLoadedMetadata={onLoadedMetadata} progressBarRef={progressBarRef}>
       </S.BarPlayerProgress>
       <S.BarPlayerBlock>
         <S.BarPlayer>
           <S.PlayerControls>
-            <S.PlayerBtnPrev>
+            <S.PlayerBtnPrev onClick={handleTemparary}>
               <S.PlayerBtnPrevSvg alt="prev">
                 <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
               </S.PlayerBtnPrevSvg>
@@ -108,7 +114,7 @@ const Bar = ({isLoading, currentTrack}) => {
                   </S.TrackPlayAlbum>
                   </S.TrackPlayContain>}
                 {!isLoading && <S.TrackPlayContain>
-                  <audio volume={volume}
+                  <audio ref={audioRef} loop={loop} volume={volume}
         onTimeUpdate={() => setTimeProgress(audioRef.current.currentTime)}
         onLoadedMetadata={onLoadedMetadata} src={currentTrack.track_file} autoPlay />
                   <S.TrackPlayImage>
