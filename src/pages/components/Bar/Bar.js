@@ -1,17 +1,7 @@
 import Skeleton from "react-loading-skeleton";
-import { useState, useEffect } from "react";
 import * as S from './Bar.styles';
 
-const Bar = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
+const Bar = ({isLoading, currentTrack}) => {
 
   return (
     <S.BarBasic>
@@ -67,10 +57,10 @@ const Bar = () => {
                     </S.TrackPlaySvg>
                   </S.TrackPlayImage>
                   <S.TrackPlayAuthor>
-                    <S.TrackPlayAuthorLink href="http://">Ты та...</S.TrackPlayAuthorLink>
+                  <S.TrackPlayAuthorLink href="http://">{currentTrack.name}</S.TrackPlayAuthorLink>
                   </S.TrackPlayAuthor>
                   <S.TrackPlayAlbum>
-                    <S.TrackPlayAlbumLink href="http://">Баста</S.TrackPlayAlbumLink>
+                    <S.TrackPlayAlbumLink href="http://">{currentTrack.author}</S.TrackPlayAlbumLink>
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>}
             <S.TrackPlayLikeDis>

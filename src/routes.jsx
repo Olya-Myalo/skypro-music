@@ -9,9 +9,11 @@ import { ProtectedRoute } from "./protected-route";
 
 const AppRoutes = ({user, 
   tracks, 
-  setTracks, 
+  isLoading,
   handleLogin, 
-  handleLogout}) => {
+  handleLogout,
+  currentTrack,
+  turnOnTrack, addTracksError}) => {
 
   return (
     <Routes>
@@ -20,9 +22,9 @@ const AppRoutes = ({user,
       <Route path="/register" element={<Signup />} />
       <Route path="*" element={<NotFound />} />
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<Main tracks={tracks} setTracks={setTracks} user={user}
-            onAuthButtonClick={user ? handleLogout : handleLogin}/>} />
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main tracks={tracks} user={user} isLoading={isLoading}
+            onAuthButtonClick={user ? handleLogout : handleLogin}
+            currentTrack={currentTrack} turnOnTrack={turnOnTrack} addTracksError={addTracksError}/>} />
         <Route path="*" element={<NotFound />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/category/:id" element={<Category />} />

@@ -9,7 +9,7 @@ display: -webkit-box;
     -ms-flex-direction: column;
     flex-direction: column;
     overflow-y: scroll;
-    height: 450px;
+    height: 700px;
 &::-webkit-scrollbar {
   width: 5px;
 }
@@ -31,7 +31,7 @@ display: -webkit-box;
     -ms-flex-direction: column;
     flex-direction: column;
     overflow-y: scroll;
-    height: 450px;
+    height: 700px;
 &::-webkit-scrollbar {
   width: 5px;
 }
