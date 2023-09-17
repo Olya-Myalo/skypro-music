@@ -1,12 +1,69 @@
 import Skeleton from "react-loading-skeleton";
 import * as S from './Bar.styles';
+import { useRef, useState } from "react";
 
 const Bar = ({isLoading, currentTrack}) => {
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+  const [loop, setLoop] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const [timeProgress, setTimeProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const progressBarRef = useRef();
+  
+  const handleStart = () => {
+    audioRef.current.play();
+    setIsPlaying(true);
+  };
+  
+  const handleStop = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
+  
+  const togglePlay = isPlaying ? handleStop : handleStart;
+  
+  const toggleLoop = () => {
+    setLoop(!loop);
+    audioRef.current.loop = !loop;
+  };
+
+  const handleVolumeChange = (event) => {
+    const newVolume = parseFloat(event.target.value);
+    audioRef.current.volume = newVolume;
+    setVolume(newVolume);
+  };
+
+  const handleProgressChange = () => {
+    audioRef.current.currentTime = progressBarRef.current.value;
+  };
+
+  const onLoadedMetadata = () => {
+    const seconds = audioRef.current.duration;
+    setDuration(seconds);
+    progressBarRef.current.max = seconds;
+  };
+
+  const formatTime = (time) => {
+    if (time && !isNaN(time)) {
+      const minutes = Math.floor(time / 60);
+      const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const seconds = Math.floor(time % 60);
+      const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+      return `${formatMinutes}:${formatSeconds}`;
+    }
+    return '00:00';
+  };
 
   return (
     <S.BarBasic>
     <S.BarContent>
-      <S.BarPlayerProgress></S.BarPlayerProgress>
+      <S.BarPlayerProgress onLoadedMetadata={onLoadedMetadata} progressBarRef={progressBarRef}>
+      <span>{formatTime(timeProgress)}</span>
+      <input type="range" ref={progressBarRef} onChange={handleProgressChange}/>
+      <span>{formatTime(duration)}</span>
+      </S.BarPlayerProgress>
       <S.BarPlayerBlock>
         <S.BarPlayer>
           <S.PlayerControls>
@@ -15,9 +72,9 @@ const Bar = ({isLoading, currentTrack}) => {
                 <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
               </S.PlayerBtnPrevSvg>
             </S.PlayerBtnPrev>
-            <S.PlayerBtnPlay>
+            <S.PlayerBtnPlay onClick={togglePlay}>
               <S.PlayerBtnPlaySvg alt="play">
-                <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
+                {isPlaying? <use xlinkHref="/img/icon/pause.svg#icon-pause"></use> : <use xlinkHref="img/icon/sprite.svg#icon-play"></use>}
               </S.PlayerBtnPlaySvg>
             </S.PlayerBtnPlay>
             <S.PlayerBtnNext>
@@ -25,7 +82,7 @@ const Bar = ({isLoading, currentTrack}) => {
                 <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
               </S.PlayerBtnNextSvg>
             </S.PlayerBtnNext>
-            <S.PlayerBtnRepeat className="_btn-icon">
+            <S.PlayerBtnRepeat onClick={toggleLoop} className="_btn-icon">
               <S.PlayerBtnRepeatSvg alt="repeat">
                 <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
               </S.PlayerBtnRepeatSvg>
@@ -51,6 +108,9 @@ const Bar = ({isLoading, currentTrack}) => {
                   </S.TrackPlayAlbum>
                   </S.TrackPlayContain>}
                 {!isLoading && <S.TrackPlayContain>
+                  <audio volume={volume}
+        onTimeUpdate={() => setTimeProgress(audioRef.current.currentTime)}
+        onLoadedMetadata={onLoadedMetadata} src={currentTrack.track_file} autoPlay />
                   <S.TrackPlayImage>
                     <S.TrackPlaySvg alt="music">
                       <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
@@ -79,13 +139,18 @@ const Bar = ({isLoading, currentTrack}) => {
         </S.BarPlayer>
         <S.BarVolumeBlock>
           <S.VolumeContent>
-            <S.VolumeImage>
+            <S.VolumeImage onClick={togglePlay} >
               <S.VolumeSvg alt="volume">
                 <use xlinkHref="img/icon/sprite.svg#icon-volume"></use>
               </S.VolumeSvg>
             </S.VolumeImage>
             <S.VolumeProgress className="_btn">
-              <S.VolumeProgressLine className="_btn" type="range"  name="range" />
+              <S.VolumeProgressLine className="_btn" type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={volume}
+                onChange={handleVolumeChange} />
             </S.VolumeProgress>
           </S.VolumeContent>
         </S.BarVolumeBlock>
