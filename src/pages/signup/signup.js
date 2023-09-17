@@ -2,7 +2,7 @@ import * as S from './Signup.styles';
 
 export const Signup = () => {
   return (
-    <S.SignupBody>
+    <S.SignupDiv>
     <S.SignupWrapper>
       <S.containerSignup>
         <S.SignupModalBlock>
@@ -34,6 +34,6 @@ export const Signup = () => {
         </S.SignupModalBlock>
       </S.containerSignup>
     </S.SignupWrapper>
-  </S.SignupBody>
+  </S.SignupDiv>
   );
 };

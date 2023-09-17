@@ -1,11 +1,12 @@
 import * as S from './Playlist/Playlist.styled';
-import { useEffect } from 'react';
-import { getTodos } from '../../api';
 
 const TrackOne = (props) => {
-    useEffect(() => {
-        getTodos().then((todos) => console.log(todos));
-      }, []);
+    const formattedDuration = (durationInSeconds) => {
+        const minutes = Math.floor(durationInSeconds / 60);
+        const seconds = durationInSeconds % 60;
+        const formattedDuration = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        return formattedDuration;
+      };
     return (
       <S.PlaylistItem>
           <S.PlaylistTrack>
@@ -15,19 +16,19 @@ const TrackOne = (props) => {
               <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
               </S.TrackTitleImage>
               <S.TrackTitleText>
-              <S.TrackTitleLink href="http://">{props.track.track}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
+              <S.TrackTitleLink onClick={() => props.turnOnTrack(props.track.id)} >{props.track.name}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
               </S.TrackTitleText>
           </S.TrackTitle>
           <S.TrackAuthor>
-              <S.TrackAuthorLink href="http://">{props.track.author}</S.TrackAuthorLink>
+              <S.TrackAuthorLink >{props.track.author}</S.TrackAuthorLink>
           </S.TrackAuthor>
           <S.TrackAlbum>
-              <S.TrackAlbumLink href="http://">{props.track.album}</S.TrackAlbumLink>
+              <S.TrackAlbumLink >{props.track.album}</S.TrackAlbumLink>
           </S.TrackAlbum>
           <S.TrackTime>
               <S.TrackTimeSvg alt="time">
-              <use xlinkHref={props.track.like}></use></S.TrackTimeSvg>
-              <S.TrackTimeText>{props.track.time}</S.TrackTimeText>
+              <use xlinkHref="img/icon/sprite.svg#icon-like"></use></S.TrackTimeSvg>
+              <S.TrackTimeText>{formattedDuration(props.track.duration_in_seconds)}</S.TrackTimeText>
           </S.TrackTime>
           </S.PlaylistTrack>
       </S.PlaylistItem>

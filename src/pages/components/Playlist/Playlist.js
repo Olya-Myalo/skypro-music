@@ -1,14 +1,14 @@
 import TrackOne from '../tracks';
 import * as S from './Playlist.styled';
 
-const Playlist = (props) => {
-  
+const Playlist = ( {tracks, turnOnTrack, addTracksError} ) => {
   return (
-    <S.ContentPplaylist>
-        {props.tracks.map(track=>{
-            return <TrackOne key={track.id} track={track} />
+    <S.ContentPlaylist>
+      <p>{addTracksError}</p>
+        {tracks.map((track) => {
+            return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
         })}
-</S.ContentPplaylist>
+    </S.ContentPlaylist>
   );
 }
 
