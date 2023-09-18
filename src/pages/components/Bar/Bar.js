@@ -6,11 +6,6 @@ const Bar = ({isLoading, currentTrack}) => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
-  const [loop, setLoop] = useState(false);
-  const [volume, setVolume] = useState(1);
-  const [timeProgress, setTimeProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const progressBarRef = useRef();
   
   const handleStart = () => {
     audioRef.current.play();
@@ -24,17 +19,22 @@ const Bar = ({isLoading, currentTrack}) => {
   
   const togglePlay = isPlaying ? handleStop : handleStart;
   
+  const [loop, setLoop] = useState(false);
   const toggleLoop = () => {
     setLoop(!loop);
     audioRef.current.loop = !loop;
   };
 
+  const [volume, setVolume] = useState(1);
   const handleVolumeChange = (event) => {
     const newVolume = parseFloat(event.target.value);
     audioRef.current.volume = newVolume;
     setVolume(newVolume);
   };
 
+  const [timeProgress, setTimeProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const progressBarRef = useRef();
   const handleProgressChange = () => {
     audioRef.current.currentTime = progressBarRef.current.value;
   };
@@ -68,7 +68,17 @@ const Bar = ({isLoading, currentTrack}) => {
       <span>/</span>
       <span>{formatTime(currentTrack.duration_in_seconds)}</span>
       </S.BarTime>
-      <S.BarPlayerProgress ref={progressBarRef} onChange={handleProgressChange} onLoadedMetadata={onLoadedMetadata} progressBarRef={progressBarRef}>
+      <S.BarPlayerProgress onLoadedMetadata={onLoadedMetadata} progressBarRef={progressBarRef}>
+      <S.StyledProgressInput 
+      type="range"
+      min={0}
+      max={duration}
+      value={timeProgress}
+      step={0.01}
+      $color="#B672FF"
+      ref={progressBarRef}
+      onChange={handleProgressChange}
+    />
       </S.BarPlayerProgress>
       <S.BarPlayerBlock>
         <S.BarPlayer>
@@ -80,7 +90,10 @@ const Bar = ({isLoading, currentTrack}) => {
             </S.PlayerBtnPrev>
             <S.PlayerBtnPlay onClick={togglePlay}>
               <S.PlayerBtnPlaySvg alt="play">
-                {isPlaying? <use xlinkHref="/img/icon/pause.svg#icon-pause"></use> : <use xlinkHref="img/icon/sprite.svg#icon-play"></use>}
+                {isPlaying? <svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
+                            <rect width="5" height="19" fill="#D9D9D9"/>
+                            <rect x="10" width="5" height="19" fill="#D9D9D9"/>
+                            </svg> : <use xlinkHref="img/icon/sprite.svg#icon-play"></use>}
               </S.PlayerBtnPlaySvg>
             </S.PlayerBtnPlay>
             <S.PlayerBtnNext>
@@ -90,7 +103,11 @@ const Bar = ({isLoading, currentTrack}) => {
             </S.PlayerBtnNext>
             <S.PlayerBtnRepeat onClick={toggleLoop} className="_btn-icon">
               <S.PlayerBtnRepeatSvg alt="repeat">
-                <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
+              {isPlaying? <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18" fill="none">
+              <path d="M10 3L5 0.113249V5.88675L10 3ZM7 14.5C3.96243 14.5 1.5 12.0376 1.5 9H0.5C0.5 12.5899 3.41015 15.5 7 15.5V14.5ZM1.5 9C1.5 5.96243 3.96243 3.5 7 3.5V2.5C3.41015 2.5 0.5 5.41015 0.5 9H1.5Z" fill="white"/>
+              <path d="M10 15L15 17.8868V12.1132L10 15ZM13 3.5C16.0376 3.5 18.5 5.96243 18.5 9H19.5C19.5 5.41015 16.5899 2.5 13 2.5V3.5ZM18.5 9C18.5 12.0376 16.0376 14.5 13 14.5V15.5C16.5899 15.5 19.5 12.5899 19.5 9H18.5Z" fill="white"/>
+              </svg>
+              : <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>}
               </S.PlayerBtnRepeatSvg>
             </S.PlayerBtnRepeat>
             <S.PlayerBtnShuffle className="_btn-icon">
@@ -115,8 +132,9 @@ const Bar = ({isLoading, currentTrack}) => {
                   </S.TrackPlayContain>}
                 {!isLoading && <S.TrackPlayContain>
                   <audio ref={audioRef} loop={loop} volume={volume}
-        onTimeUpdate={() => setTimeProgress(audioRef.current.currentTime)}
-        onLoadedMetadata={onLoadedMetadata} src={currentTrack.track_file} autoPlay />
+                  onLoadedMetadata={onLoadedMetadata} 
+                  onTimeUpdate={() => setTimeProgress(audioRef.current.currentTime)}
+                  src={currentTrack.track_file} autoPlay />
                   <S.TrackPlayImage>
                     <S.TrackPlaySvg alt="music">
                       <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
