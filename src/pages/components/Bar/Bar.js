@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 
 const Bar = ({isLoading, currentTrack}) => {
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef(null);
   
   const handleStart = () => {

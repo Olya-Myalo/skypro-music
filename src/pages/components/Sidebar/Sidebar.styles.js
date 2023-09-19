@@ -60,6 +60,8 @@ flex-direction: column;
 -webkit-box-align: center;
 -ms-flex-align: center;
 align-items: center;
+gap: 30px;
+list-style-type: none;
 `
 export const SidebarItem = styled.div`
 width: 250px;
