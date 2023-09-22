@@ -1,31 +1,32 @@
 import * as S from './App.styles';
 import AppRoutes from './routes';
 import { GlobalStyle } from './createGlobalStyle';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { getTrackById, getTracks} from "./api";
 import { useBeforeRender } from './utils';
+import { UserContext, UserDispatchContext, reducer } from './contex';
 
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   useBeforeRender(() => {
-    const registeredUser = localStorage.getItem('user')
+    const registeredUser = localStorage.getItem('user');
     if (registeredUser) {
-      setUser(JSON.parse(registeredUser))
+      setUser(JSON.parse(registeredUser));
     }
-  }, [])
+  }, []);
 
   const handleLogin = () => {
-    const newUser = { login: 'taradam' }
-    setUser(newUser)
-    localStorage.setItem('user', JSON.stringify(newUser))
-  }
+    const newUser = { login: 'taradam' };
+    setUser(newUser);
+    localStorage.setItem('user', JSON.stringify(newUser));
+  };
 
   const handleLogout = () => {
-    setUser(null)
-    localStorage.removeItem('user')
-  }
+    setUser(null);
+    localStorage.removeItem('user');
+  };
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -56,14 +57,20 @@ function App() {
           console.log(trackData);
         })
     }
+    const [state, dispatch] = useReducer(reducer, {userName:''});
  
   return (
+    <UserContext.Provider value={state}>
+    <UserDispatchContext.Provider value={dispatch}>
     <S.App>
         <GlobalStyle/>
           <AppRoutes user={user} tracks={tracks} handleLogin={handleLogin} 
           handleLogout={handleLogout} isLoading={isLoading}
-          currentTrack={currentTrack} turnOnTrack={turnOnTrack} addTracksError={addTracksError}/>
+          currentTrack={currentTrack} turnOnTrack={turnOnTrack} addTracksError={addTracksError}
+        />
     </S.App>
+    </UserDispatchContext.Provider>
+    </UserContext.Provider>
   );
 }
 

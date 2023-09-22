@@ -2,7 +2,8 @@ import * as S from './Signin.styles';
 import { Link } from 'react-router-dom';
 
 export const Signing = ({onAuthButtonClick}) => {
-
+    
+  
   return (
     <S.SigninDiv>
     <S.SigninWrapper>
@@ -18,11 +19,13 @@ export const Signing = ({onAuthButtonClick}) => {
               type="text"
               name="login"
               placeholder="Почта"
+              // onChange={(e) => setEmail(e.target.value)}
             />
             <S.ModalInput
               type="password"
               name="password"
               placeholder="Пароль"
+              // onChange={(e) => setPassword(e.target.value)}
             />
             <S.ModalBtnEnter>
               <Link to="/"  onClick={onAuthButtonClick}>Войти</Link>

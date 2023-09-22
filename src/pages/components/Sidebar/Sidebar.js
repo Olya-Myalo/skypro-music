@@ -1,13 +1,15 @@
 import * as S from './Sidebar.styles';
 import { Link } from "react-router-dom";
 import { SidebarItems } from './SidebarItem';
+import { useUser } from '../../../contex';
 
 const Sidebar = () => {
+  const {name} =useUser();
     
   return (
     <S.MainSidebar>
       <S.SidebarPersonal style={{position: 'relative'}}>
-        <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
+        <S.SidebarPersonalName>{name}</S.SidebarPersonalName>
         <S.SidebarIcon>
         <Link to="/login">
           <svg alt="logout">

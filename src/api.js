@@ -1,3 +1,5 @@
+// import axios from 'axios';
+
 export async function getTracks () {
     const response = await fetch('https://skypro-music-api.skyeng.tech/catalog/track/all/');
     
@@ -18,3 +20,61 @@ export async function getTrackById(id) {
       const track = await response.json();
       return track;
   }
+
+  export async function registerUser({ email, password, username }) {
+    const response = await fetch("https://skypro-music-api.skyeng.tech/user/signup/", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        username,
+      }),
+    });
+    const user = await response.json();
+    return user;
+  }
+
+  export async function loginUser({ email, password }) {
+    const response = await fetch("https://skypro-music-api.skyeng.tech/user/login/", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+      const client = await response.json();
+      return client;
+  }
+
+//   export const getToken = ({ email, password}) => {
+//     fetch("https://skypro-music-api.skyeng.tech/user/token/", {
+//     method: "POST",
+//     body: JSON.stringify({
+//         email,
+//         password,
+//     }),
+//     headers: {
+//         "content-type": "application/json",
+//     },
+//     })
+//         .then((response) => response.json())
+//         .then((json) => console.log(json));
+//     };
+
+
+//   export const refreshToken = (token) => {
+//     return axios.post(`https://skypro-music-api.skyeng.tech/user/token/refresh/`, { token })
+//       .then(response => response.data)
+//       .catch(error => {
+//         console.error('Error refreshing token:', error);
+//         throw error;
+//       });
+//   };
+  
+  

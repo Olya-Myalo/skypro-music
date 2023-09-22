@@ -1,11 +1,12 @@
+import { useUser } from '../../contex';
 import * as S from './Sidebar.styles';
 
 const Sidebar = () => {
-    
+    const {name} = useUser();
   return (
     <S.MainSidebar>
       <S.SidebarPersonal style={{position: 'relative'}}>
-        <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
+        <S.SidebarPersonalName>{name}</S.SidebarPersonalName>
         <S.SidebarIcon>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout"></use>
