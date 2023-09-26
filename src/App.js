@@ -57,7 +57,9 @@ function App() {
           console.log(trackData);
         })
     }
-    const [state, dispatch] = useReducer(reducer, {userName:''});
+    const [state, dispatch] = useReducer(reducer, {
+      userName: JSON.parse(localStorage.getItem('user'))?.username || ''
+      });
  
   return (
     <UserContext.Provider value={state}>

@@ -16,8 +16,9 @@ export const Signup = () => {
       e.preventDefault();
       if (password===twoPassword) {
         const user = await registerUser({ email, password, username });
-        dispatch({type: "setUser", payload: user.username})
-        navigate("/")
+        dispatch({type: "setUser", payload: user.username});
+        localStorage.setItem('user', JSON.stringify(user));
+        navigate("/");
       }
     }; 
 
