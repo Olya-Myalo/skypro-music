@@ -11,14 +11,22 @@ export const Signup = () => {
     const [username, setName] = useState('');
     const dispatch = useUserDispatch();
     const navigate = useNavigate();
+    const [registerError, setRegisterError] = useState(null)
   
     const handleSubmit = async (e) => {
       e.preventDefault();
-      if (password===twoPassword) {
+      if (password===twoPassword && password!=='' && twoPassword!=='') {
         const user = await registerUser({ email, password, username });
+        console.log(user.errorMessage)
+        if (user.errorMessage) {
+          setRegisterError(user.errorMessage)
+          return
+        }
         dispatch({type: "setUser", payload: user.username});
         localStorage.setItem('user', JSON.stringify(user));
-        navigate("/");
+        navigate("/login");
+      } else {
+        setRegisterError("Пароли не совпадают!");
       }
     }; 
 
@@ -57,6 +65,7 @@ export const Signup = () => {
               placeholder="Повторите пароль"
               onChange={(e) => setTwoPassword(e.target.value)}
             />
+            <p style={{color: "red"}}>{registerError}</p>
             <S.SignupModalBtnSignupEnt>
               <a onClick={handleSubmit} href="#">Зарегистрироваться</a>
             </S.SignupModalBtnSignupEnt>

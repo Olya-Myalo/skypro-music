@@ -7,6 +7,8 @@ import SidebarSceleton from './components/Sidebar/SidebarSceleton';
 
 export const Main = ({tracks, isLoading, currentTrack, turnOnTrack, addTracksError}) => {
 
+  
+
   return (
       <S.MainDiv>
         <S.Wrapper>
