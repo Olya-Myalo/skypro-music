@@ -51,6 +51,7 @@ export async function getTrackById(id) {
   }
 
   export async function loginUser({ email, password }) {
+    try {
     const response = await fetch("https://skypro-music-api.skyeng.tech/user/login/", {
       method: "POST",
       headers: {
@@ -61,8 +62,18 @@ export async function getTrackById(id) {
         password,
       }),
     });
-      const client = await response.json();
-      return client;
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message); 
+    }
+
+    const client = await response.json();
+    return client;
+  } catch (error) {
+
+    console.error("Ошибка входа:", error.message);
+    return {errorMessage: "Ошибка входа"}
+  }
   }
 
 //   export const getToken = ({ email, password}) => {

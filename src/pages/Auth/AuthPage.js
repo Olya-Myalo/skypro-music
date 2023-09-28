@@ -12,6 +12,7 @@ export default function AuthPage({ isLoginMode = false }) {
   const [username, setName] = useState('');
   const dispatch = useUserDispatch();
   const navigate = useNavigate();
+  const [isComeRequest, setIsComeRequest] = useState(false);
 
   const isValidateForm = async () => {
     if (email=== "" || password==="") {
@@ -69,13 +70,16 @@ export default function AuthPage({ isLoginMode = false }) {
     const isValidLoginForm = await isValidateFormLogin();
     if (isValidLoginForm) {
       try {
+        setIsComeRequest(true);
         await loginUser({ email, password });
         navigate("/");
       } catch (error) {
         isValidateFormLogin();
+        setIsComeRequest(false);
       }
     } else {
       isValidateFormLogin();
+      setIsComeRequest(false);
     }
   };
 
@@ -83,14 +87,17 @@ export default function AuthPage({ isLoginMode = false }) {
     const isValidRegisterForm = await isValidateForm();
     if (isValidRegisterForm) {
       try {
+        setIsComeRequest(true);
         const user = await registerUser({ email, password, username });
         navigate("/login");
         dispatch({type: "setUser", payload: user.username});
         localStorage.setItem('user', JSON.stringify(user));
       } catch (error) {
+        setIsComeRequest(false);
         isValidateForm();
       }
     } else {
+      setIsComeRequest(false);
       isValidateForm();
     }
   };
@@ -131,7 +138,7 @@ export default function AuthPage({ isLoginMode = false }) {
             </S.Inputs>
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton onClick={() => handleLogin({ email, password })}>
+              <S.PrimaryButton disabled={isComeRequest} onClick={() => handleLogin({ email, password })}>
                 Войти
               </S.PrimaryButton>
               <Link to="/register">
@@ -178,7 +185,7 @@ export default function AuthPage({ isLoginMode = false }) {
             </S.Inputs>
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton onClick={handleRegister}>
+              <S.PrimaryButton disabled={isComeRequest} onClick={handleRegister}>
                 Зарегистрироваться
               </S.PrimaryButton>
             </S.Buttons>
