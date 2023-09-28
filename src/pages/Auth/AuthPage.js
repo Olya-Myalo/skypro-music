@@ -139,7 +139,7 @@ export default function AuthPage({ isLoginMode = false }) {
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
               <S.PrimaryButton disabled={isComeRequest} onClick={() => handleLogin({ email, password })}>
-                Войти
+              {isComeRequest? "Осуществляется вход" : "Войти"}
               </S.PrimaryButton>
               <Link to="/register">
                 <S.SecondaryButton>Зарегистрироваться</S.SecondaryButton>
@@ -186,7 +186,7 @@ export default function AuthPage({ isLoginMode = false }) {
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
               <S.PrimaryButton disabled={isComeRequest} onClick={handleRegister}>
-                Зарегистрироваться
+              {isComeRequest? "Осуществляется регистрация" : "Зарегистрироваться"}
               </S.PrimaryButton>
             </S.Buttons>
           </>

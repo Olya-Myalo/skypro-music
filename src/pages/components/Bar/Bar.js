@@ -39,7 +39,7 @@ const Bar = ({isLoading, currentTrack}) => {
     audioRef.current.currentTime = progressBarRef.current.value;
   };
 
-  const onLoadedMetadata = () => {
+  const onLoadedData = () => {
     const seconds = audioRef.current.duration;
     setDuration(seconds);
     progressBarRef.current.max = seconds;
@@ -68,7 +68,7 @@ const Bar = ({isLoading, currentTrack}) => {
       <span>/</span>
       <span>{formatTime(currentTrack.duration_in_seconds)}</span>
       </S.BarTime>
-      <S.BarPlayerProgress onLoadedMetadata={onLoadedMetadata} progressBarRef={progressBarRef}>
+      <S.BarPlayerProgress onLoadedData={onLoadedData} progressBarRef={progressBarRef}>
       <S.StyledProgressInput 
       type="range"
       min={0}
@@ -125,7 +125,7 @@ const Bar = ({isLoading, currentTrack}) => {
                   </S.TrackPlayAlbum>
                   </S.TrackPlayContain>}
                 {!isLoading && <S.TrackPlayContain>
-                  <audio ref={audioRef} loop={loop} onLoadedMetadata={onLoadedMetadata} 
+                  <audio ref={audioRef} loop={loop} onLoadedData={onLoadedData} 
                   onTimeUpdate={() => setTimeProgress(audioRef.current.currentTime)} src={currentTrack.track_file} autoPlay 
                   style={{ volume: volume }} />
                   <S.TrackPlayImage>
