@@ -18,7 +18,7 @@ const AppRoutes = ({
       <Route path="/login" element={<AuthPage isLoginMode={true} />} />
       <Route path="/register" element={<AuthPage isLoginMode={false} />} />
       <Route path="*" element={<NotFound />} />
-      <Route element={<ProtectedRoute isAllowed={Boolean(name)} />}>
+      <Route element={<ProtectedRoute isAllowed={Boolean(name.userName)} />}>
         <Route path="/" element={<Main tracks={tracks} isLoading={isLoading}
             currentTrack={currentTrack} turnOnTrack={turnOnTrack} addTracksError={addTracksError}/>} />
         <Route path="*" element={<NotFound />} />
