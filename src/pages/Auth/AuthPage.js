@@ -66,38 +66,41 @@ export default function AuthPage({ isLoginMode = false }) {
     }
   };
 
-  const handleLogin = async ({ email, password }) => {
+  const handleLogin = async () => {
+    // e.preventDefault()
+    console.log(localStorage.getItem('user'))
     const isValidLoginForm = await isValidateFormLogin();
     if (isValidLoginForm) {
       try {
-        setIsComeRequest(true);
-        await loginUser({ email, password });
+        setIsComeRequest(true)
+        const newUser = await loginUser({ email, password })
+        setIsComeRequest(false)
+        dispatch({ type: 'setUser', payload: newUser.username })
+        localStorage.setItem('user', JSON.stringify(newUser.username))
         navigate("/");
       } catch (error) {
         isValidateFormLogin();
-        setIsComeRequest(false);
       }
     } else {
       isValidateFormLogin();
-      setIsComeRequest(false);
     }
   };
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.preventDefault()
     const isValidRegisterForm = await isValidateForm();
     if (isValidRegisterForm) {
       try {
         setIsComeRequest(true);
         const user = await registerUser({ email, password, username });
+        setIsComeRequest(false);
         navigate("/login");
         dispatch({type: "setUser", payload: user.username});
         localStorage.setItem('user', JSON.stringify(user));
       } catch (error) {
-        setIsComeRequest(false);
         isValidateForm();
       }
     } else {
-      setIsComeRequest(false);
       isValidateForm();
     }
   };

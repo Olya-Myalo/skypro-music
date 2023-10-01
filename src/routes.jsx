@@ -5,23 +5,21 @@ import { Main } from "./pages/main";
 import { NotFound } from "./pages/not-found";
 import { ProtectedRoute } from "./protected-route";
 import AuthPage from "./pages/Auth/AuthPage";
+import { useUser } from "./contex";
 
-const AppRoutes = ({user, 
+const AppRoutes = ({ 
   tracks, 
   isLoading,
-  handleLogin, 
-  handleLogout,
   currentTrack,
   turnOnTrack, addTracksError}) => {
-
+    const name = useUser()
   return (
     <Routes>
       <Route path="/login" element={<AuthPage isLoginMode={true} />} />
       <Route path="/register" element={<AuthPage isLoginMode={false} />} />
       <Route path="*" element={<NotFound />} />
-      <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<Main tracks={tracks} user={user} isLoading={isLoading}
-            onAuthButtonClick={user ? handleLogout : handleLogin}
+      <Route element={<ProtectedRoute isAllowed={Boolean(name)} />}>
+        <Route path="/" element={<Main tracks={tracks} isLoading={isLoading}
             currentTrack={currentTrack} turnOnTrack={turnOnTrack} addTracksError={addTracksError}/>} />
         <Route path="*" element={<NotFound />} />
         <Route path="/favorites" element={<Favorites />} />

@@ -3,30 +3,30 @@ import AppRoutes from './routes';
 import { GlobalStyle } from './createGlobalStyle';
 import { useState, useEffect, useReducer } from "react";
 import { getTrackById, getTracks} from "./api";
-import { useBeforeRender } from './utils';
+// import { useBeforeRender } from './utils';
 import { UserContext, UserDispatchContext, reducer } from './contex';
 
 
 function App() {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
-  useBeforeRender(() => {
-    const registeredUser = localStorage.getItem('user');
-    if (registeredUser) {
-      setUser(JSON.parse(registeredUser));
-    }
-  }, []);
+  // useBeforeRender(() => {
+  //   const registeredUser = localStorage.getItem('user');
+  //   if (registeredUser) {
+  //     setUser(JSON.parse(registeredUser));
+  //   }
+  // }, []);
 
-  const handleLogin = () => {
-    const newUser = { login: 'taradam' };
-    setUser(newUser);
-    localStorage.setItem('user', JSON.stringify(newUser));
-  };
+  // const handleLogin = () => {
+  //   const newUser = { login: 'taradam' };
+  //   setUser(newUser);
+  //   localStorage.setItem('user', JSON.stringify(newUser));
+  // };
 
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-  };
+  // const handleLogout = () => {
+  //   setUser(null);
+  //   localStorage.removeItem('user');
+  // };
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -57,18 +57,23 @@ function App() {
           console.log(trackData);
         })
     }
-    const [state, dispatch] = useReducer(reducer, {
-      userName: JSON.parse(localStorage.getItem('user'))?.username || ''
-      });
+    const userState = {
+      userName: JSON.parse(localStorage.getItem('user')) || ''
+    };
+    
+    const [state, dispatch] = useReducer(reducer, userState)    
  
   return (
     <UserContext.Provider value={state}>
     <UserDispatchContext.Provider value={dispatch}>
     <S.App>
         <GlobalStyle/>
-          <AppRoutes user={user} tracks={tracks} handleLogin={handleLogin} 
-          handleLogout={handleLogout} isLoading={isLoading}
-          currentTrack={currentTrack} turnOnTrack={turnOnTrack} addTracksError={addTracksError}
+          <AppRoutes 
+          tracks={tracks} 
+          isLoading={isLoading}
+          currentTrack={currentTrack} 
+          turnOnTrack={turnOnTrack} 
+          addTracksError={addTracksError}
         />
     </S.App>
     </UserDispatchContext.Provider>
