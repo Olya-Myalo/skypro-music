@@ -1,3 +1,6 @@
+Работа над ДЗ 8 Мои рассуждения: «Я могу работать над задачей по три часа в день и справлюсь за три дня».
+Потрачено фактически 10 часов. 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
