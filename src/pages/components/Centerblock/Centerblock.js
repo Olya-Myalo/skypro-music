@@ -4,8 +4,7 @@ import Playlist from '../Playlist/Playlist';
 import PlaylistSceleton from '../Playlist/PlaylistSceleton';
 import * as S from './Centerblock.styles';
 
-const Centerblock = ({tracks, isLoading, currentTrack, turnOnTrack, addTracksError}) => {
-  
+const Centerblock = ({tracks, isLoading, currentTrack, turnOnTrack, addTracksError}) => { 
 
   return (
     <S.MainCenterblock>

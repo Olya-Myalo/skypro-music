@@ -22,32 +22,23 @@ export async function getTrackById(id) {
   }
 
   export async function registerUser({ email, password, username }) {
-    try {
-      const response = await fetch("https://skypro-music-api.skyeng.tech/user/signup/", {
-        method: "POST",
+    const response = await fetch(
+      'https://skypro-music-api.skyeng.tech/user/signup/',
+      {
+        method: 'POST',
         headers: {
-          "content-type": "application/json",
+          'content-type': 'application/json',
         },
         body: JSON.stringify({
           email,
           password,
           username,
         }),
-      });
+      },
+    )
   
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message); 
-      }
-  
-      const user = await response.json();
-      return user;
-    } catch (error) {
-  
-      console.error("Ошибка при регистрации пользователя:", error.message);
-      // // throw error;
-      return {errorMessage: "Ошибка при регистрации пользователя"}
-    }
+    const user = await response.json()
+    return user
   }
 
   export async function loginUser({ email, password }) {

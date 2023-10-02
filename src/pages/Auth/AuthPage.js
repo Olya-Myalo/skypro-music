@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
 import { loginUser, registerUser } from "../../api";
-import { checkUserExists, useUserDispatch } from "../../contex";
+import { useUserDispatch } from "../../contex";
 
 export default function AuthPage({ isLoginMode = false }) {
   const [error, setError] = useState(null);
@@ -36,16 +36,12 @@ export default function AuthPage({ isLoginMode = false }) {
       return false
     }
     try {
-      const userExists = await checkUserExists(username);
-      if (userExists) {
-        setError("Пользователь с таким именем уже существует");
-        return false;
-      }
+      await registerUser({ email, password })
+      return true
     } catch (error) {
-      setError("Ошибка проверки существования пользователя");
-      return false;
+      setError('Пользователь с таким именем уже существует')
+      return false
     }
-    return true
   }
 
   const isValidateFormLogin = async () => {
@@ -94,9 +90,9 @@ export default function AuthPage({ isLoginMode = false }) {
         setIsComeRequest(true);
         const user = await registerUser({ email, password, username });
         setIsComeRequest(false);
-        navigate("/login");
         dispatch({type: "setUser", payload: user.username});
         localStorage.setItem('user', JSON.stringify(user));
+        navigate("/login");
       } catch (error) {
         isValidateForm();
       }
