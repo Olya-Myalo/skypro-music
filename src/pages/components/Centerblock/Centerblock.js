@@ -4,7 +4,7 @@ import Playlist from '../Playlist/Playlist';
 import PlaylistSceleton from '../Playlist/PlaylistSceleton';
 import * as S from './Centerblock.styles';
 
-const Centerblock = ({tracks, isLoading, currentTrack, turnOnTrack, addTracksError}) => { 
+const Centerblock = ({tracks, isLoading, turnOnTrack, addTracksError}) => { 
 
   return (
     <S.MainCenterblock>
@@ -22,7 +22,7 @@ const Centerblock = ({tracks, isLoading, currentTrack, turnOnTrack, addTracksErr
             </S.PlaylistTitleSvg>
           </S.PlaylistTitleCol04>
         </S.ContentTtitle>
-        {isLoading ? <PlaylistSceleton/> : <Playlist tracks={tracks} currentTrack={currentTrack} 
+        {isLoading ? <PlaylistSceleton/> : <Playlist tracks={tracks} 
         turnOnTrack={turnOnTrack} addTracksError={addTracksError}/>}
       </S.CenterblockContent>
     </S.MainCenterblock>
