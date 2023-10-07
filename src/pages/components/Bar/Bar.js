@@ -2,13 +2,13 @@ import Skeleton from "react-loading-skeleton";
 import * as S from './Bar.styles';
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setShufflePlaylist, setTrack } from "../../../store/slices/trackSlice";
-import { playlistSelector, shufflePlaylistSelector } from "../../../store/selectors/trackSelector";
+import { setPlaylist, setShufflePlaylist, setTrack } from "../../../store/slices/trackSlice";
+import { shufflePlaylistSelector } from "../../../store/selectors/trackSelector";
 
 const Bar = ({isLoading}) => {
   const currentTrack = useSelector(state => state.player.track)
   const [isShuffle, setIsShuffle] = useState(false)
-  const playlist = useSelector(playlistSelector)
+  const playlist = useSelector((state) => state.player.playlist);
   const dispatch = useDispatch()
   const audioElem = useRef(null)
   const shufflePlaylist = useSelector(shufflePlaylistSelector)
@@ -113,17 +113,21 @@ const Bar = ({isLoading}) => {
   }
 
   const handleShufflePlaylist = () => {
-    const shuffleTracks = [...playlist].sort(function () {
-      return Math.round(Math.random()) - 0.5
-    })
-    setIsShuffle(true)
-    dispatch(setShufflePlaylist([...shuffleTracks]))
-  }
+    setIsShuffle(true); 
+    const currentPlaylist = [...playlist];
+    for (let i = currentPlaylist.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [currentPlaylist[i], currentPlaylist[j]] = [currentPlaylist[j], currentPlaylist[i]];
+    }
+    dispatch(setShufflePlaylist(true)); 
+    dispatch(setPlaylist(currentPlaylist)); 
+  };
 
   const stopShufflePlaylist = () => {
-    setIsShuffle(false)
-    dispatch(setShufflePlaylist([]))
-  }
+    setIsShuffle(false); 
+    dispatch(setShufflePlaylist(false)); 
+    dispatch(setPlaylist([...playlist]));
+  };
 
   const toggleShuffle = isShuffle ? stopShufflePlaylist : handleShufflePlaylist
 
