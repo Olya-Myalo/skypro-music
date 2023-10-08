@@ -71,22 +71,12 @@ const Bar = ({isLoading}) => {
   };
 
   const handleNext = () => {
-    const trackList = isShuffle ? [...shufflePlaylist] : [...playlist]
+    const trackList = isShuffle ? shufflePlaylist : playlist
     let index = trackList.findIndex((item) => item.id === currentTrack.id)
     if (+index === trackList.length - 1) return
     index = +index + 1
 
-    dispatch(
-      setTrack({
-        id: trackList[index].id,
-        author: trackList[index].author,
-        name: trackList[index].name,
-        trackFile: trackList[index].track_file,
-        progress: 0,
-        length: trackList[index].duration_in_seconds,
-        staredUser: trackList[index].stared_user,
-      })
-    )
+    dispatch(setTrack(trackList[index].id))
   }
 
   const handlePrev = () => {
@@ -99,17 +89,7 @@ const Bar = ({isLoading}) => {
     if (+index === 0) return
     index = +index - 1
 
-    dispatch(
-      setTrack({
-        id: trackList[index].id,
-        author: trackList[index].author,
-        title: trackList[index].name,
-        trackFile: trackList[index].track_file,
-        progress: 0,
-        length: trackList[index].duration_in_seconds,
-        staredUser: trackList[index].stared_user,
-      })
-    )
+    dispatch(setTrack(trackList[index].id))
   }
 
   const handleShufflePlaylist = () => {
@@ -178,7 +158,7 @@ const Bar = ({isLoading}) => {
             <S.PlayerBtnShuffle className="_btn-icon">
               <S.PlayerBtnShuffleSvg alt="shuffle" className={isShuffle ? 'active' : ''}
           onClick={toggleShuffle}>
-                <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
+               { isShuffle ? <use xlinkHref="img/icon/sprite.svg#icon-isshuffle"></use> : <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>} 
               </S.PlayerBtnShuffleSvg>
             </S.PlayerBtnShuffle>
           </S.PlayerControls>
