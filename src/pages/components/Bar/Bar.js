@@ -119,7 +119,7 @@ const Bar = ({isLoading}) => {
       <span>/</span>
       <span>{formatTime(currentTrack.duration_in_seconds)}</span>
       </S.BarTime>
-      <S.BarPlayerProgress onLoadedData={onLoadedData} progressBarRef={progressBarRef}>
+      <S.BarPlayerProgress onLoadedData={onLoadedData}>
       <S.StyledProgressInput 
       type="range"
       min={0}

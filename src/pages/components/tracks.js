@@ -1,19 +1,30 @@
+import { useSelector } from 'react-redux';
 import * as S from './Playlist/Playlist.styled';
+// import { setTrack } from '../../store/slices/trackSlice';
 
+const formattedDuration = (durationInSeconds) => {
+    const minutes = Math.floor(durationInSeconds / 60);
+    const seconds = durationInSeconds % 60;
+    const formattedDuration = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    return formattedDuration;
+  }; 
+  
 const TrackOne = (props) => {
-    const formattedDuration = (durationInSeconds) => {
-        const minutes = Math.floor(durationInSeconds / 60);
-        const seconds = durationInSeconds % 60;
-        const formattedDuration = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        return formattedDuration;
-      };
+    const playingTrack = useSelector(state => state.player.track)
+
+      const isCurrentlyPlaying = props.track.id === playingTrack;
+      console.log(isCurrentlyPlaying)
     return (
       <S.PlaylistItem>
           <S.PlaylistTrack>
           <S.TrackTitle>
               <S.TrackTitleImage>
               <S.TrackTitleSvg alt="music">
-              <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
+              <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+              </S.TrackTitleSvg>
+              {isCurrentlyPlaying  && (
+              <S.BlinkingDot></S.BlinkingDot>
+            )}
               </S.TrackTitleImage>
               <S.TrackTitleText>
               <S.TrackTitleLink onClick={() => props.turnOnTrack(props.track.id)} >{props.track.name}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
