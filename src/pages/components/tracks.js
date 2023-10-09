@@ -1,5 +1,6 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from './Playlist/Playlist.styled';
+import { setTrack } from '../../store/slices/trackSlice';
 // import { setTrack } from '../../store/slices/trackSlice';
 
 const formattedDuration = (durationInSeconds) => {
@@ -11,9 +12,13 @@ const formattedDuration = (durationInSeconds) => {
   
 const TrackOne = (props) => {
     const playingTrack = useSelector(state => state.player.track)
+    const dispatch = useDispatch()
 
-      const isCurrentlyPlaying = props.track.id === playingTrack;
-      console.log(isCurrentlyPlaying)
+    const turnOnTrack = () => {
+        dispatch(setTrack(props.track.id)) 
+    }
+    const isCurrentlyPlaying = props.track.id === playingTrack;
+
     return (
       <S.PlaylistItem>
           <S.PlaylistTrack>
@@ -27,7 +32,7 @@ const TrackOne = (props) => {
             )}
               </S.TrackTitleImage>
               <S.TrackTitleText>
-              <S.TrackTitleLink onClick={() => props.turnOnTrack(props.track.id)} >{props.track.name}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
+              <S.TrackTitleLink onClick={() => turnOnTrack(props.track.id)} >{props.track.name}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
               </S.TrackTitleText>
           </S.TrackTitle>
           <S.TrackAuthor>

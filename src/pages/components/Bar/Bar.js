@@ -6,6 +6,12 @@ import { setPlaylist, setShufflePlaylist, setTrack } from "../../../store/slices
 import { shufflePlaylistSelector } from "../../../store/selectors/trackSelector";
 
 const Bar = ({isLoading}) => {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const audioRef = useRef(null);
+  const [loop, setLoop] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const [timeProgress, setTimeProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
   const currentTrack = useSelector(state => state.player.track)
   const [isShuffle, setIsShuffle] = useState(false)
   const playlist = useSelector((state) => state.player.playlist);
@@ -13,9 +19,6 @@ const Bar = ({isLoading}) => {
   const audioElem = useRef(null)
   const shufflePlaylist = useSelector(shufflePlaylistSelector)
 
-  const [isPlaying, setIsPlaying] = useState(true);
-  const audioRef = useRef(null);
-  
   const handleStart = () => {
     audioRef.current.play();
     setIsPlaying(true);
@@ -33,21 +36,17 @@ const Bar = ({isLoading}) => {
     else handleStop()
   }, [currentTrack.trackFile])
   
-  const [loop, setLoop] = useState(false);
   const toggleLoop = () => {
     setLoop(!loop);
     audioRef.current.loop = !loop;
   };
 
-  const [volume, setVolume] = useState(1);
   const handleVolumeChange = (event) => {
     const newVolume = parseFloat(event.target.value);
     audioRef.current.volume = newVolume;
     setVolume(newVolume);
   };
 
-  const [timeProgress, setTimeProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
   const progressBarRef = useRef();
   const handleProgressChange = () => {
     audioRef.current.currentTime = progressBarRef.current.value;
@@ -71,11 +70,10 @@ const Bar = ({isLoading}) => {
   };
 
   const handleNext = () => {
-    const trackList = isShuffle ? shufflePlaylist : playlist
+    const trackList = isShuffle ? [...shufflePlaylist] : [...playlist]
     let index = trackList.findIndex((item) => item.id === currentTrack.id)
     if (+index === trackList.length - 1) return
     index = +index + 1
-
     dispatch(setTrack(trackList[index].id))
   }
 
@@ -99,13 +97,13 @@ const Bar = ({isLoading}) => {
       const j = Math.floor(Math.random() * (i + 1));
       [currentPlaylist[i], currentPlaylist[j]] = [currentPlaylist[j], currentPlaylist[i]];
     }
-    dispatch(setShufflePlaylist(true)); 
+    dispatch(setShufflePlaylist(currentPlaylist)); 
     dispatch(setPlaylist(currentPlaylist)); 
   };
 
   const stopShufflePlaylist = () => {
     setIsShuffle(false); 
-    dispatch(setShufflePlaylist(false)); 
+    dispatch(setShufflePlaylist([])); 
     dispatch(setPlaylist([...playlist]));
   };
 
