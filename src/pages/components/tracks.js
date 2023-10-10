@@ -11,13 +11,13 @@ const formattedDuration = (durationInSeconds) => {
   }; 
   
 const TrackOne = (props) => {
-    const playingTrack = useSelector(state => state.player.track)
+    const playing = useSelector((state) => state.player.playing)
+    const currentTrack = useSelector((state) => state.player.track)
     const dispatch = useDispatch()
 
-    const turnOnTrack = () => {
-        dispatch(setTrack(props.track.id)) 
+    const turnOnTrack = (id) => {
+        dispatch(setTrack(id)) 
     }
-    const isCurrentlyPlaying = props.track.id === playingTrack;
 
     return (
       <S.PlaylistItem>
@@ -27,8 +27,8 @@ const TrackOne = (props) => {
               <S.TrackTitleSvg alt="music">
               <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
               </S.TrackTitleSvg>
-              {isCurrentlyPlaying  && (
-              <S.BlinkingDot></S.BlinkingDot>
+              {playing && props.track.id === currentTrack?.id && (
+              <S.Animation></S.Animation>
             )}
               </S.TrackTitleImage>
               <S.TrackTitleText>

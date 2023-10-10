@@ -170,7 +170,7 @@ const blinkAnimation = keyframes`
   }
 `;
 
-export const BlinkingDot = styled.div`
+export const Animation = styled.div`
   width: 150px; /* Adjust the size as needed */
   height: 15px; /* Adjust the size as needed */
   background-color: purple;
