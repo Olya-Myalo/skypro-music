@@ -58,6 +58,12 @@ const Bar = ({isLoading}) => {
     progressBarRef.current.max = seconds;
   };
 
+  const endTrack = () => {
+    if (!loop) {
+      handleNext()
+    }
+  } 
+
   const formatTime = (time) => {
     if (time && !isNaN(time)) {
       const minutes = Math.floor(time / 60);
@@ -175,9 +181,14 @@ const Bar = ({isLoading}) => {
                   </S.TrackPlayAlbum>
                   </S.TrackPlayContain>}
                 {!isLoading && <S.TrackPlayContain>
-                  <audio ref={audioRef} loop={loop} onLoadedData={onLoadedData} 
-                  onTimeUpdate={() => setTimeProgress(audioRef.current.currentTime)} src={currentTrack.track_file} autoPlay 
-                  style={{ volume: volume }} />
+                  <audio ref={audioRef} 
+                  loop={loop} 
+                  onLoadedData={onLoadedData} 
+                  onTimeUpdate={() => setTimeProgress(audioRef.current.currentTime)} 
+                  src={currentTrack.track_file} 
+                  autoPlay 
+                  style={{ volume: volume }}
+                  onEnded={endTrack} />
                   <S.TrackPlayImage>
                     <S.TrackPlaySvg alt="music">
                       <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
