@@ -4,7 +4,6 @@ import { GlobalStyle } from './createGlobalStyle';
 import { UserContext, UserDispatchContext, reducer } from './contex';
 import { useReducer } from 'react';
 
-
 function App() {
     const userState = {
       userName: JSON.parse(localStorage.getItem('user')) || ''
