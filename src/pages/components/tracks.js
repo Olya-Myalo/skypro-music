@@ -1,22 +1,38 @@
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from './Playlist/Playlist.styled';
+import { setTrack } from '../../store/slices/trackSlice';
+// import { setTrack } from '../../store/slices/trackSlice';
 
+const formattedDuration = (durationInSeconds) => {
+    const minutes = Math.floor(durationInSeconds / 60);
+    const seconds = durationInSeconds % 60;
+    const formattedDuration = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    return formattedDuration;
+  }; 
+  
 const TrackOne = (props) => {
-    const formattedDuration = (durationInSeconds) => {
-        const minutes = Math.floor(durationInSeconds / 60);
-        const seconds = durationInSeconds % 60;
-        const formattedDuration = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        return formattedDuration;
-      };
+    const playing = useSelector((state) => state.player.playing)
+    const currentTrack = useSelector((state) => state.player.track)
+    const dispatch = useDispatch()
+
+    const turnOnTrack = (id) => {
+        dispatch(setTrack(id)) 
+    }
+
     return (
       <S.PlaylistItem>
           <S.PlaylistTrack>
           <S.TrackTitle>
               <S.TrackTitleImage>
               <S.TrackTitleSvg alt="music">
-              <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>
+              <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+              </S.TrackTitleSvg>
+              {playing && props.track.id === currentTrack?.id && (
+              <S.Animation></S.Animation>
+            )}
               </S.TrackTitleImage>
               <S.TrackTitleText>
-              <S.TrackTitleLink onClick={() => props.turnOnTrack(props.track.id)} >{props.track.name}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
+              <S.TrackTitleLink onClick={() => turnOnTrack(props.track.id)} >{props.track.name}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
               </S.TrackTitleText>
           </S.TrackTitle>
           <S.TrackAuthor>

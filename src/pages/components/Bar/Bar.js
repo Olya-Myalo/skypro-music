@@ -1,12 +1,24 @@
 import Skeleton from "react-loading-skeleton";
 import * as S from './Bar.styles';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setPlaylist, setShufflePlaylist, setTrack } from "../../../store/slices/trackSlice";
+import { shufflePlaylistSelector } from "../../../store/selectors/trackSelector";
 
-const Bar = ({isLoading, currentTrack}) => {
-
+const Bar = ({isLoading}) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef(null);
-  
+  const [loop, setLoop] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const [timeProgress, setTimeProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const currentTrack = useSelector(state => state.player.track)
+  const [isShuffle, setIsShuffle] = useState(false)
+  const playlist = useSelector((state) => state.player.playlist);
+  const dispatch = useDispatch()
+  const audioElem = useRef(null)
+  const shufflePlaylist = useSelector(shufflePlaylistSelector)
+
   const handleStart = () => {
     audioRef.current.play();
     setIsPlaying(true);
@@ -18,22 +30,23 @@ const Bar = ({isLoading, currentTrack}) => {
   };
   
   const togglePlay = isPlaying ? handleStop : handleStart;
+
+  useEffect(() => {
+    if (isPlaying) handleStart()
+    else handleStop()
+  }, [currentTrack.trackFile])
   
-  const [loop, setLoop] = useState(false);
   const toggleLoop = () => {
     setLoop(!loop);
     audioRef.current.loop = !loop;
   };
 
-  const [volume, setVolume] = useState(1);
   const handleVolumeChange = (event) => {
     const newVolume = parseFloat(event.target.value);
     audioRef.current.volume = newVolume;
     setVolume(newVolume);
   };
 
-  const [timeProgress, setTimeProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
   const progressBarRef = useRef();
   const handleProgressChange = () => {
     audioRef.current.currentTime = progressBarRef.current.value;
@@ -44,6 +57,12 @@ const Bar = ({isLoading, currentTrack}) => {
     setDuration(seconds);
     progressBarRef.current.max = seconds;
   };
+
+  const endTrack = () => {
+    if (!loop) {
+      handleNext()
+    }
+  } 
 
   const formatTime = (time) => {
     if (time && !isNaN(time)) {
@@ -56,9 +75,45 @@ const Bar = ({isLoading, currentTrack}) => {
     return '00:00';
   };
 
-  const handleTemparary = () => {
-    alert("Временно не работает")
+  const handleNext = () => {
+    const trackList = isShuffle ? [...shufflePlaylist] : [...playlist]
+    let index = trackList.findIndex((item) => item.id === currentTrack.id)
+    if (+index === trackList.length - 1) return
+    index = +index + 1
+    dispatch(setTrack(trackList[index].id))
   }
+
+  const handlePrev = () => {
+    if (audioElem.current?.currentTime > 5) {
+      audioElem.current.currentTime = 0
+      return
+    }
+    const trackList = isShuffle ? [...shufflePlaylist] : [...playlist]
+    let index = trackList.findIndex((item) => item.id === currentTrack.id)
+    if (+index === 0) return
+    index = +index - 1
+
+    dispatch(setTrack(trackList[index].id))
+  }
+
+  const handleShufflePlaylist = () => {
+    setIsShuffle(true); 
+    const currentPlaylist = [...playlist];
+    for (let i = currentPlaylist.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [currentPlaylist[i], currentPlaylist[j]] = [currentPlaylist[j], currentPlaylist[i]];
+    }
+    dispatch(setShufflePlaylist(currentPlaylist)); 
+    dispatch(setPlaylist(currentPlaylist)); 
+  };
+
+  const stopShufflePlaylist = () => {
+    setIsShuffle(false); 
+    dispatch(setShufflePlaylist([])); 
+    dispatch(setPlaylist([...playlist]));
+  };
+
+  const toggleShuffle = isShuffle ? stopShufflePlaylist : handleShufflePlaylist
 
   return (
     <S.BarBasic>
@@ -68,7 +123,7 @@ const Bar = ({isLoading, currentTrack}) => {
       <span>/</span>
       <span>{formatTime(currentTrack.duration_in_seconds)}</span>
       </S.BarTime>
-      <S.BarPlayerProgress onLoadedData={onLoadedData} progressBarRef={progressBarRef}>
+      <S.BarPlayerProgress onLoadedData={onLoadedData}>
       <S.StyledProgressInput 
       type="range"
       min={0}
@@ -83,8 +138,8 @@ const Bar = ({isLoading, currentTrack}) => {
       <S.BarPlayerBlock>
         <S.BarPlayer>
           <S.PlayerControls>
-            <S.PlayerBtnPrev onClick={handleTemparary}>
-              <S.PlayerBtnPrevSvg alt="prev">
+            <S.PlayerBtnPrev onClick={handlePrev}>
+              <S.PlayerBtnPrevSvg alt="prev" >
                 <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
               </S.PlayerBtnPrevSvg>
             </S.PlayerBtnPrev>
@@ -93,8 +148,8 @@ const Bar = ({isLoading, currentTrack}) => {
               {isPlaying?  <use xlinkHref="img/icon/sprite.svg#icon-pause" /> : <use xlinkHref="img/icon/sprite.svg#icon-play"></use>}
               </S.PlayerBtnPlaySvg>
             </S.PlayerBtnPlay>
-            <S.PlayerBtnNext>
-              <S.PlayerBtnNextSvg alt="next">
+            <S.PlayerBtnNext onClick={handleNext}>
+              <S.PlayerBtnNextSvg alt="next" >
                 <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
               </S.PlayerBtnNextSvg>
             </S.PlayerBtnNext>
@@ -105,8 +160,9 @@ const Bar = ({isLoading, currentTrack}) => {
               </S.PlayerBtnRepeatSvg>
             </S.PlayerBtnRepeat>
             <S.PlayerBtnShuffle className="_btn-icon">
-              <S.PlayerBtnShuffleSvg alt="shuffle">
-                <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
+              <S.PlayerBtnShuffleSvg alt="shuffle" className={isShuffle ? 'active' : ''}
+          onClick={toggleShuffle}>
+               { isShuffle ? <use xlinkHref="img/icon/sprite.svg#icon-isshuffle"></use> : <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>} 
               </S.PlayerBtnShuffleSvg>
             </S.PlayerBtnShuffle>
           </S.PlayerControls>
@@ -125,9 +181,14 @@ const Bar = ({isLoading, currentTrack}) => {
                   </S.TrackPlayAlbum>
                   </S.TrackPlayContain>}
                 {!isLoading && <S.TrackPlayContain>
-                  <audio ref={audioRef} loop={loop} onLoadedData={onLoadedData} 
-                  onTimeUpdate={() => setTimeProgress(audioRef.current.currentTime)} src={currentTrack.track_file} autoPlay 
-                  style={{ volume: volume }} />
+                  <audio ref={audioRef} 
+                  loop={loop} 
+                  onLoadedData={onLoadedData} 
+                  onTimeUpdate={() => setTimeProgress(audioRef.current.currentTime)} 
+                  src={currentTrack.track_file} 
+                  autoPlay 
+                  style={{ volume: volume }}
+                  onEnded={endTrack} />
                   <S.TrackPlayImage>
                     <S.TrackPlaySvg alt="music">
                       <use xlinkHref="img/icon/sprite.svg#icon-note"></use>

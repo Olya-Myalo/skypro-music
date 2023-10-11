@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { keyframes, styled } from 'styled-components';
 
 export const ContentPlaylist = styled.div`
 display: -webkit-box;
@@ -158,3 +158,22 @@ line-height: 24px;
 text-align: right;
 color: #696969;
 `
+const blinkAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
+export const Animation = styled.div`
+  width: 150px; /* Adjust the size as needed */
+  height: 15px; /* Adjust the size as needed */
+  background-color: purple;
+  border-radius: 50%;
+  animation: ${blinkAnimation} 1s infinite;
+`;

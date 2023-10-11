@@ -5,20 +5,27 @@ import Nav from './components/Nav/Nav';
 import CenterBlock from './components/Centerblock/Centerblock';
 import SidebarSceleton from './components/Sidebar/SidebarSceleton';
 import { useEffect, useState } from 'react';
-import { getTrackById, getTracks } from '../api';
+import { getTracks } from '../api';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPlaylist, setTrack } from '../store/slices/trackSlice';
 
 export const Main = () => {
-
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [tracks, setTracks] = useState([])
   const [addTracksError, setAddTracksError] = useState(null)
+  const playlist = useSelector((state) => state.player.playlist);
+  console.log(playlist)
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
       try {
         getTracks().then((t) => 
-        {setTracks(t)}
+        {
+          setTracks(t) 
+          dispatch(setPlaylist(t))
+        }
       );
       } catch (error) {
         setAddTracksError(error.message)
@@ -29,13 +36,9 @@ export const Main = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const [currentTrack, setCurrentTrack] = useState(null);
+  const currentTrack = useSelector(state => state.player.track)
   const turnOnTrack = (trackId) => {
-      getTrackById(trackId)
-        .then(trackData => {
-          setCurrentTrack(trackData);
-          console.log(trackData);
-        })
+      dispatch(setTrack(trackId))
     }
 
   return (
@@ -46,12 +49,11 @@ export const Main = () => {
                 <Nav />
                 <CenterBlock tracks={tracks} 
                 isLoading={isLoading} 
-                currentTrack={currentTrack} 
                 turnOnTrack={turnOnTrack} 
                 addTracksError={addTracksError}/>
                 {isLoading ? <SidebarSceleton />: <Sidebar />}
               </S.Main>
-              {currentTrack ? <Bar isLoading={isLoading} tracks={tracks} currentTrack={currentTrack}/> 
+              {currentTrack ? <Bar isLoading={isLoading} tracks={tracks}/> 
               : null }
               <footer></footer>
             </S.Container>
