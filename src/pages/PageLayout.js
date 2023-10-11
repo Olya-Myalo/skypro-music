@@ -15,8 +15,6 @@ export function Layout() {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
     const [tracks, setTracks] = useState([])
-    const playlist = useSelector((state) => state.player.playlist);
-    console.log(playlist)
   
     useEffect(() => {
       const timer = setTimeout(() => {

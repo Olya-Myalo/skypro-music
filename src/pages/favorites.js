@@ -1,29 +1,28 @@
 import MyPlaуlist from './components/Playlist/MyFavoritesTracks';
 import { useEffect, useState } from 'react';
-import { getTracks } from '../api';
-import { useDispatch, useSelector } from 'react-redux';
-import { setPlaylist } from '../store/slices/trackSlice';
+import { getFavoritesTracks } from '../api';
+import { useDispatch } from 'react-redux';
+import { setPlaylist, setTrack } from '../store/slices/trackSlice';
 import PlaylistSceleton from './components/Playlist/PlaylistSceleton';
 
 export const Favorites = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const [tracks, setTracks] = useState([])  // const [addTracksError, setAddTracksError] = useState(null)
-  const playlist = useSelector((state) => state.player.playlist);
-  console.log(playlist)
+  const [tracks, setTracks] = useState([])  
+  const [addTracksError, setAddTracksError] = useState(null)
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
       try {
-        getTracks().then((t) => 
+        getFavoritesTracks().then((t) => 
         {
           setTracks(t) 
           dispatch(setPlaylist(t))
         }
       );
       } catch (error) {
-        console.log(error.message)
+        setAddTracksError(error.message)
       }
 
     }, 5000);
@@ -31,9 +30,14 @@ export const Favorites = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const turnOnTrack = (trackId) => {
+    dispatch(setTrack(trackId))
+  }
+
   return (
-      <>
-                  {isLoading ? <PlaylistSceleton/> : <MyPlaуlist tracks={tracks}/>}
+        <>
+          {isLoading ? <PlaylistSceleton/> : <MyPlaуlist tracks={tracks} 
+        turnOnTrack={turnOnTrack} addTracksError={addTracksError}/>}
         </>
   );
 }

@@ -1,13 +1,14 @@
+import TrackOne from '../tracks';
 import * as S from './Playlist.styled';
 
-const MyPlaуlist = () => {
+const MyPlaуlist = ({tracks, turnOnTrack, addTracksError}) => {
   
   return (
     <S.ContentPlaylist>
-      <p>будут избранные треки</p>
-        {/* {tracks.map((track) => {
+      <p>{addTracksError}</p>
+        {tracks.map((track) => {
             return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
-        })} */}
+        })}
     </S.ContentPlaylist>
   );
 }

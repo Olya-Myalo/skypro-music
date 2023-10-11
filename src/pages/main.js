@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getTracks } from '../api';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setPlaylist, setTrack } from '../store/slices/trackSlice';
 import PlaylistSceleton from './components/Playlist/PlaylistSceleton';
 import Playlist from './components/Playlist/Playlist';
@@ -10,8 +10,8 @@ export const Main = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [tracks, setTracks] = useState([])
   const [addTracksError, setAddTracksError] = useState(null)
-  const playlist = useSelector((state) => state.player.playlist);
-  console.log(playlist)
+  // const playlist = useSelector((state) => state.player.playlist);
+  // console.log(playlist)
 
   useEffect(() => {
     const timer = setTimeout(() => {

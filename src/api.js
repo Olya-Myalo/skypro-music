@@ -10,6 +10,16 @@ export async function getTracks () {
     const data = await response.json();
     return data;
 }
+export async function getFavoritesTracks () {
+  const response = await fetch('https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/');
+  
+  if(!response.ok) {
+      throw new Error("Не удалось получить плейлист, попробуйте позже!")
+  }
+  
+  const data = await response.json();
+  return data;
+}
 
 export async function getTrackById(id) {
     const response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/track/${id}`);
@@ -92,4 +102,5 @@ export async function getTrackById(id) {
 //       });
 //   };
   
+
   
