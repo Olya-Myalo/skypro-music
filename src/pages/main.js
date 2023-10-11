@@ -1,13 +1,9 @@
-import * as S from './main.styles';
-import Bar from './components/Bar/Bar';
-import Sidebar from './components/Sidebar/Sidebar';
-import Nav from './components/Nav/Nav';
-import CenterBlock from './components/Centerblock/Centerblock';
-import SidebarSceleton from './components/Sidebar/SidebarSceleton';
 import { useEffect, useState } from 'react';
 import { getTracks } from '../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlaylist, setTrack } from '../store/slices/trackSlice';
+import PlaylistSceleton from './components/Playlist/PlaylistSceleton';
+import Playlist from './components/Playlist/Playlist';
 
 export const Main = () => {
   const dispatch = useDispatch();
@@ -36,28 +32,14 @@ export const Main = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const currentTrack = useSelector(state => state.player.track)
   const turnOnTrack = (trackId) => {
       dispatch(setTrack(trackId))
     }
 
   return (
-      <S.MainDiv>
-        <S.Wrapper>
-          <S.Container>
-              <S.Main>
-                <Nav />
-                <CenterBlock tracks={tracks} 
-                isLoading={isLoading} 
-                turnOnTrack={turnOnTrack} 
-                addTracksError={addTracksError}/>
-                {isLoading ? <SidebarSceleton />: <Sidebar />}
-              </S.Main>
-              {currentTrack ? <Bar isLoading={isLoading} tracks={tracks}/> 
-              : null }
-              <footer></footer>
-            </S.Container>
-          </S.Wrapper>
-        </S.MainDiv>
+      <>
+        {isLoading ? <PlaylistSceleton/> : <Playlist tracks={tracks} 
+        turnOnTrack={turnOnTrack} addTracksError={addTracksError}/>}
+        </>
   );
 }
