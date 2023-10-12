@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
-import { loginUser, registerUser } from "../../api";
+import { getToken, loginUser, registerUser } from "../../api";
 import { useUserDispatch } from "../../contex";
+import { setAuthorization } from "../../store/slices/authorizationSlice";
 
 export default function AuthPage({ isLoginMode = false }) {
   const [error, setError] = useState(null);
@@ -62,17 +63,28 @@ export default function AuthPage({ isLoginMode = false }) {
     }
   };
 
-  const handleLogin = async () => {
-    // e.preventDefault()
-    console.log(localStorage.getItem('user'))
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    console.log(localStorage.getItem("user"));
     const isValidLoginForm = await isValidateFormLogin();
     if (isValidLoginForm) {
       try {
-        setIsComeRequest(true)
-        const newUser = await loginUser({ email, password })
-        setIsComeRequest(false)
-        dispatch({ type: 'setUser', payload: newUser.username })
-        localStorage.setItem('user', JSON.stringify(newUser.username))
+        setIsComeRequest(true);
+        const newUser = await loginUser({ email, password });
+        setIsComeRequest(false);
+        
+        await getToken({ email, password }).then((token) => {
+          dispatch(
+            setAuthorization({
+              access: token.access,
+              refresh: token.refresh,
+              user: JSON.parse(sessionStorage.getItem('user')),
+            })
+          )
+        })
+  
+        dispatch({ type: "setUser", payload: newUser.username });
+        localStorage.setItem("user", JSON.stringify(newUser.username));
         navigate("/");
       } catch (error) {
         isValidateFormLogin();
@@ -83,15 +95,16 @@ export default function AuthPage({ isLoginMode = false }) {
   };
 
   const handleRegister = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const isValidRegisterForm = await isValidateForm();
     if (isValidRegisterForm) {
       try {
         setIsComeRequest(true);
         const user = await registerUser({ email, password, username });
         setIsComeRequest(false);
-        dispatch({type: "setUser", payload: user.username});
-        localStorage.setItem('user', JSON.stringify(user));
+  
+        dispatch({ type: "setUser", payload: user.username });
+        localStorage.setItem("user", JSON.stringify(user));
         navigate("/login");
       } catch (error) {
         isValidateForm();

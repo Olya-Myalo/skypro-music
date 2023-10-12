@@ -104,7 +104,7 @@ const Bar = ({isLoading}) => {
       [currentPlaylist[i], currentPlaylist[j]] = [currentPlaylist[j], currentPlaylist[i]];
     }
     dispatch(setShufflePlaylist(currentPlaylist)); 
-    dispatch(setPlaylist(currentPlaylist)); 
+    // dispatch(setPlaylist(currentPlaylist)); 
   };
 
   const stopShufflePlaylist = () => {

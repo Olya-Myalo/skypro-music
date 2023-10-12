@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 export async function getTracks () {
     const response = await fetch('https://skypro-music-api.skyeng.tech/catalog/track/all/');
@@ -77,30 +77,44 @@ export async function getTrackById(id) {
   }
   }
 
-//   export const getToken = ({ email, password}) => {
-//     fetch("https://skypro-music-api.skyeng.tech/user/token/", {
-//     method: "POST",
-//     body: JSON.stringify({
-//         email,
-//         password,
-//     }),
-//     headers: {
-//         "content-type": "application/json",
-//     },
-//     })
-//         .then((response) => response.json())
-//         .then((json) => console.log(json));
-//     };
+  function saveToken(token) {
+    const tokenObject = JSON.parse(token)
+  
+    sessionStorage.setItem('access', JSON.stringify(tokenObject.access))
+    sessionStorage.setItem('refresh', JSON.stringify(tokenObject.refresh))
+  } 
 
+  export const getToken = ({ email, password }) => {
+    fetch("https://skypro-music-api.skyeng.tech/user/token/", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        saveToken(data);
+        console.log("Token saved successfully");
+      })
+      .catch((error) => {
+        console.error("Error fetching token:", error);
+        throw error;
+      });
+  };
 
-//   export const refreshToken = (token) => {
-//     return axios.post(`https://skypro-music-api.skyeng.tech/user/token/refresh/`, { token })
-//       .then(response => response.data)
-//       .catch(error => {
-//         console.error('Error refreshing token:', error);
-//         throw error;
-//       });
-//   };
+  export const refreshToken = (token) => {
+    return axios
+      .post("https://skypro-music-api.skyeng.tech/user/token/refresh/", { token })
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error("Error refreshing token:", error);
+        throw error;
+      });
+  };
   
 
   
