@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTracks } from "../api";
 import { setPlaylist } from "../store/slices/trackSlice";
 import Nav from './components/Nav/Nav';
-import InputSearch from './components/Search/Search';
-import Filter from './components/Filter/Filter';
 import SidebarSceleton from './components/Sidebar/SidebarSceleton';
 import Sidebar from './components/Sidebar/Sidebar';
 import Bar from './components/Bar/Bar';
@@ -43,24 +41,7 @@ export function Layout() {
             <S.Container>
                 <S.Main>
                   <Nav />
-                  <S.MainCenterblock>
-                    <InputSearch/>
-                      <S.CenterblockH2>Треки</S.CenterblockH2>
-                        <Filter tracks={tracks}/>
-                      <S.CenterblockContent>
-                      <S.ContentTtitle>
-                          <S.PlaylistTitleCol01>Трек</S.PlaylistTitleCol01>
-                          <S.PlaylistTitleCol02>ИСПОЛНИТЕЛЬ</S.PlaylistTitleCol02>
-                          <S.PlaylistTitleCol03>АЛЬБОМ</S.PlaylistTitleCol03>
-                          <S.PlaylistTitleCol04>
-                          <S.PlaylistTitleSvg alt="time">
-                            <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
-                          </S.PlaylistTitleSvg>
-                          </S.PlaylistTitleCol04>
-                      </S.ContentTtitle>
                      <Outlet />
-                    </S.CenterblockContent>
-                </S.MainCenterblock>
                   {isLoading ? <SidebarSceleton />: <Sidebar />}
                 </S.Main>
                 {currentTrack ? <Bar isLoading={isLoading} tracks={tracks}/> 
