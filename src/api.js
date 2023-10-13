@@ -10,13 +10,60 @@ export async function getTracks () {
     const data = await response.json();
     return data;
 }
-export async function getFavoritesTracks () {
-  const response = await fetch('https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/');
-  
-  if(!response.ok) {
-      throw new Error("Не удалось получить плейлист, попробуйте позже!")
+
+export async function getFavoritesTracks(accessToken) {
+  const response = await fetch(
+    "https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/",
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Не удалось получить плейлист, попробуйте позже!");
   }
-  
+
+  const data = await response.json();
+  return data;
+}
+
+export async function addTrackFavorites(accessToken) {
+  const response = await fetch(
+    'https://skypro-music-api.skyeng.tech/catalog/track/<id>/favorite/',
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Не удалось добавить трек, попробуйте позже!");
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+export async function deleteTrackFavorites(accessToken, id) {
+  const response = await fetch(
+    `https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Не удалось удалить трек, попробуйте позже!");
+  }
+
   const data = await response.json();
   return data;
 }
@@ -78,11 +125,11 @@ export async function getTrackById(id) {
   }
 
   function saveToken(token) {
-    const tokenObject = JSON.parse(token)
+    const tokenObject = JSON.parse(token);
   
-    sessionStorage.setItem('access', JSON.stringify(tokenObject.access))
-    sessionStorage.setItem('refresh', JSON.stringify(tokenObject.refresh))
-  } 
+    sessionStorage.setItem("access", JSON.stringify(tokenObject.access));
+    sessionStorage.setItem("refresh", JSON.stringify(tokenObject.refresh));
+  }
 
   export const getToken = ({ email, password }) => {
     fetch("https://skypro-music-api.skyeng.tech/user/token/", {
@@ -116,5 +163,6 @@ export async function getTrackById(id) {
       });
   };
   
+
 
   
