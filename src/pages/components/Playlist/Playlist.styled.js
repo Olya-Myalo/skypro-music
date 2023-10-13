@@ -142,6 +142,10 @@ font-size: 16px;
 line-height: 24px;
 color: #696969;
 `
+export const TrackLike = styled.svg`
+  cursor: pointer;
+` 
+
 export const TrackTime = styled.div``
 export const TrackTimeSvg = styled.svg`
 width: 14px;

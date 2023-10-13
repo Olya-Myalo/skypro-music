@@ -1,8 +1,8 @@
-// import TrackOne from '../tracks';
+import TrackOne from '../tracks';
 import InputSearch from '../Search/Search';
 import * as S from './Playlist.styled';
 
-const MyPlaуlist = () => {
+const MyPlaуlist = ({addTracksError, turnOnTrack, data}) => {
   
   return (
     <S.MainCenterblock>
@@ -21,10 +21,11 @@ const MyPlaуlist = () => {
               </S.ContentTtitle>
                 <S.ContentPlaylist>
                   <p>В этом плейлисте пока нет треков</p>
-                    {/* <p>{addTracksError}</p> */}
-                      {/* {tracks.map((track) => {
-                        return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />; */}
-                    {/* })} */}
+                    <p>{addTracksError}</p> 
+                      {data.map((track) => {
+                        return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
+                     })
+                    }
                 </S.ContentPlaylist>
           </S.CenterblockContent>
     </S.MainCenterblock>

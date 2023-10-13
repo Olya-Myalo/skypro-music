@@ -11,62 +11,62 @@ export async function getTracks () {
     return data;
 }
 
-export async function getFavoritesTracks(accessToken) {
-  const response = await fetch(
-    "https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/",
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
+// export async function getFavoritesTracks(accessToken) {
+//   const response = await fetch(
+//     "https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/",
+//     {
+//       method: "GET",
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     }
+//   );
 
-  if (!response.ok) {
-    throw new Error("Не удалось получить плейлист, попробуйте позже!");
-  }
+//   if (!response.ok) {
+//     throw new Error("Не удалось получить плейлист, попробуйте позже!");
+//   }
 
-  const data = await response.json();
-  return data;
-}
+//   const data = await response.json();
+//   return data;
+// }
 
-export async function addTrackFavorites(accessToken) {
-  const response = await fetch(
-    'https://skypro-music-api.skyeng.tech/catalog/track/<id>/favorite/',
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
+// export async function addTrackFavorites(accessToken) {
+//   const response = await fetch(
+//     'https://skypro-music-api.skyeng.tech/catalog/track/<id>/favorite/',
+//     {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     }
+//   );
 
-  if (!response.ok) {
-    throw new Error("Не удалось добавить трек, попробуйте позже!");
-  }
+//   if (!response.ok) {
+//     throw new Error("Не удалось добавить трек, попробуйте позже!");
+//   }
 
-  const data = await response.json();
-  return data;
-}
+//   const data = await response.json();
+//   return data;
+// }
 
-export async function deleteTrackFavorites(accessToken, id) {
-  const response = await fetch(
-    `https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
+// export async function deleteTrackFavorites(accessToken, id) {
+//   const response = await fetch(
+//     `https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`,
+//     {
+//       method: "DELETE",
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     }
+//   );
 
-  if (!response.ok) {
-    throw new Error("Не удалось удалить трек, попробуйте позже!");
-  }
+//   if (!response.ok) {
+//     throw new Error("Не удалось удалить трек, попробуйте позже!");
+//   }
 
-  const data = await response.json();
-  return data;
-}
+//   const data = await response.json();
+//   return data;
+// }
 
 export async function getTrackById(id) {
     const response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/track/${id}`);
