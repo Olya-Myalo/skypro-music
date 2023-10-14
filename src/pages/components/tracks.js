@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import * as S from './Playlist/Playlist.styled';
 import { setTrack } from '../../store/slices/trackSlice';
-import { useAddTrackFavoritesQuery, useDeleteTrackFavoritesMutation } from '../../store/slices/serviceFavorites';
+import { useAddTrackFavoritesMutation, useDeleteTrackFavoritesMutation } from '../../store/slices/serviceFavorites';
 import { useEffect, useState } from 'react';
 
 const formattedDuration = (durationInSeconds) => {
@@ -16,7 +16,7 @@ const TrackOne = (props) => {
     const currentTrack = useSelector((state) => state.player.track)
     const dispatch = useDispatch()
     const authUser = JSON.parse(sessionStorage.getItem('user'))
-    const [likeTrack] = useAddTrackFavoritesQuery()
+    const [likeTrack] = useAddTrackFavoritesMutation()
     const [dislikeTrack] = useDeleteTrackFavoritesMutation()
     const [isLiked, setIsLiked] = useState()
 

@@ -37,5 +37,5 @@ export  const Api = createApi({
     }),
   });
 
-  export const { useGetFavoritesTracksQuery, useAddTrackFavoritesQuery, useDeleteTrackFavoritesMutation } = Api
+  export const { useGetFavoritesTracksQuery, useAddTrackFavoritesMutation, useDeleteTrackFavoritesMutation } = Api
   export default Api.reducer
