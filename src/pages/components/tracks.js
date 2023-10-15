@@ -31,23 +31,18 @@ const TrackOne = (props) => {
         dispatch(setTrack(id)) 
     }
 
-    const toogleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
-
-  const handleLike = async (id) => {
-    setIsLiked(true)
-    await likeTrack({ id }).unwrap()
-    dispatch(
-      setTrack({ id })
-    )
-  }
-
-  const handleDislike = async (id) => {
-    setIsLiked(false)
-    await dislikeTrack({ id }).unwrap()
-    dispatch(
-      setTrack({id })
-    )
-  }
+    const handleLike = (id) => {
+      setIsLiked(true)
+      likeTrack({ id: id })
+    }
+  
+    const handleDislike = (id) => {
+      setIsLiked(false)
+      dislikeTrack({ id: id })
+    }
+    const toogleLikeDislike = (id) => {
+      isLiked ? handleDislike(id) : handleLike(id)
+    }
 
     return (
       <S.PlaylistItem>

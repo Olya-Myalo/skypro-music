@@ -26,7 +26,7 @@ export  const ApiFavorites = createApi({
 
     addFavoriteTrack: builder.mutation({
       query: ({ id, accessToken }) => ({
-        url: `https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`,
+        url: `catalog/track/${id}/favorite/`,
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -37,7 +37,7 @@ export  const ApiFavorites = createApi({
 
     deleteFavoriteTrack: builder.mutation({
       query: (id, accessToken) => ({
-        url: `https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`,
+        url: `catalog/track/${id}/favorite/`,
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${accessToken}`,
