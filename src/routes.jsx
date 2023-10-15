@@ -11,13 +11,13 @@ import { Main } from "./pages/main";
 import { Favorites } from "./pages/favorites";
 
 const AppRoutes = () => {
-    const name = useUser()
+  const user = useUser();
   return (
     <Routes>
       <Route path="/login" element={<AuthPage isLoginMode={true} />} />
       <Route path="/register" element={<AuthPage isLoginMode={false} />} />
       <Route path="*" element={<NotFound />} />
-      <Route element={<ProtectedRoute isAllowed={Boolean(name.userName)} />}>
+      <Route element={<ProtectedRoute isAllowed={Boolean(user?.username)} redirectPath="/login" />}>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Main/>} />
           <Route path="favorites" element={<Favorites />} />

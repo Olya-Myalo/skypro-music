@@ -4,12 +4,12 @@ import { SidebarItems } from './SidebarItem';
 import { useUser } from '../../../contex';
 
 const Sidebar = () => {
-  const {userName} =useUser();
+  const { username } = useUser();
     
   return (
     <S.MainSidebar>
       <S.SidebarPersonal style={{position: 'relative'}}>
-        <S.SidebarPersonalName>{userName}</S.SidebarPersonalName>
+        <S.SidebarPersonalName>{username}</S.SidebarPersonalName>
         <S.SidebarIcon>
         <Link to="/login">
           <svg alt="logout">

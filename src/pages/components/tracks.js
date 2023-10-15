@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import * as S from './Playlist/Playlist.styled';
 import { setTrack } from '../../store/slices/trackSlice';
-import { useAddTrackFavoritesMutation, useDeleteTrackFavoritesMutation } from '../../store/slices/serviceFavorites';
+import {useAddFavoriteTrackMutation, useDeleteFavoriteTrackMutation } from '../../store/service/serviceFavorites';
 import { useEffect, useState } from 'react';
 
 const formattedDuration = (durationInSeconds) => {
@@ -16,17 +16,20 @@ const TrackOne = (props) => {
     const currentTrack = useSelector((state) => state.player.track)
     const dispatch = useDispatch()
     const authUser = JSON.parse(sessionStorage.getItem('user'))
-    const [likeTrack] = useAddTrackFavoritesMutation()
-    const [dislikeTrack] = useDeleteTrackFavoritesMutation()
-    const [isLiked, setIsLiked] = useState()
+    const [likeTrack] = useAddFavoriteTrackMutation()
+    const [dislikeTrack] = useDeleteFavoriteTrackMutation()
+    const isLike = Boolean(
+      currentTrack?.stared_user.find(({ id }) => id === authUser.id),
+    )
+    const [isLiked, setIsLiked] = useState(false)
+    
+    useEffect(() => {
+      setIsLiked(isLike)
+    }, [currentTrack])
 
     const turnOnTrack = (id) => {
         dispatch(setTrack(id)) 
     }
-
-    useEffect(() => {
-      setIsLiked()
-    }, [])
 
     const toogleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
 
@@ -34,7 +37,7 @@ const TrackOne = (props) => {
     setIsLiked(true)
     await likeTrack({ id }).unwrap()
     dispatch(
-      setTrack({ id, authUser })
+      setTrack({ id })
     )
   }
 
@@ -42,7 +45,7 @@ const TrackOne = (props) => {
     setIsLiked(false)
     await dislikeTrack({ id }).unwrap()
     dispatch(
-      setTrack({id, authUser })
+      setTrack({id })
     )
   }
 

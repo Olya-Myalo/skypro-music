@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
-import { getToken, loginUser, registerUser } from "../../api";
+import { getToken, registerUser } from "../../api";
 import { useUserDispatch } from "../../contex";
 import { setAuthorization } from "../../store/slices/authorizationSlice";
+import { useLoginUserMutation } from "../../store/service/apiLogin";
 
 export default function AuthPage({ isLoginMode = false }) {
   const [error, setError] = useState(null);
@@ -13,7 +14,7 @@ export default function AuthPage({ isLoginMode = false }) {
   const [username, setName] = useState('');
   const dispatch = useUserDispatch();
   const navigate = useNavigate();
-  const [isComeRequest, setIsComeRequest] = useState(false);
+  const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const isValidateForm = async () => {
     if (email=== "" || password==="") {
@@ -54,61 +55,45 @@ export default function AuthPage({ isLoginMode = false }) {
       setError('Слишком короткая почта или имя');
       return false;
     }
-    try {
-      await loginUser({ email, password });
       return true;
-    } catch (error) {
-      setError('Пользователь с таким email или паролем не найден');
-      return false;
-    }
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    console.log(localStorage.getItem("user"));
+  const handleLogin = async () => {
     const isValidLoginForm = await isValidateFormLogin();
     if (isValidLoginForm) {
-      try {
-        setIsComeRequest(true);
-        const newUser = await loginUser({ email, password });
-        setIsComeRequest(false);
-        
+        const response = await loginUser({ email, password});
+        if (response?.error) {
+          setError(response.error?.data?.detail); 
+          return;
+        }
+        const user = response.data;
+
+        localStorage.setItem('user', JSON.stringify(user));
+
         await getToken({ email, password }).then((token) => {
           dispatch(
             setAuthorization({
               access: token.access,
               refresh: token.refresh,
-              user: JSON.parse(sessionStorage.getItem('user')),
+              user: user.username,
             })
-          )
-        })
-  
-        dispatch({ type: "setUser", payload: newUser.username });
-        localStorage.setItem("user", JSON.stringify(newUser.username));
-        navigate("/");
-      } catch (error) {
-        isValidateFormLogin();
-      }
+          );
+          dispatch({ type: "setUser", payload: user });
+          navigate("/");
+        });
     } else {
       isValidateFormLogin();
     }
   };
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
+  const handleRegister = async () => {
     const isValidRegisterForm = await isValidateForm();
     if (isValidRegisterForm) {
-      try {
-        setIsComeRequest(true);
         const user = await registerUser({ email, password, username });
-        setIsComeRequest(false);
-  
+    
         dispatch({ type: "setUser", payload: user.username });
         localStorage.setItem("user", JSON.stringify(user));
         navigate("/login");
-      } catch (error) {
-        isValidateForm();
-      }
     } else {
       isValidateForm();
     }
@@ -150,8 +135,8 @@ export default function AuthPage({ isLoginMode = false }) {
             </S.Inputs>
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton disabled={isComeRequest} onClick={() => handleLogin({ email, password })}>
-              {isComeRequest? "Осуществляется вход" : "Войти"}
+              <S.PrimaryButton disabled={isLoading} onClick={handleLogin}>
+              {isLoading ? "Осуществляется вход" : "Войти"}
               </S.PrimaryButton>
               <Link to="/register">
                 <S.SecondaryButton>Зарегистрироваться</S.SecondaryButton>
@@ -197,8 +182,8 @@ export default function AuthPage({ isLoginMode = false }) {
             </S.Inputs>
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton disabled={isComeRequest} onClick={handleRegister}>
-              {isComeRequest? "Осуществляется регистрация" : "Зарегистрироваться"}
+            <S.PrimaryButton disabled={isLoading} onClick={handleRegister}>
+              {isLoading ? "Осуществляется регистрация" : "Зарегистрироваться"}
               </S.PrimaryButton>
             </S.Buttons>
           </>

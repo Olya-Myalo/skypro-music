@@ -4,22 +4,24 @@ import { GlobalStyle } from './createGlobalStyle';
 import { UserContext, UserDispatchContext, reducer } from './contex';
 import { useReducer } from 'react';
 
+function getInitialState() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  return { user };
+}
+
 function App() {
-    const userState = {
-      userName: JSON.parse(localStorage.getItem('user')) || ''
-    };
-    const [state, dispatch] = useReducer(reducer, userState)    
- 
-  return (
-    <UserContext.Provider value={state}>
+  const [state, dispatch] = useReducer(reducer, getInitialState) 
+
+return (
+  <UserContext.Provider value={state}>
     <UserDispatchContext.Provider value={dispatch}>
-    <S.App>
+      <S.App>
         <GlobalStyle/>
-          <AppRoutes />
-    </S.App>
+        <AppRoutes />
+      </S.App>
     </UserDispatchContext.Provider>
-    </UserContext.Provider>
-  );
+  </UserContext.Provider>
+);
 }
 
 export default App;

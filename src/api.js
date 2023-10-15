@@ -124,15 +124,13 @@ export async function getTrackById(id) {
   }
   }
 
-  function saveToken(token) {
-    const tokenObject = JSON.parse(token);
-  
+  function saveToken(tokenObject) {
     sessionStorage.setItem("access", JSON.stringify(tokenObject.access));
     sessionStorage.setItem("refresh", JSON.stringify(tokenObject.refresh));
   }
 
   export const getToken = ({ email, password }) => {
-    fetch("https://skypro-music-api.skyeng.tech/user/token/", {
+    return fetch("https://skypro-music-api.skyeng.tech/user/token/", {
       method: "POST",
       body: JSON.stringify({
         email,
@@ -146,6 +144,7 @@ export async function getTrackById(id) {
       .then((data) => {
         saveToken(data);
         console.log("Token saved successfully");
+        return data;
       })
       .catch((error) => {
         console.error("Error fetching token:", error);

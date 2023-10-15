@@ -16,7 +16,7 @@ export const reducer = (state, action) => {
     switch (action.type) {
         case "setUser": {
             return {
-                userName: action.payload
+                ...action.payload
             }
         }
     }
