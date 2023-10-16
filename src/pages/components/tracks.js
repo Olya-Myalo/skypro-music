@@ -15,11 +15,12 @@ const TrackOne = (props) => {
     const playing = useSelector((state) => state.player.playing)
     const currentTrack = useSelector((state) => state.player.track)
     const dispatch = useDispatch()
-    const authUser = JSON.parse(localStorage.getItem('user'))
+    // const authUser = JSON.parse(localStorage.getItem('user'))
     const [likeTrack] = useAddFavoriteTrackMutation()
     const [dislikeTrack] = useDeleteFavoriteTrackMutation()
+    const dataFavoritesTracks = useSelector((state) => state.player.favoritesTracks)
     const isLike = Boolean(
-      props.track?.stared_user?.find(({ id }) => id === authUser.id),
+      dataFavoritesTracks.find(({ id }) => id === props.track.id),
     )
     const [isLiked, setIsLiked] = useState(false)
     
@@ -31,13 +32,13 @@ const TrackOne = (props) => {
         dispatch(setTrack(id)) 
     }
 
-    const handleLike = async (id) => {
-     await likeTrack({ id });
+    const handleLike =  (id) => {
+      likeTrack({ id });
       setIsLiked(true);
     }
   
-    const handleDislike = async (id) => {
-        await dislikeTrack(id);
+    const handleDislike =  (id) => {
+        dislikeTrack(id);
         setIsLiked(false);
     }
 

@@ -5,6 +5,7 @@ const initialState = {
     playlist: [],
     playing: false,
     shufflePlaylist: [],
+    favoritesTracks: []
 }
 
 export const tracksSlice = createSlice({
@@ -12,32 +13,24 @@ export const tracksSlice = createSlice({
     initialState,
     reducers: {
         setPlaylist: ( state, action ) => {
-            state.playing = true,
+           
             state.playlist = action.payload
         },
         setTrack: ( state, action ) => {
+            state.playing = true;
             const id = action.payload;
             const currentTrack = state.playlist.find(track => track.id === id);
             state.track = currentTrack
         },
         setShufflePlaylist: (state, action) => {
             state.shufflePlaylist = action.payload
-                // function shuffleArray(array) {
-                //     const newArray = [...array];
-                // for (let i = newArray.length - 1; i > 0; i--) {
-                //     const j = Math.floor(Math.random() * (i + 1));
-                //     const temp = newArray[i];
-                //     newArray[i] = newArray[j];
-                //     newArray[j] = temp;
-                //   }
-                //   return newArray;
-                // }
-                // const currentPlaylist = action.payload;
-                // state.shufflePlaylist = shuffleArray(currentPlaylist);
               },
+        setFavoritesTracks: (state,action) => {
+            state.favoritesTracks = action.payload
+        }
     }
 })
 
-export const { setPlaylist, setTrack, setShufflePlaylist } = tracksSlice.actions;
+export const { setPlaylist, setTrack, setShufflePlaylist, setFavoritesTracks } = tracksSlice.actions;
 
 export default tracksSlice.reducer
