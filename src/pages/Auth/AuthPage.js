@@ -5,6 +5,7 @@ import { getToken, registerUser } from "../../api";
 import { useUserDispatch } from "../../contex";
 import { setAuthorization } from "../../store/slices/authorizationSlice";
 import { useLoginUserMutation } from "../../store/service/apiLogin";
+import { useDispatch } from "react-redux";
 
 export default function AuthPage({ isLoginMode = false }) {
   const [error, setError] = useState(null);
@@ -12,7 +13,8 @@ export default function AuthPage({ isLoginMode = false }) {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [username, setName] = useState('');
-  const dispatch = useUserDispatch();
+  const dispatch = useDispatch();
+  const userDispatch = useUserDispatch();
   const navigate = useNavigate();
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
@@ -78,7 +80,7 @@ export default function AuthPage({ isLoginMode = false }) {
               user: user.username,
             })
           );
-          dispatch({ type: "setUser", payload: user });
+          userDispatch({ type: "setUser", payload: user });
           navigate("/");
         });
     } else {
@@ -91,7 +93,7 @@ export default function AuthPage({ isLoginMode = false }) {
     if (isValidRegisterForm) {
         const user = await registerUser({ email, password, username });
     
-        dispatch({ type: "setUser", payload: user.username });
+        userDispatch({ type: "setUser", payload: user });
         localStorage.setItem("user", JSON.stringify(user));
         navigate("/login");
     } else {

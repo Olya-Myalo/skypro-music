@@ -22,7 +22,7 @@ const MyPlaуlist = ({addTracksError, turnOnTrack, data}) => {
                 <S.ContentPlaylist>
                   <p>В этом плейлисте пока нет треков</p>
                     <p>{addTracksError}</p> 
-                      {data.map((track) => {
+                      {data?.map((track) => {
                         return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
                      })
                     }

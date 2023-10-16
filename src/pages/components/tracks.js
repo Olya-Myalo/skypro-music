@@ -15,33 +15,34 @@ const TrackOne = (props) => {
     const playing = useSelector((state) => state.player.playing)
     const currentTrack = useSelector((state) => state.player.track)
     const dispatch = useDispatch()
-    const authUser = JSON.parse(sessionStorage.getItem('user'))
+    const authUser = JSON.parse(localStorage.getItem('user'))
     const [likeTrack] = useAddFavoriteTrackMutation()
     const [dislikeTrack] = useDeleteFavoriteTrackMutation()
     const isLike = Boolean(
-      currentTrack?.stared_user.find(({ id }) => id === authUser.id),
+      props.track?.stared_user?.find(({ id }) => id === authUser.id),
     )
     const [isLiked, setIsLiked] = useState(false)
     
     useEffect(() => {
       setIsLiked(isLike)
-    }, [currentTrack])
+    }, [])
 
     const turnOnTrack = (id) => {
         dispatch(setTrack(id)) 
     }
 
-    const handleLike = (id) => {
-      setIsLiked(true)
-      likeTrack({ id: id })
+    const handleLike = async (id) => {
+     await likeTrack({ id });
+      setIsLiked(true);
     }
   
-    const handleDislike = (id) => {
-      setIsLiked(false)
-      dislikeTrack({ id: id })
+    const handleDislike = async (id) => {
+        await dislikeTrack(id);
+        setIsLiked(false);
     }
-    const toogleLikeDislike = (id) => {
-      isLiked ? handleDislike(id) : handleLike(id)
+
+    const toggleLikeDislike = () => {
+      isLiked ? handleDislike(props.track.id) : handleLike(props.track.id)
     }
 
     return (
@@ -69,7 +70,7 @@ const TrackOne = (props) => {
           <S.TrackTime>
               <S.TrackTimeSvg alt="time">
               </S.TrackTimeSvg>
-              <S.TrackLike alt="like" onClick={() => toogleLikeDislike()}>
+              <S.TrackLike alt="like" onClick={toggleLikeDislike}>
             {isLiked ? (
               <use
                 xlinkHref="/img/icon/sprite.svg#icon-like"

@@ -17,7 +17,7 @@ export  const ApiFavorites = createApi({
   }),
   endpoints: (builder) => ({
     getFavoriteTracks: builder.query({
-      query: 'catalog/track/favorite/all/',
+      query: () => ({ url: `catalog/track/favorite/all/` }),
       providesTags: (result) =>
         result
           ? [...result.map(({ id }) => ({ type: 'Tracks', id })), 'Tracks']
@@ -25,23 +25,17 @@ export  const ApiFavorites = createApi({
     }),
 
     addFavoriteTrack: builder.mutation({
-      query: ({ id, accessToken }) => ({
+      query: ({ id }) => ({
         url: `catalog/track/${id}/favorite/`,
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
       }),
       invalidatesTags: [{ type: 'Tracks', id: 'LIST' }],
     }),
 
     deleteFavoriteTrack: builder.mutation({
-      query: (id, accessToken) => ({
+      query: (id) => ({
         url: `catalog/track/${id}/favorite/`,
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
       }),
       invalidatesTags: [{ type: 'Tracks', id: 'LIST'}],
     }),
