@@ -125,8 +125,8 @@ export async function getTrackById(id) {
   }
 
   function saveToken(tokenObject) {
-    sessionStorage.setItem("access", JSON.stringify(tokenObject.access));
-    sessionStorage.setItem("refresh", JSON.stringify(tokenObject.refresh));
+    sessionStorage.setItem("access", tokenObject.access);
+    sessionStorage.setItem("refresh", tokenObject.refresh);
   }
 
   export const getToken = ({ email, password }) => {
@@ -152,15 +152,14 @@ export async function getTrackById(id) {
       });
   };
 
-  export const refreshToken = (tokenRefresh) => {
+  export const refreshToken = (refresh) => {
     return axios
       .post("https://skypro-music-api.skyeng.tech/user/token/refresh/", {
-        body: JSON.stringify({
-          refresh: tokenRefresh,
-        }),
-       headers: {"content-type": "application/json"},
+          refresh: `${refresh}`,
+          headers: {"content-type": "application/json"},
      })
-      .then((response) => response.data)
+      .then((response) => {
+      return response.data})
       .catch((error) => {
         console.error("Error refreshing token:", error);
         throw error;

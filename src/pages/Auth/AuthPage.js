@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
-import { getToken, registerUser } from "../../api";
+import { getToken, refreshToken, registerUser } from "../../api";
 import { useUserDispatch } from "../../contex";
 import { setAuthorization } from "../../store/slices/authorizationSlice";
 import { useLoginUserMutation } from "../../store/service/apiLogin";
@@ -72,7 +72,7 @@ export default function AuthPage({ isLoginMode = false }) {
 
         localStorage.setItem('user', JSON.stringify(user));
 
-        await getToken({ email, password }).then((token) => {
+        const token = await getToken({ email, password })
           dispatch(
             setAuthorization({
               access: token.access,
@@ -80,9 +80,12 @@ export default function AuthPage({ isLoginMode = false }) {
               user: user.username,
             })
           );
+          const sessionRefreshToken = sessionStorage.getItem("refresh")
+          await refreshToken(sessionRefreshToken
+            )
           userDispatch({ type: "setUser", payload: user });
+
           navigate("/");
-        });
     } else {
       isValidateFormLogin();
     }

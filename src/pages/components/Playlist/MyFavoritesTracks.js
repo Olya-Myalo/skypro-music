@@ -1,8 +1,12 @@
 import TrackOne from '../tracks';
 import InputSearch from '../Search/Search';
 import * as S from './Playlist.styled';
+import { useSelector } from 'react-redux';
 
 const MyPlaуlist = ({addTracksError, turnOnTrack, data}) => {
+  const dataFavoritesTracks = useSelector((state) => state.player.favoritesTracks)
+
+  // if (dataFavoritesTracks === null || dataFavoritesTracks.length === 0) return <>В этом плейлисте пока нет треков</>;
   
   return (
     <S.MainCenterblock>
@@ -21,10 +25,13 @@ const MyPlaуlist = ({addTracksError, turnOnTrack, data}) => {
               </S.ContentTtitle>
                 <S.ContentPlaylist>
                     <p>{addTracksError}</p> 
-                      {data?.map((track) => {
-                        return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
-                     })
-                    }
+                    {dataFavoritesTracks === null || dataFavoritesTracks.length === 0 ? (
+                          <h1>В этом плейлисте пока нет треков</h1>
+                        ) : (
+                          data.map((track) => {
+                            return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
+                          })
+                        )}
                 </S.ContentPlaylist>
           </S.CenterblockContent>
     </S.MainCenterblock>
