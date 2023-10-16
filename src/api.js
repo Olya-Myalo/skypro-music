@@ -152,9 +152,14 @@ export async function getTrackById(id) {
       });
   };
 
-  export const refreshToken = (token) => {
+  export const refreshToken = (tokenRefresh) => {
     return axios
-      .post("https://skypro-music-api.skyeng.tech/user/token/refresh/", { token })
+      .post("https://skypro-music-api.skyeng.tech/user/token/refresh/", {
+        body: JSON.stringify({
+          refresh: tokenRefresh,
+        }),
+       headers: {"content-type": "application/json"},
+     })
       .then((response) => response.data)
       .catch((error) => {
         console.error("Error refreshing token:", error);
