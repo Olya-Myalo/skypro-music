@@ -15,8 +15,8 @@ export function Layout() {
     const [isLoading, setIsLoading] = useState(true);
     const [tracks, setTracks] = useState([])
     const { data } = useGetFavoriteTracksQuery()
-  console.log(data)
-  dispatch(setFavoritesTracks(data))
+
+    dispatch(setFavoritesTracks(data))
 
   
     useEffect(() => {

@@ -161,6 +161,21 @@ export async function getTrackById(id) {
         throw error;
       });
   };
+
+  export const tokenIsExpired = (token) => {
+     Promise((resolve, reject) => {
+      setTimeout(() => {
+        refreshToken(token)
+          .then(() => {
+            resolve();
+          })
+          .catch((error) => {
+            console.error("Error refreshing token:", error);
+            reject(error);
+          });
+      }, 200000);
+    });
+  }
   
 
 

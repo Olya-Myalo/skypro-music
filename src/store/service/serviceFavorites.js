@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { refreshToken, tokenIsExpired } from "../../api";
 
 export  const ApiFavorites = createApi({
   reducerPath: "favoriteTracksApi",
@@ -10,8 +11,10 @@ export  const ApiFavorites = createApi({
       const token = getState().authorization.access
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
-      }
-
+        // if (tokenIsExpired(token)) {
+        //    refreshToken(token);
+        //   };
+      } 
       return headers;
     }
   }),
