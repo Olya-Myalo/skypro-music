@@ -163,19 +163,16 @@ export async function getTrackById(id) {
   };
 
   export const tokenIsExpired = (token) => {
-     Promise((resolve, reject) => {
-      setTimeout(() => {
-        refreshToken(token)
-          .then(() => {
-            resolve();
-          })
-          .catch((error) => {
-            console.error("Error refreshing token:", error);
-            reject(error);
-          });
-      }, 200000);
-    });
-  }
+    setTimeout(() => {
+      refreshToken(token)
+        .then(() => {
+          console.log("Token refreshed successfully");
+        })
+        .catch((error) => {
+          console.error("Error refreshing token:", error);
+        });
+    }, 200000);
+  };
   
 
 

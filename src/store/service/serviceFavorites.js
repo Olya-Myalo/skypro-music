@@ -11,9 +11,9 @@ export  const ApiFavorites = createApi({
       const token = getState().authorization.access
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
-        // if (tokenIsExpired(token)) {
-        //    refreshToken(token);
-        //   };
+        if (tokenIsExpired(token)) {
+           refreshToken(token);
+        }
       } 
       return headers;
     }
