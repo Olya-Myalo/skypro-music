@@ -11,34 +11,29 @@ import { Outlet } from 'react-router';
 import { useGetFavoriteTracksQuery } from '../store/service/serviceFavorites';
 
 export function Layout() {
-    const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(true);
-    const [tracks, setTracks] = useState([])
-    const { data } = useGetFavoriteTracksQuery()
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const [tracks, setTracks] = useState([]);
+  const { data } = useGetFavoriteTracksQuery();
 
-    dispatch(setFavoritesTracks(data))
+  useEffect(() => {
+    dispatch(setFavoritesTracks(data));
 
-  
-    useEffect(() => {
-      const timer = setTimeout(() => {
+    const fetchData = async () => {
+      try {
+        const t = await getTracks();
+        setTracks(t);
+        dispatch(setPlaylist(t));
         setIsLoading(false);
-        try {
-          getTracks().then((t) => 
-          {
-            setTracks(t) 
-            dispatch(setPlaylist(t))
-          }
-        );
-        } catch (error) {
-          console.log(error.message)
-        }
-  
-      }, 5000);
-  
-      return () => clearTimeout(timer);
-    }, []);
-  
-    const currentTrack = useSelector(state => state.player.track)
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchData();
+  }, [data, dispatch]);
+
+  const currentTrack = useSelector((state) => state.player.track);
   
     return (
         <S.MainDiv>
