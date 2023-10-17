@@ -9,7 +9,7 @@ const Playlist = ( {data, turnOnTrack, addTracksError} ) => {
     <S.MainCenterblock>
     <InputSearch/>
       <S.CenterblockH2>Треки</S.CenterblockH2>
-        <Filter data={data}/>
+        <Filter tracks={data}/>
       <S.CenterblockContent>
       <S.ContentTtitle>
           <S.PlaylistTitleCol01>Трек</S.PlaylistTitleCol01>
@@ -23,8 +23,8 @@ const Playlist = ( {data, turnOnTrack, addTracksError} ) => {
       </S.ContentTtitle>
             <S.ContentPlaylist>
             <p>{addTracksError}</p>
-              {data.map((track) => {
-                  return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
+            {data && data.map((track) => {
+        return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
               })}
           </S.ContentPlaylist>
     </S.CenterblockContent>

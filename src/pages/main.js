@@ -9,15 +9,16 @@ import { useGetMainPlaylistQuery } from '../store/service/serviceFavorites';
 export const Main = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
+  const setTracks = useState([]);
   const [addTracksError, setAddTracksError] = useState(null);
   const { data } = useGetMainPlaylistQuery();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (data) {
+        if (data) { 
           const result = await data;
-          dispatch(setPlaylist(result))
+          setTracks(result);
         }
       } catch (error) {
         setAddTracksError(error.message);
@@ -26,7 +27,7 @@ export const Main = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [data]); 
 
   const turnOnTrack = (trackId) => {
     dispatch(setPlaylist(trackId));
@@ -46,3 +47,4 @@ export const Main = () => {
     </>
   );
 };
+

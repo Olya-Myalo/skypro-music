@@ -12,39 +12,39 @@ const formattedDuration = (durationInSeconds) => {
   }; 
   
 const TrackOne = (props) => {
-    const playing = useSelector((state) => state.player.playing)
-    const currentTrack = useSelector((state) => state.player.track)
-    const dispatch = useDispatch()
-    // const authUser = JSON.parse(localStorage.getItem('user'))
-    const [likeTrack] = useAddFavoriteTrackMutation()
-    const [dislikeTrack] = useDeleteFavoriteTrackMutation()
-    const dataFavoritesTracks = useSelector((state) => state.player.favoritesTracks)
-    const isLike = Boolean(
-      dataFavoritesTracks.find(({ id }) => id === props.track.id),
-    )
-    const [isLiked, setIsLiked] = useState(false)
-    
-    useEffect(() => {
-      setIsLiked(isLike)
-    }, [])
+  const playing = useSelector((state) => state.player.playing);
+  const currentTrack = useSelector((state) => state.player.track);
+  const dispatch = useDispatch();
+  // const authUser = JSON.parse(localStorage.getItem('user'))
+  const [likeTrack] = useAddFavoriteTrackMutation();
+  const [dislikeTrack] = useDeleteFavoriteTrackMutation();
+  const dataFavoritesTracks = useSelector((state) => state.player.favoritesTracks);
+  const isLike = Boolean(
+    dataFavoritesTracks && dataFavoritesTracks.find(({ id }) => id === props.track.id),
+  );
+  const [isLiked, setIsLiked] = useState(false);
 
-    const turnOnTrack = (id) => {
-      dispatch(setPlaylist(id)); 
-    }
+  useEffect(() => {
+    setIsLiked(isLike);
+  }, []);
 
-    const handleLike =  (id) => {
-      likeTrack({ id });
-      setIsLiked(true);
-    }
-  
-    const handleDislike =  (id) => {
-        dislikeTrack(id);
-        setIsLiked(false);
-    }
+  const turnOnTrack = (id) => {
+    dispatch(setPlaylist(id)); 
+  };
 
-    const toggleLikeDislike = () => {
-      isLiked ? handleDislike(props.track.id) : handleLike(props.track.id)
-    }
+  const handleLike = (id) => {
+    likeTrack({ id });
+    setIsLiked(true);
+  };
+
+  const handleDislike = (id) => {
+    dislikeTrack(id);
+    setIsLiked(false);
+  };
+
+  const toggleLikeDislike = () => {
+    isLiked ? handleDislike(props.track.id) : handleLike(props.track.id);
+  };
 
     return (
       <S.PlaylistItem>
