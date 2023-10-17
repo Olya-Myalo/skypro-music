@@ -1,9 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-// import { refreshToken, tokenIsExpired } from "../../api";
 
-
-export  const ApiFavorites = createApi({
-  reducerPath: "favoriteTracksApi",
+export const playlistApi = createApi({
+  reducerPath: "playlistApi",
   tagTypes: ['Tracks'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://skypro-music-api.skyeng.tech/',
@@ -11,17 +9,19 @@ export  const ApiFavorites = createApi({
       console.log(getState())
       const token = getState().authorization.access
       if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-        // if (tokenIsExpired(token)) {
-        //    refreshToken(token);
-        // }
+        headers.set('authorization', 'Bearer ' + token);
       } 
       return headers;
     }
   }),
+
   endpoints: (builder) => ({
+    getMainPlaylist: builder.query({
+      query: () => "/catalog/track/all/",
+    }),
+
     getFavoriteTracks: builder.query({
-      query: () => ({ url: `catalog/track/favorite/all/` }),
+      query: () => ({ url: 'catalog/track/favorite/all/' }),
       providesTags: ['Tracks'],
     }),
 
@@ -40,8 +40,8 @@ export  const ApiFavorites = createApi({
       }),
       invalidatesTags: [{ type: 'Tracks'}],
     }),
-  }),
-});
+  })
+})
 
-  export const { useAddFavoriteTrackMutation, useGetFavoriteTracksQuery, useDeleteFavoriteTrackMutation } = ApiFavorites
-  export default ApiFavorites.reducer
+export const { useGetMainPlaylistQuery, useAddFavoriteTrackMutation, useGetFavoriteTracksQuery, useDeleteFavoriteTrackMutation } = playlistApi
+export default playlistApi.reducer

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import * as S from './Playlist/Playlist.styled';
-import { setTrack } from '../../store/slices/trackSlice';
+import { setPlaylist } from '../../store/slices/trackSlice';
 import {useAddFavoriteTrackMutation, useDeleteFavoriteTrackMutation } from '../../store/service/serviceFavorites';
 import { useEffect, useState } from 'react';
 
@@ -29,7 +29,7 @@ const TrackOne = (props) => {
     }, [])
 
     const turnOnTrack = (id) => {
-        dispatch(setTrack(id)) 
+      dispatch(setPlaylist(id)); 
     }
 
     const handleLike =  (id) => {

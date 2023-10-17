@@ -1,27 +1,28 @@
 import * as S from './main.styles';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTracks } from "../api";
+// import { getTracks } from "../api";
 import { setFavoritesTracks, setPlaylist } from "../store/slices/trackSlice";
 import Nav from './components/Nav/Nav';
 import SidebarSceleton from './components/Sidebar/SidebarSceleton';
 import Sidebar from './components/Sidebar/Sidebar';
 import Bar from './components/Bar/Bar';
 import { Outlet } from 'react-router';
-import { useGetFavoriteTracksQuery } from '../store/service/serviceFavorites';
+import { useGetFavoriteTracksQuery, useGetMainPlaylistQuery } from '../store/service/serviceFavorites';
 
 export function Layout() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [tracks, setTracks] = useState([]);
-  const { data } = useGetFavoriteTracksQuery();
+  const { data: favoriteTracksData } = useGetFavoriteTracksQuery();
+  const { data: mainPlaylistData } = useGetMainPlaylistQuery();
 
   useEffect(() => {
-    dispatch(setFavoritesTracks(data));
+    dispatch(setFavoritesTracks(favoriteTracksData));
 
     const fetchData = async () => {
       try {
-        const t = await getTracks();
+        const t = mainPlaylistData;
         setTracks(t);
         dispatch(setPlaylist(t));
         setIsLoading(false);
@@ -31,7 +32,7 @@ export function Layout() {
     };
 
     fetchData();
-  }, [data, dispatch]);
+  }, []);
 
   const currentTrack = useSelector((state) => state.player.track);
   
