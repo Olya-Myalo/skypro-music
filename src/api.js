@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-// export async function getTracks () {
-//     const response = await fetch('https://skypro-music-api.skyeng.tech/catalog/track/all/');
+export async function getTracks () {
+    const response = await fetch('https://skypro-music-api.skyeng.tech/catalog/track/all/');
     
-//     if(!response.ok) {
-//         throw new Error("Не удалось получить плейлист, попробуйте позже!")
-//     }
+    if(!response.ok) {
+        throw new Error("Не удалось получить плейлист, попробуйте позже!")
+    }
     
-//     const data = await response.json();
-//     return data;
-// }
+    const data = await response.json();
+    return data;
+}
 
 // export async function getFavoritesTracks(accessToken) {
 //   const response = await fetch(

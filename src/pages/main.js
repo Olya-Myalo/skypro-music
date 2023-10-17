@@ -1,37 +1,35 @@
 import { useEffect, useState } from 'react';
-// import { getTracks } from '../api';
+import { getTracks } from '../api';
 import { useDispatch } from 'react-redux';
 import { setPlaylist } from '../store/slices/trackSlice';
 import PlaylistSceleton from './components/Playlist/PlaylistSceleton';
 import Playlist from './components/Playlist/Playlist';
-import { useGetMainPlaylistQuery } from '../store/service/serviceFavorites';
 
 export const Main = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const setTracks = useState([]);
-  const [addTracksError, setAddTracksError] = useState(null);
-  const { data } = useGetMainPlaylistQuery();
+  const [tracks, setTracks] = useState([])
+  const [addTracksError, setAddTracksError] = useState(null)
 
   useEffect(() => {
-    const fetchData = async () => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
       try {
-        if (data) { 
-          const result = await data;
-          setTracks(result);
+        getTracks().then((t) => 
+        {
+          setTracks(t) 
+          dispatch(setPlaylist(t))
         }
+      );
       } catch (error) {
-        setAddTracksError(error.message);
-      } finally {
-        setIsLoading(false);
+        setAddTracksError(error.message)
       }
-    };
-    fetchData();
-  }, [data]); 
-
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
   const turnOnTrack = (trackId) => {
-    dispatch(setPlaylist(trackId));
-  };
+      dispatch(setTracks(trackId))
+    }
 
   return (
     <>
@@ -39,7 +37,7 @@ export const Main = () => {
         <PlaylistSceleton />
       ) : (
         <Playlist
-          data={data}
+          tracks={tracks}
           turnOnTrack={turnOnTrack}
           addTracksError={addTracksError}
         />

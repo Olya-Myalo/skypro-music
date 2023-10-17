@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
 import tracksReducer from './slices/trackSlice'
 import authorizationReducer from './slices/authorizationSlice'
-import { playlistApi } from './service/serviceFavorites'
+import {ApiFavorites } from './service/serviceFavorites'
 import { authApi } from './service/apiLogin';
 
 export const store = configureStore({
@@ -9,8 +9,8 @@ export const store = configureStore({
         player: tracksReducer,
         authorization: authorizationReducer,
         [authApi.reducerPath]: authApi.reducer,
-        [playlistApi.reducerPath]: playlistApi.reducer,
+        [ApiFavorites.reducerPath]: ApiFavorites.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware, playlistApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware, ApiFavorites.middleware),
 });

@@ -3,13 +3,13 @@ import InputSearch from '../Search/Search';
 import TrackOne from '../tracks';
 import * as S from './Playlist.styled';
 
-const Playlist = ( {data, turnOnTrack, addTracksError} ) => {
+const Playlist = ( {tracks, turnOnTrack, addTracksError} ) => {
   
   return (
     <S.MainCenterblock>
     <InputSearch/>
       <S.CenterblockH2>Треки</S.CenterblockH2>
-        <Filter tracks={data}/>
+        <Filter tracks={tracks}/>
       <S.CenterblockContent>
       <S.ContentTtitle>
           <S.PlaylistTitleCol01>Трек</S.PlaylistTitleCol01>
@@ -23,7 +23,7 @@ const Playlist = ( {data, turnOnTrack, addTracksError} ) => {
       </S.ContentTtitle>
             <S.ContentPlaylist>
             <p>{addTracksError}</p>
-            {data && data.map((track) => {
+            {tracks.map((track) => {
         return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
               })}
           </S.ContentPlaylist>

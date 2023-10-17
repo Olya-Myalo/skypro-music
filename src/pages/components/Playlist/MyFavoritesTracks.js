@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 const MyPlaуlist = ({addTracksError, turnOnTrack, data}) => {
   const dataFavoritesTracks = useSelector((state) => state.player.favoritesTracks);
 
-
   return (
     <S.MainCenterblock>
       <InputSearch/>
@@ -24,8 +23,8 @@ const MyPlaуlist = ({addTracksError, turnOnTrack, data}) => {
               </S.ContentTtitle>
                 <S.ContentPlaylist>
                     <p>{addTracksError}</p> 
-                    {dataFavoritesTracks === null || dataFavoritesTracks === undefined || dataFavoritesTracks.length === 0 ? (
-                        <h1>В этом плейлисте пока нет треков</h1>
+                    {dataFavoritesTracks === null || dataFavoritesTracks.length === 0 ? (
+                          <h1>В этом плейлисте пока нет треков</h1>
                         ) : (
                           data.map((track) => {
                             return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
