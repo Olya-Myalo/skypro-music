@@ -22,7 +22,7 @@ const Filter = ({tracks}) => {
       {visible && selectedFilter === "author" && (
         <S.SearchLike>
           <S.SearchFilter>
-            {tracks.map((track) => (
+            {tracks?.map((track) => (
               <S.SearchFilterTitle key={track.id}>
                 {track.author}
               </S.SearchFilterTitle>
@@ -42,7 +42,7 @@ const Filter = ({tracks}) => {
       {visible && selectedFilter === "year" && (
         <S.SearchLike02>
           <S.SearchFilter>
-            {tracks.map((track) => (
+            {tracks?.map((track) => (
               <S.SearchFilterTitle key={track.id}>
                 {track.release_date}
               </S.SearchFilterTitle>
@@ -62,7 +62,7 @@ const Filter = ({tracks}) => {
       {visible && selectedFilter === "genre" && (
         <S.SearchLike03>
           <S.SearchFilter>
-            {tracks.map((track) => (
+            {tracks?.map((track) => (
               <S.SearchFilterTitle key={track.id}>
                 {track.genre}
               </S.SearchFilterTitle>

@@ -19,6 +19,7 @@ export default function AuthPage({ isLoginMode = false }) {
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const isValidateForm = async () => {
+    const recExp = /^(?=.*[a-zA-Z])(?=.*\d).+/
     if (email=== "" || password==="") {
       setError('Укажите почту/пароль')
       return false
@@ -31,12 +32,16 @@ export default function AuthPage({ isLoginMode = false }) {
       setError('Пароли не совпадают')
       return false
     }
-    if (password.length < 4 || repeatPassword.length < 4) {
+    if (password.length < 8 || repeatPassword.length < 8) {
       setError('Пароль должен содержать более 4 символов')
       return false
     }
     if (password.includes('123456')) {
       setError('Пароль слишком распространен')
+      return false
+    }
+    if (!recExp.test(password)) {
+      setError('Пароль должен состоять не только из цифр')
       return false
     }
     try {
