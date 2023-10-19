@@ -1,7 +1,10 @@
+import * as S from "./main.styles";
+
 export const NotFound = () => {
-    return (
-      <div>
-        <h1>Page was not found!</h1>
-      </div>
-    );
+  return (
+    <S.PageWrapper>
+      <div>The page is not found</div>
+    </S.PageWrapper>
+  );
+
   }

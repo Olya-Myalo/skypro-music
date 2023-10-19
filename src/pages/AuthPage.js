@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import * as S from "./AuthPage.styles";
+import * as S from "./main.styles";
 import { useEffect, useState } from "react";
-import { getToken, refreshToken, registerUser } from "../../api";
-import { useUserDispatch } from "../../contex";
-import { setAuthorization } from "../../store/slices/authorizationSlice";
-import { useLoginUserMutation } from "../../store/service/apiLogin";
+import { getToken, refreshToken, registerUser } from "../api";
+import { useUserDispatch } from "../contex";
+import { setAuthorization } from "../store/slices/authorizationSlice";
+import { useLoginUserMutation } from "../store/service/apiLogin";
 import { useDispatch } from "react-redux";
 
 export default function AuthPage({ isLoginMode = false }) {

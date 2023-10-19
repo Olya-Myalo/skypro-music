@@ -21,9 +21,3 @@ export const reducer = (state, action) => {
         }
     }
   }
-
-//  export const checkUserExists = (username) => {
-//     const users = useContext(UserContext);
-//     const userExists = users.find((user) => user.username === username);
-//     return !!userExists;
-//   };

@@ -3,20 +3,22 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTracks } from "../api";
 import { setFavoritesTracks, setPlaylist } from "../store/slices/trackSlice";
-import Nav from './components/Nav/Nav';
 import SidebarSceleton from './components/Sidebar/SidebarSceleton';
-import Sidebar from './components/Sidebar/Sidebar';
 import Bar from './components/Bar/Bar';
 import { Outlet } from 'react-router';
 import { useGetFavoriteTracksQuery } from '../store/service/serviceFavorites';
+import Sceleton from './components/Sceleton/Sceleton';
+import Sidebar from './components/Sidebar/Sidebar';
+import Nav from './components/Nav/Nav';
 
-export function Layout() {
+export function PageLayout() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [tracks, setTracks] = useState([]);
   const { data } = useGetFavoriteTracksQuery();
 
   useEffect(() => {
+    const timer = setTimeout(() => {
     dispatch(setFavoritesTracks(data));
 
     const fetchData = async () => {
@@ -31,6 +33,8 @@ export function Layout() {
     };
 
     fetchData();
+  }, 5000);
+  return () => clearTimeout(timer);
   }, [data, dispatch]);
 
   const currentTrack = useSelector((state) => state.player.track);
@@ -41,11 +45,10 @@ export function Layout() {
             <S.Container>
                 <S.Main>
                   <Nav />
-                     <Outlet />
-                  {isLoading ? <SidebarSceleton />: <Sidebar />}
-                </S.Main>
-                {currentTrack ? <Bar isLoading={isLoading} tracks={tracks}/> 
-                : null }
+                    {isLoading ? <Sceleton />: <Outlet />}
+                    {isLoading ? <SidebarSceleton />: <Sidebar />}
+                 </S.Main>
+                    {currentTrack ? <Bar tracks={tracks}/> : null }
                 <footer></footer>
               </S.Container>
             </S.Wrapper>

@@ -1,9 +1,10 @@
 import Filter from '../Filter/Filter';
 import InputSearch from '../Search/Search';
-import * as S from './Playlist.styled';
+import * as S from './Sceleton.styled';
 import Skeleton from "react-loading-skeleton";
 
-const PlaylistSceleton = ({tracks}) => {
+const Sceleton = ({tracks}) => {
+
   return (
     <S.MainCenterblock>
     <InputSearch/>
@@ -428,4 +429,4 @@ const PlaylistSceleton = ({tracks}) => {
   );
 }
 
-export default PlaylistSceleton;
+export default Sceleton;

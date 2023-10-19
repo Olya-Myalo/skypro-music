@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import * as S from './Playlist/Playlist.styled';
-import { setTrack } from '../../store/slices/trackSlice';
-import {useAddFavoriteTrackMutation, useDeleteFavoriteTrackMutation } from '../../store/service/serviceFavorites';
+import * as S from './track.styled';
+import { setTrack } from '../../../store/slices/trackSlice';
+import {useAddFavoriteTrackMutation, useDeleteFavoriteTrackMutation } from '../../../store/service/serviceFavorites';
 import { useEffect, useState } from 'react';
 
 const formattedDuration = (durationInSeconds) => {

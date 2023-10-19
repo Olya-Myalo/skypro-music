@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { CategoryPlaylist } from './components/Category-playlist/index.js'
-import * as S from './components/Playlist/Playlist.styled.js';
+import * as S from './main.styles.js';
 import InputSearch from './components/Search/Search.js';
 
 export const Category = () => {
@@ -21,11 +21,11 @@ export const Category = () => {
                             </S.PlaylistTitleSvg>
                         </S.PlaylistTitleCol04>
                     </S.ContentTtitle>
-                    <S.ContentPlaylist>
-                        <div>
-                          {list.name}
-                        </div>
-                    </S.ContentPlaylist>
+                      <S.ContentPlaylist>
+                          <div>
+                            {list.name}
+                          </div>
+                      </S.ContentPlaylist>
                 </S.CenterblockContent>
         </S.MainCenterblock>
     );

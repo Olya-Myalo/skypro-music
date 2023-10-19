@@ -1,11 +1,10 @@
-import Skeleton from "react-loading-skeleton";
 import * as S from './Bar.styles';
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaylist, setShufflePlaylist, setTrack } from "../../../store/slices/trackSlice";
 import { shufflePlaylistSelector } from "../../../store/selectors/trackSelector";
 
-const Bar = ({isLoading}) => {
+const Bar = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef(null);
   const [loop, setLoop] = useState(false);
@@ -104,7 +103,6 @@ const Bar = ({isLoading}) => {
       [currentPlaylist[i], currentPlaylist[j]] = [currentPlaylist[j], currentPlaylist[i]];
     }
     dispatch(setShufflePlaylist(currentPlaylist)); 
-    // dispatch(setPlaylist(currentPlaylist)); 
   };
 
   const stopShufflePlaylist = () => {
@@ -167,20 +165,7 @@ const Bar = ({isLoading}) => {
             </S.PlayerBtnShuffle>
           </S.PlayerControls>
           <S.PlayerTrackPlay>
-                {isLoading && <S.TrackPlayContain>
-                    <S.TrackPlayImage>
-                      <S.TrackPlaySvg alt="music">
-                        <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                      </S.TrackPlaySvg>
-                    </S.TrackPlayImage>
-                  <S.TrackPlayAuthor className="skeleton-style">
-                  <Skeleton width={100} height={20}/>
-                  </S.TrackPlayAuthor>
-                  <S.TrackPlayAlbum className="skeleton-style">
-                    <Skeleton width={100} height={20} />
-                  </S.TrackPlayAlbum>
-                  </S.TrackPlayContain>}
-                {!isLoading && <S.TrackPlayContain>
+                <S.TrackPlayContain>
                   <audio ref={audioRef} 
                   loop={loop} 
                   onLoadedData={onLoadedData} 
@@ -189,30 +174,30 @@ const Bar = ({isLoading}) => {
                   autoPlay 
                   style={{ volume: volume }}
                   onEnded={endTrack} />
-                  <S.TrackPlayImage>
-                    <S.TrackPlaySvg alt="music">
-                      <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                    </S.TrackPlaySvg>
-                  </S.TrackPlayImage>
-                  <S.TrackPlayAuthor>
-                  <S.TrackPlayAuthorLink href="http://">{currentTrack.name}</S.TrackPlayAuthorLink>
-                  </S.TrackPlayAuthor>
-                  <S.TrackPlayAlbum>
-                    <S.TrackPlayAlbumLink href="http://">{currentTrack.author}</S.TrackPlayAlbumLink>
-                  </S.TrackPlayAlbum>
-                </S.TrackPlayContain>}
-            <S.TrackPlayLikeDis>
-              <S.TrackPlayLike className="_btn-icon">
-                <S.TrackPlayLikeSvg alt="like">
-                  <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-                </S.TrackPlayLikeSvg>
-              </S.TrackPlayLike>
-              <S.TrackPlayDisLike className="_btn-icon">
-                <S.TrackPlayDisLikeSvg alt="dislike">
-                  <use  xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
-                </S.TrackPlayDisLikeSvg>
-              </S.TrackPlayDisLike>
-            </S.TrackPlayLikeDis>
+                      <S.TrackPlayImage>
+                          <S.TrackPlaySvg alt="music">
+                            <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                          </S.TrackPlaySvg>
+                      </S.TrackPlayImage>
+                      <S.TrackPlayAuthor>
+                        <S.TrackPlayAuthorLink href="http://">{currentTrack.name}</S.TrackPlayAuthorLink>
+                      </S.TrackPlayAuthor>
+                      <S.TrackPlayAlbum>
+                          <S.TrackPlayAlbumLink href="http://">{currentTrack.author}</S.TrackPlayAlbumLink>
+                      </S.TrackPlayAlbum>
+                    </S.TrackPlayContain>
+                <S.TrackPlayLikeDis>
+                  <S.TrackPlayLike className="_btn-icon">
+                    <S.TrackPlayLikeSvg alt="like">
+                      <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                    </S.TrackPlayLikeSvg>
+                  </S.TrackPlayLike>
+                  <S.TrackPlayDisLike className="_btn-icon">
+                    <S.TrackPlayDisLikeSvg alt="dislike">
+                      <use  xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
+                    </S.TrackPlayDisLikeSvg>
+                  </S.TrackPlayDisLike>
+                </S.TrackPlayLikeDis>
           </S.PlayerTrackPlay>
         </S.BarPlayer>
         <S.BarVolumeBlock>
