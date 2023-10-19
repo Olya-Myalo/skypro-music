@@ -142,6 +142,12 @@ font-size: 16px;
 line-height: 24px;
 color: #696969;
 `
+export const TrackLike = styled.svg`
+width: 16px;
+height: 14px;
+cursor: pointer;
+` 
+
 export const TrackTime = styled.div``
 export const TrackTimeSvg = styled.svg`
 width: 14px;
@@ -177,3 +183,90 @@ export const Animation = styled.div`
   border-radius: 50%;
   animation: ${blinkAnimation} 1s infinite;
 `;
+export const MainCenterblock = styled.div`
+width: auto;
+    -webkit-box-flex: 3;
+    -ms-flex-positive: 3;
+    flex-grow: 3;
+    padding: 20px 40px 20px 111px;
+`
+export const CenterblockH2 = styled.h2`
+font-style: normal;
+font-weight: 400;
+font-size: 64px;
+line-height: 72px;
+letter-spacing: -0.8px;
+margin-bottom: 45px;
+`
+export const CenterblockContent = styled.div`
+display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+`
+export const ContentTtitle = styled.div`
+display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 24px;
+`
+export const PlaylistTitleCol01 = styled.div`
+font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 2px;
+    color: #696969;
+    text-transform: uppercase;
+    width: 447px;
+`
+export const PlaylistTitleCol02 = styled.div`
+font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 2px;
+    color: #696969;
+    text-transform: uppercase;
+    width: 321px;
+`
+export const PlaylistTitleCol03 = styled.div`
+font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 2px;
+    color: #696969;
+    text-transform: uppercase;
+    width: 245px;
+`
+export const PlaylistTitleCol04 = styled.div`
+font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 2px;
+    color: #696969;
+    text-transform: uppercase;
+    width: 60px;
+    text-align: end;
+`
+export const PlaylistTitleSvg = styled.svg`
+width: 12px;
+height: 12px;
+fill: transparent;
+stroke: #696969;
+`

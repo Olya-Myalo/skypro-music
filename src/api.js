@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 export async function getTracks () {
     const response = await fetch('https://skypro-music-api.skyeng.tech/catalog/track/all/');
@@ -10,6 +10,63 @@ export async function getTracks () {
     const data = await response.json();
     return data;
 }
+
+// export async function getFavoritesTracks(accessToken) {
+//   const response = await fetch(
+//     "https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/",
+//     {
+//       method: "GET",
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     }
+//   );
+
+//   if (!response.ok) {
+//     throw new Error("Не удалось получить плейлист, попробуйте позже!");
+//   }
+
+//   const data = await response.json();
+//   return data;
+// }
+
+// export async function addTrackFavorites(accessToken) {
+//   const response = await fetch(
+//     'https://skypro-music-api.skyeng.tech/catalog/track/<id>/favorite/',
+//     {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     }
+//   );
+
+//   if (!response.ok) {
+//     throw new Error("Не удалось добавить трек, попробуйте позже!");
+//   }
+
+//   const data = await response.json();
+//   return data;
+// }
+
+// export async function deleteTrackFavorites(accessToken, id) {
+//   const response = await fetch(
+//     `https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`,
+//     {
+//       method: "DELETE",
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     }
+//   );
+
+//   if (!response.ok) {
+//     throw new Error("Не удалось удалить трек, попробуйте позже!");
+//   }
+
+//   const data = await response.json();
+//   return data;
+// }
 
 export async function getTrackById(id) {
     const response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/track/${id}`);
@@ -67,29 +124,60 @@ export async function getTrackById(id) {
   }
   }
 
-//   export const getToken = ({ email, password}) => {
-//     fetch("https://skypro-music-api.skyeng.tech/user/token/", {
-//     method: "POST",
-//     body: JSON.stringify({
-//         email,
-//         password,
-//     }),
-//     headers: {
-//         "content-type": "application/json",
-//     },
-//     })
-//         .then((response) => response.json())
-//         .then((json) => console.log(json));
-//     };
+  function saveToken(tokenObject) {
+    sessionStorage.setItem("access", tokenObject.access);
+    sessionStorage.setItem("refresh", tokenObject.refresh);
+  }
 
+  export const getToken = ({ email, password }) => {
+    return fetch("https://skypro-music-api.skyeng.tech/user/token/", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        saveToken(data);
+        console.log("Token saved successfully");
+        return data;
+      })
+      .catch((error) => {
+        console.error("Error fetching token:", error);
+        throw error;
+      });
+  };
 
-//   export const refreshToken = (token) => {
-//     return axios.post(`https://skypro-music-api.skyeng.tech/user/token/refresh/`, { token })
-//       .then(response => response.data)
-//       .catch(error => {
-//         console.error('Error refreshing token:', error);
-//         throw error;
-//       });
-//   };
+  export const refreshToken = (refresh) => {
+    return axios
+      .post("https://skypro-music-api.skyeng.tech/user/token/refresh/", {
+          refresh: `${refresh}`,
+          headers: {"content-type": "application/json"},
+     })
+      .then((response) => {
+      return response.data})
+      .catch((error) => {
+        console.error("Error refreshing token:", error);
+        throw error;
+      });
+  };
+
+  export const tokenIsExpired = (token) => {
+    setTimeout(() => {
+      refreshToken(token)
+        .then(() => {
+          console.log("Token refreshed successfully");
+        })
+        .catch((error) => {
+          console.error("Error refreshing token:", error);
+        });
+    }, 200000);
+  };
   
+
+
   

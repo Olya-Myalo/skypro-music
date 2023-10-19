@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as S from './Nav.styles';
 import { Link } from "react-router-dom";
 
-const Nav = ({ user, onAuthButtonClick }) => {
+const Nav = ({ user }) => {
   const [visible, setVisible] = useState(false);
 
   const toggleVisibility = () => setVisible((prev) => !prev);
@@ -31,7 +31,7 @@ const Nav = ({ user, onAuthButtonClick }) => {
             </Link>
           </S.MenuItem>
           <S.MenuItem>
-            <Link to="/login" onClick={onAuthButtonClick} >
+            <Link to="/login" >
               <S.MenuLink>{user ? 'Войти' : 'Выйти'}</S.MenuLink>
             </Link>
           </S.MenuItem>

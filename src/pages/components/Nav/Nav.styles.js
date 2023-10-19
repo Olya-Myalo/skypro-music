@@ -46,7 +46,7 @@ export const NavMenu = styled.div`
 export const MenuList = styled.ul`
   padding: 18px 0 10px 0;
 `
-export const MenuItem = styled.li`
+export const MenuItem = styled.div`
   padding: 5px 0;
   margin-bottom: 16px;
 `

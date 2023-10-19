@@ -1,8 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
-import { loginUser, registerUser } from "../../api";
+import { getToken, refreshToken, registerUser } from "../../api";
 import { useUserDispatch } from "../../contex";
+import { setAuthorization } from "../../store/slices/authorizationSlice";
+import { useLoginUserMutation } from "../../store/service/apiLogin";
+import { useDispatch } from "react-redux";
 
 export default function AuthPage({ isLoginMode = false }) {
   const [error, setError] = useState(null);
@@ -10,11 +13,13 @@ export default function AuthPage({ isLoginMode = false }) {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [username, setName] = useState('');
-  const dispatch = useUserDispatch();
+  const dispatch = useDispatch();
+  const userDispatch = useUserDispatch();
   const navigate = useNavigate();
-  const [isComeRequest, setIsComeRequest] = useState(false);
+  const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const isValidateForm = async () => {
+    const recExp = /^(?=.*[a-zA-Z])(?=.*\d).+/
     if (email=== "" || password==="") {
       setError('Укажите почту/пароль')
       return false
@@ -27,12 +32,16 @@ export default function AuthPage({ isLoginMode = false }) {
       setError('Пароли не совпадают')
       return false
     }
-    if (password.length < 4 || repeatPassword.length < 4) {
+    if (password.length < 8 || repeatPassword.length < 8) {
       setError('Пароль должен содержать более 4 символов')
       return false
     }
     if (password.includes('123456')) {
       setError('Пароль слишком распространен')
+      return false
+    }
+    if (!recExp.test(password)) {
+      setError('Пароль должен состоять не только из цифр')
       return false
     }
     try {
@@ -53,49 +62,48 @@ export default function AuthPage({ isLoginMode = false }) {
       setError('Слишком короткая почта или имя');
       return false;
     }
-    try {
-      await loginUser({ email, password });
       return true;
-    } catch (error) {
-      setError('Пользователь с таким email или паролем не найден');
-      return false;
-    }
   };
 
   const handleLogin = async () => {
-    // e.preventDefault()
-    console.log(localStorage.getItem('user'))
     const isValidLoginForm = await isValidateFormLogin();
     if (isValidLoginForm) {
-      try {
-        setIsComeRequest(true)
-        const newUser = await loginUser({ email, password })
-        setIsComeRequest(false)
-        dispatch({ type: 'setUser', payload: newUser.username })
-        localStorage.setItem('user', JSON.stringify(newUser.username))
-        navigate("/");
-      } catch (error) {
-        isValidateFormLogin();
-      }
+        const response = await loginUser({ email, password});
+        if (response?.error) {
+          setError(response.error?.data?.detail); 
+          return;
+        }
+        const user = response.data;
+
+        localStorage.setItem('user', JSON.stringify(user));
+
+        const token = await getToken({ email, password })
+          dispatch(
+            setAuthorization({
+              access: token.access,
+              refresh: token.refresh,
+              user: user.username,
+            })
+          );
+          const sessionRefreshToken = sessionStorage.getItem("refresh")
+          await refreshToken(sessionRefreshToken
+            )
+          userDispatch({ type: "setUser", payload: user });
+
+          navigate("/");
     } else {
       isValidateFormLogin();
     }
   };
 
-  const handleRegister = async (e) => {
-    e.preventDefault()
+  const handleRegister = async () => {
     const isValidRegisterForm = await isValidateForm();
     if (isValidRegisterForm) {
-      try {
-        setIsComeRequest(true);
         const user = await registerUser({ email, password, username });
-        setIsComeRequest(false);
-        dispatch({type: "setUser", payload: user.username});
-        localStorage.setItem('user', JSON.stringify(user));
+    
+        userDispatch({ type: "setUser", payload: user });
+        localStorage.setItem("user", JSON.stringify(user));
         navigate("/login");
-      } catch (error) {
-        isValidateForm();
-      }
     } else {
       isValidateForm();
     }
@@ -137,8 +145,8 @@ export default function AuthPage({ isLoginMode = false }) {
             </S.Inputs>
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton disabled={isComeRequest} onClick={() => handleLogin({ email, password })}>
-              {isComeRequest? "Осуществляется вход" : "Войти"}
+              <S.PrimaryButton disabled={isLoading} onClick={handleLogin}>
+              {isLoading ? "Осуществляется вход" : "Войти"}
               </S.PrimaryButton>
               <Link to="/register">
                 <S.SecondaryButton>Зарегистрироваться</S.SecondaryButton>
@@ -184,8 +192,8 @@ export default function AuthPage({ isLoginMode = false }) {
             </S.Inputs>
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton disabled={isComeRequest} onClick={handleRegister}>
-              {isComeRequest? "Осуществляется регистрация" : "Зарегистрироваться"}
+            <S.PrimaryButton disabled={isLoading} onClick={handleRegister}>
+              {isLoading ? "Осуществляется регистрация" : "Зарегистрироваться"}
               </S.PrimaryButton>
             </S.Buttons>
           </>
