@@ -1,11 +1,21 @@
 import { useParams } from 'react-router-dom'
-import { CategoryPlaylist } from './components/Category-playlist/index.js'
 import * as S from './main.styles.js';
 import InputSearch from './components/Search/Search.js';
+import { useGetCatalogSectionTracksQuery } from '../store/service/serviceTracks.js';
+import TrackOne from './components/trackOne/TrackOne.js';
+import { useDispatch } from 'react-redux';
+import { setPlaylist, setTrack } from '../store/slices/trackSlice.js';
 
 export const Category = () => {
-  const params = useParams()
-  const list = CategoryPlaylist.find((list) => list.id === Number(params.id))
+  const { id } = useParams()
+  const { data, error } = useGetCatalogSectionTracksQuery(id)
+  const dispatch = useDispatch()
+
+  const turnOnTrack = (trackId) => {
+      dispatch(setPlaylist(data))
+      dispatch(setTrack(trackId))
+    }
+
     return (
         <S.MainCenterblock>
           <InputSearch/>
@@ -21,11 +31,11 @@ export const Category = () => {
                             </S.PlaylistTitleSvg>
                         </S.PlaylistTitleCol04>
                     </S.ContentTtitle>
-                      <S.ContentPlaylist>
-                          <div>
-                            {list.name}
-                          </div>
-                      </S.ContentPlaylist>
+                      {error ? ( <h2>Не удалось загрузить треки</h2>
+                        ) :  (
+                          data?.items.map((track) => {
+                            return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
+                          }) )}
                 </S.CenterblockContent>
         </S.MainCenterblock>
     );

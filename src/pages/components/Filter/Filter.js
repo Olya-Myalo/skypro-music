@@ -6,7 +6,18 @@ const Filter = ({tracks}) => {
   const [selectedFilter, setSelectedFilter] = useState("");
 
   const toggleVisibility = () => setVisible(!visible);
+ 	
+  const uniqueArrayGenre = tracks?.filter(
+    (obj, index, self) =>
+      index === self.findIndex((el) => el.genre === obj.genre)
+  );
 
+  const uniqueArrayAuthor = tracks?.filter(
+    (obj, index, self) =>
+      index === self.findIndex((el) => el.genre === obj.genre)
+  );
+
+// Сортировка по методу sort
   return (
     <S.CenterblocFilter>
       <S.Filter2>
@@ -23,7 +34,7 @@ const Filter = ({tracks}) => {
       {visible && selectedFilter === "author" && (
         <S.SearchLike>
           <S.SearchFilter>
-            {tracks?.map((track) => (
+            {uniqueArrayAuthor?.map((track) => (
               <S.SearchFilterTitle key={track.id}>
                 {track.author}
               </S.SearchFilterTitle>
@@ -41,15 +52,15 @@ const Filter = ({tracks}) => {
         жанру
       </S.FilterButton>
       {visible && selectedFilter === "genre" && (
-        <S.SearchLike03>
+        <S.SearchLike02>
           <S.SearchFilter>
-            {tracks?.map((track) => (
+            {uniqueArrayGenre?.map((track) => (
               <S.SearchFilterTitle key={track.id}>
                 {track.genre}
               </S.SearchFilterTitle>
             ))}
           </S.SearchFilter>
-        </S.SearchLike03>
+        </S.SearchLike02>
       )}
       {/* <S.FilterButton
         className="_btn-text"
@@ -84,7 +95,7 @@ const Filter = ({tracks}) => {
         по умолчанию
       </S.FilterButton>
       {visible && selectedFilter === "year" && (
-        <S.SearchLike>
+        <S.SearchLike03>
           <S.SearchFilter>
             {tracks?.map((track) => (
               <S.SearchFilterTitle key={track.id}>
@@ -92,7 +103,7 @@ const Filter = ({tracks}) => {
               </S.SearchFilterTitle>
             ))}
           </S.SearchFilter>
-        </S.SearchLike>
+        </S.SearchLike03>
       )}
       </S.Sorting>
     </S.CenterblocFilter>

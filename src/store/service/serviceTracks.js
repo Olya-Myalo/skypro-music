@@ -37,8 +37,21 @@ export  const ApiTracks = createApi({
       }),
       invalidatesTags: ['Tracks'],
     }),
-  }),
+    getCatalogSection: builder.query({
+      query: () => ({
+        url: '/catalog/selection/',
+        providesTags: ['Tracks'],
+      }),
+    }),
+    getCatalogSectionTracks: builder.query({
+      query: (id) => ({
+        url: `/catalog/selection/${id}`,
+        providesTags: ['Tracks'],
+      }),
+    }),
+})
 });
+
   export const {useGetTracksQuery, useGetFavoriteTracksQuery, useAddFavoriteTrackMutation, 
-    useDeleteFavoriteTrackMutation } = ApiTracks
+    useDeleteFavoriteTrackMutation, useGetCatalogSectionQuery, useGetCatalogSectionTracksQuery } = ApiTracks
   export default ApiTracks.reducer

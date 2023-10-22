@@ -4,6 +4,7 @@ export const CenterblocFilter = styled.div`
 display: -webkit-box;
 display: -ms-flexbox;
 display: flex;
+justify-content: space-between;
 -webkit-box-orient: horizontal;
 -webkit-box-direction: normal;
 -ms-flex-direction: row;
@@ -27,8 +28,11 @@ font-size: 16px;
 line-height: 24px;
 margin-right: 15px;
 `
-export const Sorting = styled.div``
-export const Filter2 = styled.div``
+export const Sorting = styled.div`
+display: flex;`
+
+export const Filter2 = styled.div`
+display: flex;`
 
 export const FilterButton = styled.div`
   font-style: normal;
@@ -118,7 +122,7 @@ export const SearchLike03 = styled.div`
   height: 305px;
   position: absolute;
   top: 280px;
-  left: 750px;
+  left: 1250px;
   background-color: #313131;
   padding: 34px;
   border-radius: 12px;
