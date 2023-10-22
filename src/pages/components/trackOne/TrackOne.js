@@ -25,7 +25,7 @@ const TrackOne = (props) => {
 
     useEffect(() => {
       setIsLiked(isLike)
-    }, [])
+    }, [isLike])
     // const turnOnTrack = (id) => {
     //     dispatch(setTrack(id)) 
     // }
@@ -52,6 +52,7 @@ const TrackOne = (props) => {
               <S.TrackTitleSvg alt="music">
               <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
               </S.TrackTitleSvg>
+              {/* TODO: исправить анимацию */}
               {playing && props.track.id === currentTrack?.id && (
               <S.Animation></S.Animation>
             )}

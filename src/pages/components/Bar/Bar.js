@@ -1,11 +1,13 @@
 import * as S from './Bar.styles';
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPlaylist, setShufflePlaylist, setTrack } from "../../../store/slices/trackSlice";
+import { setPlaying, setPlaylist, setShufflePlaylist, setTrack } from "../../../store/slices/trackSlice";
 import { shufflePlaylistSelector } from "../../../store/selectors/trackSelector";
+import { useAddFavoriteTrackMutation, useDeleteFavoriteTrackMutation } from '../../../store/service/serviceTracks';
 
 const Bar = () => {
-  const [isPlaying, setIsPlaying] = useState(true);
+  // const [isPlaying, setIsPlaying] = useState(true);
+  const isPlaying = useSelector(state => state.player.playing)
   const audioRef = useRef(null);
   const [loop, setLoop] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -17,15 +19,27 @@ const Bar = () => {
   const dispatch = useDispatch()
   const audioElem = useRef(null)
   const shufflePlaylist = useSelector(shufflePlaylistSelector)
+  const authUser = JSON.parse(localStorage.getItem('user'))
+  const isLike = Boolean( currentTrack.stared_user ? 
+    currentTrack.stared_user.find(({ id }) => id === authUser.id) : [],
+  )
+  const [isLiked, setIsLiked] = useState(false)
+  const [likeTrack] = useAddFavoriteTrackMutation()
+  const [dislikeTrack] = useDeleteFavoriteTrackMutation()
+
+    useEffect(() => {
+      console.log()
+      setIsLiked(isLike)
+    }, [isLike, currentTrack])
 
   const handleStart = () => {
     audioRef.current.play();
-    setIsPlaying(true);
+    dispatch(setPlaying(true));
   };
   
   const handleStop = () => {
     audioRef.current.pause();
-    setIsPlaying(false);
+    dispatch(setPlaying(false));
   };
   
   const togglePlay = isPlaying ? handleStop : handleStart;
@@ -113,8 +127,18 @@ const Bar = () => {
 
   const toggleShuffle = isShuffle ? stopShufflePlaylist : handleShufflePlaylist
 
-  const toggleLike = (id) => {
-    console.log(id)
+  const handleLike =  (id) => {
+    likeTrack({ id });
+    setIsLiked(true);
+  }
+
+  const handleDislike =  (id) => {
+      dislikeTrack(id);
+      setIsLiked(false);
+  }
+
+  const toggleLike = () => {
+    isLiked ? handleDislike(currentTrack.id) : handleLike(currentTrack.id)
   }
 
   return (
@@ -193,7 +217,11 @@ const Bar = () => {
                 <S.TrackPlayLikeDis>
                   <S.TrackPlayLike className="_btn-icon" onClick={() => toggleLike(currentTrack.id)}>
                     <S.TrackPlayLikeSvg alt="like">
-                      <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                    {isLiked ? (
+                        <use
+                          xlinkHref="/img/icon/sprite.svg#icon-like"
+                          fill="#ad61ff"
+                        ></use>) : ( <use xlinkHref="/img/icon/sprite.svg#icon-like"></use> )}
                     </S.TrackPlayLikeSvg>
                   </S.TrackPlayLike>
                 </S.TrackPlayLikeDis>

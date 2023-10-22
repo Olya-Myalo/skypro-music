@@ -3,10 +3,18 @@ import * as S from './main.styles';
 // import { useSelector } from 'react-redux';
 import InputSearch from './components/Search/Search';
 import TrackOne from './components/trackOne/TrackOne';
+import { useDispatch } from 'react-redux';
+import { setPlaylist, setTrack } from '../store/slices/trackSlice';
 
-export const Favorites = ({addTracksError, turnOnTrack}) => {
+export const Favorites = ({addTracksError}) => {
   const { data, isLoading } = useGetFavoriteTracksQuery();
-  console.log(data)
+  const dispatch = useDispatch()
+
+  const turnOnTrack = (trackId) => {
+      dispatch(setPlaylist(data))
+      dispatch(setTrack(trackId))
+    }
+
   if(isLoading) return
   // const dataFavoritesTracks = useSelector((state) => state.player.favoritesTracks);
 

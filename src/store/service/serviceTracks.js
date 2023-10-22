@@ -28,16 +28,17 @@ export  const ApiTracks = createApi({
         url: `catalog/track/${id}/favorite/`,
         method: "POST",
       }),
-      invalidatesTags: [{ type: 'Tracks'}],
+      invalidatesTags: ['Tracks'],
     }),
     deleteFavoriteTrack: builder.mutation({
       query: (id) => ({
         url: `catalog/track/${id}/favorite/`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: 'Tracks'}],
+      invalidatesTags: ['Tracks'],
     }),
   }),
 });
-  export const {useGetTracksQuery, useGetFavoriteTracksQuery, useAddFavoriteTrackMutation, useDeleteFavoriteTrackMutation } = ApiTracks
+  export const {useGetTracksQuery, useGetFavoriteTracksQuery, useAddFavoriteTrackMutation, 
+    useDeleteFavoriteTrackMutation } = ApiTracks
   export default ApiTracks.reducer

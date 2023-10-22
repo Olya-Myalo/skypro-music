@@ -26,10 +26,13 @@ export const tracksSlice = createSlice({
               },
         setFavoritesTracks: (state,action) => {
             state.favoritesTracks = action.payload
+        },
+        setPlaying: (state, action) => {
+            state.playing = action.payload
         }
     }
 })
 
-export const { setPlaylist, setTrack, setShufflePlaylist, setFavoritesTracks } = tracksSlice.actions;
+export const { setPlaylist, setTrack, setShufflePlaylist, setFavoritesTracks, setPlaying } = tracksSlice.actions;
 
 export default tracksSlice.reducer

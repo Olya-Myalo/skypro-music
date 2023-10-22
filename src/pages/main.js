@@ -11,8 +11,6 @@ export const Main = () => {
   const dispatch = useDispatch()
 
   const turnOnTrack = (trackId) => {
-    console.log(trackId)
-    console.log(data)
       dispatch(setPlaylist(data))
       dispatch(setTrack(trackId))
     }
