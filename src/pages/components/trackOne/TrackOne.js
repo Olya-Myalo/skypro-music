@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 import * as S from './track.styled';
-import { setTrack } from '../../../store/slices/trackSlice';
-import {useAddFavoriteTrackMutation, useDeleteFavoriteTrackMutation } from '../../../store/service/serviceFavorites';
+// import { setTrack } from '../../../store/slices/trackSlice';
+import {useAddFavoriteTrackMutation, useDeleteFavoriteTrackMutation } from '../../../store/service/serviceTracks';
 import { useEffect, useState } from 'react';
 
 const formattedDuration = (durationInSeconds) => {
@@ -14,22 +14,21 @@ const formattedDuration = (durationInSeconds) => {
 const TrackOne = (props) => {
   const playing = useSelector((state) => state.player.playing)
   const currentTrack = useSelector((state) => state.player.track)
-  const dispatch = useDispatch()
-  // const authUser = JSON.parse(localStorage.getItem('user'))
+  // const dispatch = useDispatch()
+  const authUser = JSON.parse(localStorage.getItem('user'))
   const [likeTrack] = useAddFavoriteTrackMutation()
   const [dislikeTrack] = useDeleteFavoriteTrackMutation()
-  const dataFavoritesTracks = useSelector((state) => state.player.favoritesTracks)
-  const isLike = Boolean(
-    dataFavoritesTracks.find(({ id }) => id === props.track.id),
+  const isLike = Boolean( props.track.stared_user ? 
+    props.track.stared_user.find(({ id }) => id === authUser.id) : [],
   )
   const [isLiked, setIsLiked] = useState(false)
 
     useEffect(() => {
       setIsLiked(isLike)
     }, [])
-    const turnOnTrack = (id) => {
-        dispatch(setTrack(id)) 
-    }
+    // const turnOnTrack = (id) => {
+    //     dispatch(setTrack(id)) 
+    // }
 
     const handleLike =  (id) => {
       likeTrack({ id });
@@ -58,7 +57,7 @@ const TrackOne = (props) => {
             )}
               </S.TrackTitleImage>
               <S.TrackTitleText>
-              <S.TrackTitleLink onClick={() => turnOnTrack(props.track.id)} >{props.track.name}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
+              <S.TrackTitleLink onClick={() => props.turnOnTrack(props.track.id)} >{props.track.name}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>
               </S.TrackTitleText>
           </S.TrackTitle>
           <S.TrackAuthor>

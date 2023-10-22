@@ -13,7 +13,6 @@ export const tracksSlice = createSlice({
     initialState,
     reducers: {
         setPlaylist: ( state, action ) => {
-           
             state.playlist = action.payload
         },
         setTrack: ( state, action ) => {

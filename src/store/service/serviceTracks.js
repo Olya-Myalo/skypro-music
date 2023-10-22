@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export  const ApiFavorites = createApi({
-  reducerPath: "favoriteTracksApi",
+export  const ApiTracks = createApi({
+  reducerPath: "tracksApi",
   tagTypes: ['Tracks'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://skypro-music-api.skyeng.tech/',
@@ -15,6 +15,10 @@ export  const ApiFavorites = createApi({
     }
   }),
   endpoints: (builder) => ({
+    getTracks: builder.query({
+      query: () => ({ url: `catalog/track/all/` }),
+      providesTags: ['Tracks'],
+    }),
     getFavoriteTracks: builder.query({
       query: () => ({ url: `catalog/track/favorite/all/` }),
       providesTags: ['Tracks'],
@@ -35,5 +39,5 @@ export  const ApiFavorites = createApi({
     }),
   }),
 });
-  export const { useAddFavoriteTrackMutation, useGetFavoriteTracksQuery, useDeleteFavoriteTrackMutation } = ApiFavorites
-  export default ApiFavorites.reducer
+  export const {useGetTracksQuery, useGetFavoriteTracksQuery, useAddFavoriteTrackMutation, useDeleteFavoriteTrackMutation } = ApiTracks
+  export default ApiTracks.reducer

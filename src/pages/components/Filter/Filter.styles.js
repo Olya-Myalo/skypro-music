@@ -20,6 +20,16 @@ font-size: 16px;
 line-height: 24px;
 margin-right: 15px;
 `
+export const SortingTitle = styled.div`
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+margin-right: 15px;
+`
+export const Sorting = styled.div``
+export const Filter2 = styled.div``
+
 export const FilterButton = styled.div`
   font-style: normal;
   font-weight: 400;

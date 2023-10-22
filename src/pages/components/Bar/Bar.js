@@ -113,6 +113,10 @@ const Bar = () => {
 
   const toggleShuffle = isShuffle ? stopShufflePlaylist : handleShufflePlaylist
 
+  const toggleLike = (id) => {
+    console.log(id)
+  }
+
   return (
     <S.BarBasic>
     <S.BarContent>
@@ -187,16 +191,11 @@ const Bar = () => {
                       </S.TrackPlayAlbum>
                     </S.TrackPlayContain>
                 <S.TrackPlayLikeDis>
-                  <S.TrackPlayLike className="_btn-icon">
+                  <S.TrackPlayLike className="_btn-icon" onClick={() => toggleLike(currentTrack.id)}>
                     <S.TrackPlayLikeSvg alt="like">
                       <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
                     </S.TrackPlayLikeSvg>
                   </S.TrackPlayLike>
-                  <S.TrackPlayDisLike className="_btn-icon">
-                    <S.TrackPlayDisLikeSvg alt="dislike">
-                      <use  xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
-                    </S.TrackPlayDisLikeSvg>
-                  </S.TrackPlayDisLike>
                 </S.TrackPlayLikeDis>
           </S.PlayerTrackPlay>
         </S.BarPlayer>

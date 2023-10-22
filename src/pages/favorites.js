@@ -1,13 +1,14 @@
-import { useGetFavoriteTracksQuery } from '../store/service/serviceFavorites';
+import { useGetFavoriteTracksQuery } from '../store/service/serviceTracks';
 import * as S from './main.styles';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import InputSearch from './components/Search/Search';
 import TrackOne from './components/trackOne/TrackOne';
 
 export const Favorites = ({addTracksError, turnOnTrack}) => {
-  const { data } = useGetFavoriteTracksQuery();
-
-  const dataFavoritesTracks = useSelector((state) => state.player.favoritesTracks);
+  const { data, isLoading } = useGetFavoriteTracksQuery();
+  console.log(data)
+  if(isLoading) return
+  // const dataFavoritesTracks = useSelector((state) => state.player.favoritesTracks);
 
   return (
     <S.MainCenterblock>
@@ -25,8 +26,8 @@ export const Favorites = ({addTracksError, turnOnTrack}) => {
                   </S.PlaylistTitleCol04>
               </S.ContentTtitle>
                 <S.ContentPlaylist>
-                    <p>{addTracksError}</p> 
-                      {dataFavoritesTracks === null || dataFavoritesTracks.length === 0 ? (
+                    <p>{addTracksError}</p>
+                      {!data ? (
                           <h1>В этом плейлисте пока нет треков</h1>
                           ) : (
                           data.map((track) => {

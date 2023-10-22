@@ -1,39 +1,27 @@
-import { useEffect, useState } from 'react';
-import { getTracks } from '../api';
 import { useDispatch } from 'react-redux';
-import { setPlaylist } from '../store/slices/trackSlice';
+import { setPlaylist, setTrack } from '../store/slices/trackSlice';
 import * as S from './main.styles';
 import InputSearch from './components/Search/Search';
 import Filter from './components/Filter/Filter';
 import TrackOne from './components/trackOne/TrackOne';
+import { useGetTracksQuery } from '../store/service/serviceTracks';
 
 export const Main = () => {
-  const dispatch = useDispatch();
-  const [tracks, setTracks] = useState([])
-  const [addTracksError, setAddTracksError] = useState(null)
+  const { data, error } = useGetTracksQuery()
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-      try {
-        getTracks().then((t) => 
-        {
-          setTracks(t) 
-          dispatch(setPlaylist(t))
-        }
-      );
-      } catch (error) {
-        setAddTracksError(error.message)
-      }
-  }, []);
-  
   const turnOnTrack = (trackId) => {
-      dispatch(setTracks(trackId))
+    console.log(trackId)
+    console.log(data)
+      dispatch(setPlaylist(data))
+      dispatch(setTrack(trackId))
     }
 
   return (
     <S.MainCenterblock>
       <InputSearch/>
         <S.CenterblockH2>Треки</S.CenterblockH2>
-          <Filter tracks={tracks}/>
+          <Filter tracks={data}/>
             <S.CenterblockContent>
               <S.ContentTtitle>
                   <S.PlaylistTitleCol01>Трек</S.PlaylistTitleCol01>
@@ -46,8 +34,8 @@ export const Main = () => {
                   </S.PlaylistTitleCol04>
               </S.ContentTtitle>
                 <S.ContentPlaylist>
-                  <p>{addTracksError}</p>
-                    {tracks.map((track) => {
+                  <p>{error}</p>
+                    {data.map((track) => {
                       return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
                     })}
                 </S.ContentPlaylist>
