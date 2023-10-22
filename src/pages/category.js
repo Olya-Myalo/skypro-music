@@ -15,7 +15,7 @@ export const Category = () => {
   const [searchValue, setSearchValue] = useState('');
 
   const turnOnTrack = (trackId) => {
-    dispatch(setPlaylist(data));
+    dispatch(setPlaylist(data.items));
     dispatch(setTrack(trackId));
   };
   
@@ -24,13 +24,13 @@ export const Category = () => {
       name.toLowerCase().includes(searchValue.toLowerCase())
     );
   
-  const filteredTracks = searchValue ? searchTrack(searchValue, data) : data;
+  const filteredTracks = searchValue ? searchTrack(searchValue, data?.items) : data?.items;
 
 
     return (
         <S.MainCenterblock>
           <Search setSearchValue={setSearchValue}/>
-            <S.CenterblockH2>Треки выбранной категории</S.CenterblockH2>
+            <S.CenterblockH2>{data?.name}</S.CenterblockH2>
                 <S.CenterblockContent>
                     <S.ContentTtitle>
                         <S.PlaylistTitleCol01>Трек</S.PlaylistTitleCol01>
