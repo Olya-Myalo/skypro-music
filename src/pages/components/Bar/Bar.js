@@ -28,7 +28,6 @@ const Bar = () => {
   const [dislikeTrack] = useDeleteFavoriteTrackMutation()
 
     useEffect(() => {
-      console.log()
       setIsLiked(isLike)
     }, [isLike, currentTrack])
 

@@ -1,23 +1,33 @@
 import { useDispatch } from 'react-redux';
 import { setPlaylist, setTrack } from '../store/slices/trackSlice';
 import * as S from './main.styles';
-import InputSearch from './components/Search/Search';
+import Search from './components/Search/Search';
 import Filter from './components/Filter/Filter';
 import TrackOne from './components/trackOne/TrackOne';
 import { useGetTracksQuery } from '../store/service/serviceTracks';
+import { useState } from 'react';
+import TrackList from './components/Tracklist';
 
 export const Main = () => {
-  const { data, error } = useGetTracksQuery()
-  const dispatch = useDispatch()
+const { data, error } = useGetTracksQuery();
+const dispatch = useDispatch();
+const [searchValue, setSearchValue] = useState('');
 
-  const turnOnTrack = (trackId) => {
-      dispatch(setPlaylist(data))
-      dispatch(setTrack(trackId))
-    }
+const turnOnTrack = (trackId) => {
+  dispatch(setPlaylist(data));
+  dispatch(setTrack(trackId));
+};
+
+const searchTrack = (searchValue, list) =>
+  list.filter(({ name }) =>
+    name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+const filteredTracks = searchValue ? searchTrack(searchValue, data) : data;
 
   return (
     <S.MainCenterblock>
-      <InputSearch/>
+      <Search setSearchValue={setSearchValue}/>
         <S.CenterblockH2>Треки</S.CenterblockH2>
           <Filter tracks={data}/>
             <S.CenterblockContent>
@@ -32,10 +42,20 @@ export const Main = () => {
                   </S.PlaylistTitleCol04>
               </S.ContentTtitle>
                 <S.ContentPlaylist>
-                  <p>{error}</p>
-                    {data.map((track) => {
-                      return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
-                    })}
+                {error ? (
+                    <h2>Не удалось загрузить мои треки</h2>
+                  ) : (
+                    <>
+                      {searchValue && filteredTracks.length === 0 ? (
+                        <h2>Ничего не найдено</h2>
+                      ) : (
+                        <TrackList data={filteredTracks} turnOnTrack={turnOnTrack} /> 
+                      )}
+                    </>
+                  )}
+                  {filteredTracks.map((track) => ( 
+                    <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />
+                  ))}
                 </S.ContentPlaylist>
             </S.CenterblockContent>
     </S.MainCenterblock>

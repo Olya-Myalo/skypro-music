@@ -14,7 +14,7 @@ const Filter = ({tracks}) => {
 
   const uniqueArrayAuthor = tracks?.filter(
     (obj, index, self) =>
-      index === self.findIndex((el) => el.genre === obj.genre)
+      index === self.findIndex((el) => el.author === obj.author)
   );
 
 // Сортировка по методу sort
@@ -62,26 +62,6 @@ const Filter = ({tracks}) => {
           </S.SearchFilter>
         </S.SearchLike02>
       )}
-      {/* <S.FilterButton
-        className="_btn-text"
-        onClick={() => {
-          toggleVisibility();
-          setSelectedFilter("year");
-        }}
-      >
-        году выпуска
-      </S.FilterButton>
-      {visible && selectedFilter === "year" && (
-        <S.SearchLike02>
-          <S.SearchFilter>
-            {tracks?.map((track) => (
-              <S.SearchFilterTitle key={track.id}>
-                {track.release_date}
-              </S.SearchFilterTitle>
-            ))}
-          </S.SearchFilter>
-        </S.SearchLike02> */}
-      {/* )} */}
       </S.Filter2>
       <S.Sorting>
       <S.SortingTitle>Сортировка:</S.SortingTitle>

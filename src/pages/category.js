@@ -1,24 +1,35 @@
 import { useParams } from 'react-router-dom'
 import * as S from './main.styles.js';
-import InputSearch from './components/Search/Search.js';
+import Search from './components/Search/Search.js';
 import { useGetCatalogSectionTracksQuery } from '../store/service/serviceTracks.js';
 import TrackOne from './components/trackOne/TrackOne.js';
 import { useDispatch } from 'react-redux';
 import { setPlaylist, setTrack } from '../store/slices/trackSlice.js';
+import { useState } from 'react';
+import TrackList from './components/Tracklist.js';
 
 export const Category = () => {
   const { id } = useParams()
   const { data, error } = useGetCatalogSectionTracksQuery(id)
   const dispatch = useDispatch()
+  const [searchValue, setSearchValue] = useState('');
 
   const turnOnTrack = (trackId) => {
-      dispatch(setPlaylist(data))
-      dispatch(setTrack(trackId))
-    }
+    dispatch(setPlaylist(data));
+    dispatch(setTrack(trackId));
+  };
+  
+  const searchTrack = (searchValue, list) =>
+    list.filter(({ name }) =>
+      name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  
+  const filteredTracks = searchValue ? searchTrack(searchValue, data) : data;
+
 
     return (
         <S.MainCenterblock>
-          <InputSearch/>
+          <Search setSearchValue={setSearchValue}/>
             <S.CenterblockH2>Треки выбранной категории</S.CenterblockH2>
                 <S.CenterblockContent>
                     <S.ContentTtitle>
@@ -33,9 +44,17 @@ export const Category = () => {
                     </S.ContentTtitle>
                       {error ? ( <h2>Не удалось загрузить треки</h2>
                         ) :  (
-                          data?.items.map((track) => {
-                            return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
-                          }) )}
+                          <>
+                            {searchValue && filteredTracks.length === 0 ? (
+                              <h2>Ничего не найдено</h2>
+                            ) : (
+                              <TrackList data={filteredTracks} turnOnTrack={turnOnTrack} /> 
+                            )}
+                          </>
+                        )}
+                        {data?.items.map((track) => ( 
+                          <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />
+                        ))}
                 </S.CenterblockContent>
         </S.MainCenterblock>
     );
