@@ -165,29 +165,29 @@ const Bar = () => {
           <S.PlayerControls>
             <S.PlayerBtnPrev onClick={handlePrev}>
               <S.PlayerBtnPrevSvg alt="prev" >
-                <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
+                <use xlinkHref="../img/icon/sprite.svg#icon-prev"></use>
               </S.PlayerBtnPrevSvg>
             </S.PlayerBtnPrev>
             <S.PlayerBtnPlay onClick={togglePlay}>
               <S.PlayerBtnPlaySvg alt="play">
-              {isPlaying?  <use xlinkHref="img/icon/sprite.svg#icon-pause" /> : <use xlinkHref="img/icon/sprite.svg#icon-play"></use>}
+              {isPlaying?  <use xlinkHref="../img/icon/sprite.svg#icon-pause" /> : <use xlinkHref="../img/icon/sprite.svg#icon-play"></use>}
               </S.PlayerBtnPlaySvg>
             </S.PlayerBtnPlay>
             <S.PlayerBtnNext onClick={handleNext}>
               <S.PlayerBtnNextSvg alt="next" >
-                <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
+                <use xlinkHref="../img/icon/sprite.svg#icon-next"></use>
               </S.PlayerBtnNextSvg>
             </S.PlayerBtnNext>
             <S.PlayerBtnRepeat onClick={toggleLoop} className="_btn-icon">
               <S.PlayerBtnRepeatSvg alt="repeat">
-              { loop ? <use xlinkHref="img/icon/sprite.svg#icon-tworepeat"></use>
-              : <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>}
+              { loop ? <use xlinkHref="../img/icon/sprite.svg#icon-tworepeat"></use>
+              : <use xlinkHref="../img/icon/sprite.svg#icon-repeat"></use>}
               </S.PlayerBtnRepeatSvg>
             </S.PlayerBtnRepeat>
             <S.PlayerBtnShuffle className="_btn-icon">
               <S.PlayerBtnShuffleSvg alt="shuffle" className={isShuffle ? 'active' : ''}
           onClick={toggleShuffle}>
-               { isShuffle ? <use xlinkHref="img/icon/sprite.svg#icon-isshuffle"></use> : <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>} 
+               { isShuffle ? <use xlinkHref="../img/icon/sprite.svg#icon-isshuffle"></use> : <use xlinkHref="../img/icon/sprite.svg#icon-shuffle"></use>} 
               </S.PlayerBtnShuffleSvg>
             </S.PlayerBtnShuffle>
           </S.PlayerControls>
@@ -203,7 +203,7 @@ const Bar = () => {
                   onEnded={endTrack} />
                       <S.TrackPlayImage>
                           <S.TrackPlaySvg alt="music">
-                            <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                            <use xlinkHref="../img/icon/sprite.svg#icon-note"></use>
                           </S.TrackPlaySvg>
                       </S.TrackPlayImage>
                       <S.TrackPlayAuthor>
@@ -218,9 +218,9 @@ const Bar = () => {
                     <S.TrackPlayLikeSvg alt="like">
                     {isLiked ? (
                         <use
-                          xlinkHref="/img/icon/sprite.svg#icon-like"
+                          xlinkHref="../img/icon/sprite.svg#icon-like"
                           fill="#ad61ff"
-                        ></use>) : ( <use xlinkHref="/img/icon/sprite.svg#icon-like"></use> )}
+                        ></use>) : ( <use xlinkHref="../img/icon/sprite.svg#icon-like"></use> )}
                     </S.TrackPlayLikeSvg>
                   </S.TrackPlayLike>
                 </S.TrackPlayLikeDis>
@@ -230,7 +230,7 @@ const Bar = () => {
           <S.VolumeContent>
             <S.VolumeImage onClick={togglePlay} >
               <S.VolumeSvg alt="volume">
-                <use xlinkHref="img/icon/sprite.svg#icon-volume"></use>
+                <use xlinkHref="../img/icon/sprite.svg#icon-volume"></use>
               </S.VolumeSvg>
             </S.VolumeImage>
             <S.VolumeProgress className="_btn">
