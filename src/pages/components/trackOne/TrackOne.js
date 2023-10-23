@@ -52,10 +52,8 @@ const TrackOne = (props) => {
               <S.TrackTitleSvg alt="music">
               <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
               </S.TrackTitleSvg>
-              {/* TODO: исправить анимацию */}
-              {playing && props.track.id === currentTrack?.id && (
-              <S.Animation></S.Animation>
-            )}
+              {props.track.id === currentTrack?.id && playing && (<S.StopAnimation></S.StopAnimation>)}
+              {props.track.id === currentTrack?.id && !playing && (<S.Animation></S.Animation>)}
               </S.TrackTitleImage>
               <S.TrackTitleText>
               <S.TrackTitleLink onClick={() => props.turnOnTrack(props.track.id)} >{props.track.name}<S.TrackTitleSpan></S.TrackTitleSpan></S.TrackTitleLink>

@@ -43,7 +43,7 @@ const filteredTracks = searchValue ? searchTrack(searchValue, data) : data;
               </S.ContentTtitle>
                 <S.ContentPlaylist>
                 {error ? (
-                    <h2>Не удалось загрузить мои треки</h2>
+                    <h2> Не удалось загрузить мои треки</h2>
                   ) : (
                     <>
                       {searchValue && filteredTracks.length === 0 ? (

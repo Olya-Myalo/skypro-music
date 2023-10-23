@@ -17,7 +17,6 @@ const Filter = ({tracks}) => {
       index === self.findIndex((el) => el.author === obj.author)
   );
 
-// Сортировка по методу sort
   return (
     <S.CenterblocFilter>
       <S.Filter2>

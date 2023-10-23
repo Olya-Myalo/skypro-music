@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setPlaylist, setTrack } from '../store/slices/trackSlice';
 import { useState } from 'react';
 import TrackList from './components/Tracklist';
+import Sceleton from './components/Sceleton/Sceleton';
 
 export const Favorites = ({addTracksError}) => {
   const { data, isLoading } = useGetFavoriteTracksQuery();
@@ -24,7 +25,7 @@ export const Favorites = ({addTracksError}) => {
   
   const filteredTracks = searchValue ? searchTrack(searchValue, data) : data;
 
-  if(isLoading) return
+  if(isLoading) return <Sceleton />
 
   return (
     <S.MainCenterblock>

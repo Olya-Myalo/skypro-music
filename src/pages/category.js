@@ -7,12 +7,15 @@ import { useDispatch } from 'react-redux';
 import { setPlaylist, setTrack } from '../store/slices/trackSlice.js';
 import { useState } from 'react';
 import TrackList from './components/Tracklist.js';
+import Sceleton from './components/Sceleton/Sceleton.js';
 
 export const Category = () => {
   const { id } = useParams()
-  const { data, error } = useGetCatalogSectionTracksQuery(id)
+  const { data, error, isLoading } = useGetCatalogSectionTracksQuery(id)
   const dispatch = useDispatch()
   const [searchValue, setSearchValue] = useState('');
+
+  if(isLoading) return <Sceleton />
 
   const turnOnTrack = (trackId) => {
     dispatch(setPlaylist(data.items));
