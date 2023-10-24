@@ -7,10 +7,16 @@ import Sceleton from './components/Sceleton/Sceleton';
 import Sidebar from './components/Sidebar/Sidebar';
 import Nav from './components/Nav/Nav';
 import { useGetTracksQuery } from '../store/service/serviceTracks';
+// import { useEffect } from 'react';
+// import { setFilters } from '../store/slices/trackSlice';
 
 export function PageLayout() {
   const {data, isLoading} = useGetTracksQuery()
+  // const dispatch = useDispatch()
 
+  // useEffect(() => {
+  //   dispatch(setFilters(data))
+  // }, [isLoading])
 
   const currentTrack = useSelector((state) => state.player.track);
   
