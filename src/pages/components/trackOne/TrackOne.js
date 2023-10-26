@@ -50,7 +50,7 @@ const TrackOne = (props) => {
           <S.TrackTitle>
               <S.TrackTitleImage>
               <S.TrackTitleSvg alt="music">
-              <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+              <use xlinkHref="../img/icon/sprite.svg#icon-note"></use>
               </S.TrackTitleSvg>
               {props.track.id === currentTrack?.id && playing && (<S.StopAnimation></S.StopAnimation>)}
               {props.track.id === currentTrack?.id && !playing && (<S.Animation></S.Animation>)}
