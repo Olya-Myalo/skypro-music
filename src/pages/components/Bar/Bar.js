@@ -1,11 +1,13 @@
 import * as S from './Bar.styles';
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPlaylist, setShufflePlaylist, setTrack } from "../../../store/slices/trackSlice";
+import { setPlaying, setPlaylist, setShufflePlaylist, setTrack } from "../../../store/slices/trackSlice";
 import { shufflePlaylistSelector } from "../../../store/selectors/trackSelector";
+import { useAddFavoriteTrackMutation, useDeleteFavoriteTrackMutation } from '../../../store/service/serviceTracks';
 
 const Bar = () => {
-  const [isPlaying, setIsPlaying] = useState(true);
+  // const [isPlaying, setIsPlaying] = useState(true);
+  const isPlaying = useSelector(state => state.player.playing)
   const audioRef = useRef(null);
   const [loop, setLoop] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -17,15 +19,26 @@ const Bar = () => {
   const dispatch = useDispatch()
   const audioElem = useRef(null)
   const shufflePlaylist = useSelector(shufflePlaylistSelector)
+  const authUser = JSON.parse(localStorage.getItem('user'))
+  const isLike = Boolean( currentTrack.stared_user ? 
+    currentTrack.stared_user.find(({ id }) => id === authUser.id) : [],
+  )
+  const [isLiked, setIsLiked] = useState(false)
+  const [likeTrack] = useAddFavoriteTrackMutation()
+  const [dislikeTrack] = useDeleteFavoriteTrackMutation()
+
+    useEffect(() => {
+      setIsLiked(isLike)
+    }, [isLike, currentTrack])
 
   const handleStart = () => {
     audioRef.current.play();
-    setIsPlaying(true);
+    dispatch(setPlaying(true));
   };
   
   const handleStop = () => {
     audioRef.current.pause();
-    setIsPlaying(false);
+    dispatch(setPlaying(false));
   };
   
   const togglePlay = isPlaying ? handleStop : handleStart;
@@ -113,6 +126,20 @@ const Bar = () => {
 
   const toggleShuffle = isShuffle ? stopShufflePlaylist : handleShufflePlaylist
 
+  const handleLike =  (id) => {
+    likeTrack({ id });
+    setIsLiked(true);
+  }
+
+  const handleDislike =  (id) => {
+      dislikeTrack(id);
+      setIsLiked(false);
+  }
+
+  const toggleLike = () => {
+    isLiked ? handleDislike(currentTrack.id) : handleLike(currentTrack.id)
+  }
+
   return (
     <S.BarBasic>
     <S.BarContent>
@@ -138,29 +165,29 @@ const Bar = () => {
           <S.PlayerControls>
             <S.PlayerBtnPrev onClick={handlePrev}>
               <S.PlayerBtnPrevSvg alt="prev" >
-                <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
+                <use xlinkHref="../img/icon/sprite.svg#icon-prev"></use>
               </S.PlayerBtnPrevSvg>
             </S.PlayerBtnPrev>
             <S.PlayerBtnPlay onClick={togglePlay}>
               <S.PlayerBtnPlaySvg alt="play">
-              {isPlaying?  <use xlinkHref="img/icon/sprite.svg#icon-pause" /> : <use xlinkHref="img/icon/sprite.svg#icon-play"></use>}
+              {isPlaying?  <use xlinkHref="../img/icon/sprite.svg#icon-pause" /> : <use xlinkHref="../img/icon/sprite.svg#icon-play"></use>}
               </S.PlayerBtnPlaySvg>
             </S.PlayerBtnPlay>
             <S.PlayerBtnNext onClick={handleNext}>
               <S.PlayerBtnNextSvg alt="next" >
-                <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
+                <use xlinkHref="../img/icon/sprite.svg#icon-next"></use>
               </S.PlayerBtnNextSvg>
             </S.PlayerBtnNext>
             <S.PlayerBtnRepeat onClick={toggleLoop} className="_btn-icon">
               <S.PlayerBtnRepeatSvg alt="repeat">
-              { loop ? <use xlinkHref="img/icon/sprite.svg#icon-tworepeat"></use>
-              : <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>}
+              { loop ? <use xlinkHref="../img/icon/sprite.svg#icon-tworepeat"></use>
+              : <use xlinkHref="../img/icon/sprite.svg#icon-repeat"></use>}
               </S.PlayerBtnRepeatSvg>
             </S.PlayerBtnRepeat>
             <S.PlayerBtnShuffle className="_btn-icon">
               <S.PlayerBtnShuffleSvg alt="shuffle" className={isShuffle ? 'active' : ''}
           onClick={toggleShuffle}>
-               { isShuffle ? <use xlinkHref="img/icon/sprite.svg#icon-isshuffle"></use> : <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>} 
+               { isShuffle ? <use xlinkHref="../img/icon/sprite.svg#icon-isshuffle"></use> : <use xlinkHref="../img/icon/sprite.svg#icon-shuffle"></use>} 
               </S.PlayerBtnShuffleSvg>
             </S.PlayerBtnShuffle>
           </S.PlayerControls>
@@ -176,7 +203,7 @@ const Bar = () => {
                   onEnded={endTrack} />
                       <S.TrackPlayImage>
                           <S.TrackPlaySvg alt="music">
-                            <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                            <use xlinkHref="../img/icon/sprite.svg#icon-note"></use>
                           </S.TrackPlaySvg>
                       </S.TrackPlayImage>
                       <S.TrackPlayAuthor>
@@ -187,16 +214,15 @@ const Bar = () => {
                       </S.TrackPlayAlbum>
                     </S.TrackPlayContain>
                 <S.TrackPlayLikeDis>
-                  <S.TrackPlayLike className="_btn-icon">
+                  <S.TrackPlayLike className="_btn-icon" onClick={() => toggleLike(currentTrack.id)}>
                     <S.TrackPlayLikeSvg alt="like">
-                      <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                    {isLiked ? (
+                        <use
+                          xlinkHref="../img/icon/sprite.svg#icon-like"
+                          fill="#ad61ff"
+                        ></use>) : ( <use xlinkHref="../img/icon/sprite.svg#icon-like"></use> )}
                     </S.TrackPlayLikeSvg>
                   </S.TrackPlayLike>
-                  <S.TrackPlayDisLike className="_btn-icon">
-                    <S.TrackPlayDisLikeSvg alt="dislike">
-                      <use  xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
-                    </S.TrackPlayDisLikeSvg>
-                  </S.TrackPlayDisLike>
                 </S.TrackPlayLikeDis>
           </S.PlayerTrackPlay>
         </S.BarPlayer>
@@ -204,7 +230,7 @@ const Bar = () => {
           <S.VolumeContent>
             <S.VolumeImage onClick={togglePlay} >
               <S.VolumeSvg alt="volume">
-                <use xlinkHref="img/icon/sprite.svg#icon-volume"></use>
+                <use xlinkHref="../img/icon/sprite.svg#icon-volume"></use>
               </S.VolumeSvg>
             </S.VolumeImage>
             <S.VolumeProgress className="_btn">

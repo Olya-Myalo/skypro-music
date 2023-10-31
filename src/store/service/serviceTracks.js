@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export  const ApiFavorites = createApi({
-  reducerPath: "favoriteTracksApi",
+export  const ApiTracks = createApi({
+  reducerPath: "tracksApi",
   tagTypes: ['Tracks'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://skypro-music-api.skyeng.tech/',
@@ -15,6 +15,10 @@ export  const ApiFavorites = createApi({
     }
   }),
   endpoints: (builder) => ({
+    getTracks: builder.query({
+      query: () => ({ url: `catalog/track/all/` }),
+      providesTags: ['Tracks'],
+    }),
     getFavoriteTracks: builder.query({
       query: () => ({ url: `catalog/track/favorite/all/` }),
       providesTags: ['Tracks'],
@@ -24,16 +28,30 @@ export  const ApiFavorites = createApi({
         url: `catalog/track/${id}/favorite/`,
         method: "POST",
       }),
-      invalidatesTags: [{ type: 'Tracks'}],
+      invalidatesTags: ['Tracks'],
     }),
     deleteFavoriteTrack: builder.mutation({
       query: (id) => ({
         url: `catalog/track/${id}/favorite/`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: 'Tracks'}],
+      invalidatesTags: ['Tracks'],
     }),
-  }),
+    getCatalogSection: builder.query({
+      query: () => ({
+        url: '/catalog/selection/',
+        providesTags: ['Tracks'],
+      }),
+    }),
+    getCatalogSectionTracks: builder.query({
+      query: (id) => ({
+        url: `/catalog/selection/${id}`,
+        providesTags: ['Tracks'],
+      }),
+    }),
+})
 });
-  export const { useAddFavoriteTrackMutation, useGetFavoriteTracksQuery, useDeleteFavoriteTrackMutation } = ApiFavorites
-  export default ApiFavorites.reducer
+
+  export const {useGetTracksQuery, useGetFavoriteTracksQuery, useAddFavoriteTrackMutation, 
+    useDeleteFavoriteTrackMutation, useGetCatalogSectionQuery, useGetCatalogSectionTracksQuery } = ApiTracks
+  export default ApiTracks.reducer

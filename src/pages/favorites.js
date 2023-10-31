@@ -1,17 +1,35 @@
-import { useGetFavoriteTracksQuery } from '../store/service/serviceFavorites';
+import { useGetFavoriteTracksQuery } from '../store/service/serviceTracks';
 import * as S from './main.styles';
-import { useSelector } from 'react-redux';
-import InputSearch from './components/Search/Search';
+import Search from './components/Search/Search';
 import TrackOne from './components/trackOne/TrackOne';
+import { useDispatch } from 'react-redux';
+import { setPlaylist, setTrack } from '../store/slices/trackSlice';
+import { useState } from 'react';
+import TrackList from './components/Tracklist';
+import Sceleton from './components/Sceleton/Sceleton';
 
-export const Favorites = ({addTracksError, turnOnTrack}) => {
-  const { data } = useGetFavoriteTracksQuery();
+export const Favorites = ({addTracksError}) => {
+  const { data, isLoading } = useGetFavoriteTracksQuery();
+  const dispatch = useDispatch()
+  const [searchValue, setSearchValue] = useState('');
 
-  const dataFavoritesTracks = useSelector((state) => state.player.favoritesTracks);
+  const turnOnTrack = (trackId) => {
+    dispatch(setPlaylist(data));
+    dispatch(setTrack(trackId));
+  };
+  
+  const searchTrack = (searchValue, list) =>
+    list.filter(({ name }) =>
+      name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  
+  const filteredTracks = searchValue ? searchTrack(searchValue, data) : data;
+
+  if(isLoading) return <Sceleton />
 
   return (
     <S.MainCenterblock>
-      <InputSearch/>
+      <Search setSearchValue={setSearchValue}/>
         <S.CenterblockH2>Мои треки</S.CenterblockH2>
           <S.CenterblockContent>
               <S.ContentTtitle>
@@ -25,14 +43,21 @@ export const Favorites = ({addTracksError, turnOnTrack}) => {
                   </S.PlaylistTitleCol04>
               </S.ContentTtitle>
                 <S.ContentPlaylist>
-                    <p>{addTracksError}</p> 
-                      {dataFavoritesTracks === null || dataFavoritesTracks.length === 0 ? (
+                    <p>{addTracksError}</p>
+                      {!data ? (
                           <h1>В этом плейлисте пока нет треков</h1>
                           ) : (
-                          data.map((track) => {
-                            return <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />;
-                          })
-                        )}
+                            <>
+                              {searchValue && filteredTracks.length === 0 ? (
+                                <h2>Ничего не найдено</h2>
+                              ) : (
+                                <TrackList data={filteredTracks} turnOnTrack={turnOnTrack} /> 
+                              )}
+                            </>
+                          )}
+                          {filteredTracks.map((track) => ( 
+                            <TrackOne turnOnTrack={turnOnTrack} key={track.id} track={track} />
+                          ))}
                 </S.ContentPlaylist>
           </S.CenterblockContent>
     </S.MainCenterblock>

@@ -181,6 +181,14 @@ import { keyframes, styled } from 'styled-components';
     height: 15px; /* Adjust the size as needed */
     background-color: purple;
     border-radius: 50%;
+    animation-play-state: paused;
+  `;
+
+  export const StopAnimation = styled.div`
+    width: 150px; /* Adjust the size as needed */
+    height: 15px; /* Adjust the size as needed */
+    background-color: purple;
+    border-radius: 50%;
     animation: ${blinkAnimation} 1s infinite;
   `;
   export const MainCenterblock = styled.div`
